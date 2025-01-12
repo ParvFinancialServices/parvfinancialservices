@@ -17,15 +17,15 @@ import { Button } from "@/components/ui/button"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 import db from '@/lib/firestore';
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore"; 
 
 
-const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onChangeFunction, state }) => {
+const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onChangeFunction }) => {
 
 
     let onChange = function (e) {
         setState((state) => {
-            console.log(state, step, e);
+            console.log(state, step,e);
             state[step].sections[sectionInd].fields[fieldInd].value = e.target.value;
             return { ...state };
         });
@@ -69,13 +69,7 @@ const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onC
         case "Binary":
             return <div className="flex flex-col gap-2">
                 <Label htmlFor={field.name}>{field.label}</Label>
-                <RadioGroup defaultValue="No" className="flex flex-row gap-4 items-center" onValueChange={(e) => {
-                    setState((state) => {
-                        console.log(state, step, e);
-                        state[step].sections[sectionInd].fields[fieldInd].value = e;
-                        return { ...state };
-                    })
-                }}>
+                <RadioGroup defaultValue="No" className="flex flex-row gap-4 items-center" onValueChange={onChangeFunction ? onChangeFunction : onChange}>
                     <div className="flex items-center space-x-2">
                         <Label><RadioGroupItem value="Yes" /> Yes</Label>
                     </div>
@@ -84,9 +78,10 @@ const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onC
                     </div>
                 </RadioGroup>
                 <div className="flex flex-col">
+                    <p>hello</p>
                     {
-                        field.value == 'Yes' && field.fields && field.fields.map((e, toggleFieldInd) => {
-                            return <Step step={Object.keys(state)[step]} sectionInd={sectionInd} toggleFieldInd={toggleFieldInd} fieldInd={fieldInd} field={e} setState={setState} key={`${sectionInd}-${fieldInd}-${toggleFieldInd}`} onChangeFunction={toggleOnChange} state={state} />
+                        field.fields && field.fields.map((e, toggleFieldInd) => {
+                            return <Step step={Object.keys(state)[step]} sectionInd={sectionInd} toggleFieldInd={toggleFieldInd} fieldInd={fieldInd} field={e} setState={setState} key={`${sectionInd}-${fieldInd}-${toggleFieldInd}`} />
                         })
                     }
                 </div>
@@ -102,6 +97,11 @@ const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onC
 const StepForm = ({
     state, setState, step
 }) => {
+
+
+
+
+
     return <div className="flex flex-col gap-8">
         {
 
@@ -113,7 +113,7 @@ const StepForm = ({
                         <Separator className="w-full" />
                     </div>
                     <div className="grid grid-cols-3 gap-6">
-                        {section.fields.map((field, fieldInd) => <Step step={Object.keys(state)[step]} sectionInd={sectionIndex} fieldInd={fieldInd} field={field} setState={setState} key={`${sectionIndex}-${fieldInd}`} state={state} />)}
+                        {section.fields.map((field, fieldInd) => <Step step={Object.keys(state)[step]} sectionInd={sectionIndex} fieldInd={fieldInd} field={field} setState={setState} key={`${sectionIndex}-${fieldInd}`} />)}
                     </div>
                 </section>
             })
@@ -167,18 +167,18 @@ const PersonalLoanForm = () => {
 
             <div className="py-8 flex flex-row items-center justify-end gap-4">
                 {
-                    step > 0 ? <Button type="button" variant="outline" onClick={() => setStep(state => state - 1)}>previous</Button> : null
+                    step == 0 ? null : <Button type="button" variant="outline" onClick={() => setStep(state => state - 1)}>previous</Button>
                 }
                 {
-                    step <= stepLength - 2 ? <Button type="button" onClick={() => setStep(state => state + 1)}>next</Button> : null
+                    step >= stepLength - 2 ? null : <Button type="button" onClick={() => setStep(state => state + 1)}>next</Button>
                 }
-                {
-                    step == stepLength - 1 ? <Button type="button" onClick={async () => {
+                 {
+                    step == stepLength - 1 ? null : <Button type="button" onClick={async () => {
                         const docRef = await addDoc(collection(db, "items"), {
                             name: "Rishab"
                         });
                         console.log("Document written with ID: ", docRef.id);
-                    }}>submit</Button> : null
+                    }}>submit</Button>
                 }
 
 

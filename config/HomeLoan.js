@@ -1,6 +1,6 @@
 import { title } from "process";
 
-export const BusinessLoan = {
+export const HomeLoan = {
     info: {
         title: "Prerequisits",
         sections: [{
@@ -11,6 +11,18 @@ export const BusinessLoan = {
                     label: "Name of referer",
                     type: "String",
                 },
+                {
+                    name: "home_loan_type",
+                    label: "Select home loan type",
+                    type: "Option",
+                    options: [
+                        { id: "1", label: "Construction home loan" },
+                        { id: "2", label: "Loan against property" },
+                        { id: "3", label: "Vacent plot mortage" },
+                        { id: "4", label: "Plot purchase loan" },
+                    ]
+                },
+                // if(plot purcahse loan)
             ]
         }]
     },
@@ -30,8 +42,13 @@ export const BusinessLoan = {
                         label: "Purpose of Loan",
                         type: "Option",
                         options: [
-                            { id: "1", label: "To start a new business" },
-                            { id: "2", label: "For the growth of existing business" },
+                            { id: "1", label: "To purchase property" },
+                            { id: "2", label: "For marrage at home" },
+                            { id: "3", label: "For Education" },
+                            { id: "4", label: "To pay credit card bill" },
+                            { id: "5", label: "To repay other loan" },
+                            { id: "6", label: "To construct home" },
+                            { id: "7", label: "For other Persoanl reason" },
                         ]
                     },
                 ]
@@ -62,11 +79,6 @@ export const BusinessLoan = {
                     {
                         name: "alt_phone_no",
                         label: "Alternate Phone Number",
-                        type: "String",
-                    },
-                    {
-                        name: "email",
-                        label: "Email",
                         type: "String",
                     },
                     {
@@ -163,11 +175,71 @@ export const BusinessLoan = {
             }
         ]
     },
-    employment: {
-        title: "Employment & Loans",
+    profession: {
+        title: "Profession",
         sections: [
             {
-                title: "Business Income Details",
+                title: "Job Details (If you have job)",
+                fields: [
+                    {
+                        name: "current_company_name",
+                        label: "Current Company Name",
+                        type: "String",
+                    },
+                    {
+                        name: "salary_account_bank",
+                        label: "Salary Account Bank Name",
+                        type: "String",
+                    },
+                    {
+                        name: "savings_account_bank",
+                        label: "Savings Account Bank Name",
+                        type: "String",
+                    },
+                    {
+                        name: "job_tenure",
+                        label: "Job tenure in current company",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "0-12 months" },
+                            { id: "2", label: "12-24 months" },
+                            { id: "3", label: "24-60 months" },
+                            { id: "4", label: "more than 60 months" },
+                        ]
+                    },
+                    {
+                        name: "job_experience",
+                        label: "Experience",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "less than 1 year" },
+                            { id: "2", label: "1-2 years" },
+                            { id: "3", label: "2-3 years" },
+                            { id: "4", label: "3-5 years" },
+                            { id: "5", label: "more than 5 years" },
+                        ]
+                    },
+                    {
+                        name: "monthly_income",
+                        label: "Your Monthly Income",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "less than 12,000" },
+                            { id: "2", label: "15,000 - 20,000" },
+                            { id: "3", label: "20,000 - 25,000" },
+                            { id: "4", label: "25-000 - 30,000" },
+                            { id: "5", label: "30,000 - 35,000" },
+                            { id: "5", label: "35,000 - 45,000" },
+                            { id: "5", label: "above 45,000" },
+                        ],
+                    },
+
+                ]
+
+
+            },
+            {
+                title: "Business Details (if you have Business)",
                 fields: [
                     {
                         name: "company_name",
@@ -199,129 +271,177 @@ export const BusinessLoan = {
                     },
                 ]
             },
+        ]
+    },
+    //are you salried ? or self employed then show 
+    // 1.if salried the persapnal loan incomde 
+    // 2. business loan income detaisl
+    employment: {
+        title: "Employment & Loans",
+        sections: [
+            // {
+            //     title: "Income Details",
+            //     fields: [
+            //         {
+            //             name: "current_company_name",
+            //             label: "Current Company Name",
+            //             type: "String",
+            //         },
+            //         {
+            //             name: "salary_account_bank",
+            //             label: "Salary Account Bank Name",
+            //             type: "String",
+            //         },
+            //         {
+            //             name: "savings_account_bank",
+            //             label: "Savings Account Bank Name",
+            //             type: "String",
+            //         },
+            //         {
+            //             name: "job_tenure",
+            //             label: "Job tenure in current company",
+            //             type: "Option",
+            //             options: [
+            //                 { id: "1", label: "0-12 months" },
+            //                 { id: "2", label: "12-24 months" },
+            //                 { id: "3", label: "24-60 months" },
+            //                 { id: "4", label: "more than 60 months" },
+            //             ]
+            //         },
+            //         {
+            //             name: "job_experience",
+            //             label: "Experience",
+            //             type: "Option",
+            //             options: [
+            //                 { id: "1", label: "less than 1 year" },
+            //                 { id: "2", label: "1-2 years" },
+            //                 { id: "3", label: "2-3 years" },
+            //                 { id: "4", label: "3-5 years" },
+            //                 { id: "5", label: "more than 5 years" },
+            //             ]
+            //         },
+            //         {
+            //             name: "monthly_income",
+            //             label: "Your Monthly Income",
+            //             type: "Option",
+            //             options: [
+            //                 { id: "1", label: "less than 12,000" },
+            //                 { id: "2", label: "15,000 - 20,000" },
+            //                 { id: "3", label: "20,000 - 25,000" },
+            //                 { id: "4", label: "25-000 - 30,000" },
+            //                 { id: "5", label: "30,000 - 35,000" },
+            //                 { id: "5", label: "35,000 - 45,000" },
+            //                 { id: "5", label: "above 45,000" },
+            //             ],
+            //         },
+
+            //     ]
+            // },
+            // {
+            //     title: "Business Income Details",
+            //     fields: [
+            //         {
+            //             name: "company_name",
+            //             label: "Company / firm Name",
+            //             type: "String",
+            //         },
+            //         {
+            //             name: "company_age",
+            //             label: "How old your business?",
+            //             type: "Option",
+            //             options: [
+            //                 { id: "1", label: "0-1 years" },
+            //                 { id: "2", label: "1-3 years" },
+            //                 { id: "3", label: "3-5 years" },
+            //                 { id: "4", label: "more than 5 years" },
+            //             ]
+            //         },
+            //         {
+            //             name: "registration_paper",
+            //             label: "Select registration paper you have for your business?",
+            //             type: "Option",//multi-select
+            //             options: [
+            //                 { id: "1", label: "GST registration" },
+            //                 { id: "2", label: "UDYOG AAdhar registration" },
+            //                 { id: "3", label: "Form-3 or trade licence" },
+            //                 { id: "4", label: "any other" },
+            //                 { id: "5", label: "I don't have any registartion" },
+            //             ]
+            //         },
+            //     ]
+            // },
             {
-                title: "Current Account's",
+                title: "Documents",
                 fields: [
                     {
-                        name: "have_current_account",
-                        label: "Do you have current account?",
+                        name: "have_offer_letter",
+                        label: "Do you have job offer letter of current job?",
                         type: "Binary",
                     },
                     {
-                        name: "current_account_bank_name",
-                        label: "Bank name in which your current account.",
-                        type: "String",
-                    },
-                    {
-                        name: "name_in_current_account",
-                        label: "In whose name is the current account?",
-                        type: "Option",
-                        options: [
-                            { id: "1", label: "My business" },
-                            { id: "2", label: "Myself" },
-                        ]
-                    },
-                    {
-                        name: "current_account_age",
-                        label: "How old is your current account?",
-                        type: "Option",
-                        options: [
-                            { id: "1", label: "Less than 1 year" },
-                            { id: "2", label: "1-3 years" },
-                            { id: "3", label: "3-5 years" },
-                            { id: "4", label: "more than years" },
-                        ]
-                    },
-                    {
-                        name: "current_account_turnover",
-                        label: "What is the turnover of your current account?",
-                        type: "Option",
-                        options: [
-                            { id: "1", label: "Below 10 lakhs" },
-                            { id: "2", label: "10-20 lakhs" },
-                            { id: "3", label: "20-30 lakhs" },
-                            { id: "4", label: "30-50 lakhs" },
-                            { id: "5", label: "50-70 lakhs" },
-                            { id: "6", label: "70-1 crore" },
-                            { id: "7", label: "above 1 crore" },
-                        ]
-                    },
-                ]
-            },
-            {
-                title: "Saving account",
-                fields: [
-                    {
-                        name: "saving_account_bank_name",
-                        label: "Bank name in which your saving account.",
-                        type: "String",
-                    },
-                    {
-                        name: "saving_account_turnover",
-                        label: "Turnover of your saving account",
-                        type: "Option",
-                        options: [
-                            { id: "1", label: "Less than 10 lakhs" },
-                            { id: "2", label: "10-20 lakhs" },
-                            { id: "3", label: "20-50 lakhs" },
-                            { id: "4", label: "50-1 crore" },
-                            { id: "5", label: "above 1 crore" },
-                        ]
-                    },
-                ]
-            },
-            {
-                title: "Previous Loan History",
-                fields: [
-                    {
-                        name: "loan_provider_bank",
-                        label: "Bank name in which which provides you loan?.",
-                        type: "String",
-                    },
-                    {
-                        name: "total_loan_amount",
-                        label: "Total loan amount",
-                        type: "String",
-                    },
-                    {
-                        name: "current_emi",
-                        label: "Current EMI",
-                        type: "String",
-                    },
-                    {
-                        name: "remaining_amount",
-                        label: "Remaining amount",
-                        type: "String",
-                    },
-                ]
-            },
-            {
-                title: "Documents related query",
-                fields: [
-                    {
-                        name: "file_income_tax",
-                        label: "Do you file income tax?",
+                        name: "have_tan_no",
+                        label: "Do you have form-16 or TAN number?",
                         type: "Binary",
                     },
                     {
-                        name: "have_income_tax_return",
-                        label: "Do you have income tax return of last 2 years?",
+                        name: "has_salary_slip",
+                        label: "Do you have salary slip of last 3 months?",
                         type: "Binary",
                     },
                     {
-                        name: "is_family_files_income_tax",
-                        label: "Anyone else files income tax in your family?",
+                        name: "has_bank_statement",
+                        label: "Can you provide bank statement of last 6 or 12 months in Net banking formate?",
                         type: "Binary",
-                    },
-                    {
-                        name: "itr_amount_22_23",
-                        label: "Amount of ITR you filled for 2022-23?",
-                        type: "String",
 
                     },
                     {
-                        name: "itr_amount_23_24",
-                        label: "Amount of ITR you filled for 2023-24?",
+                        name: "has_current_loan",
+                        label: "Do you have any current loan?",
+                        type: "Binary",
+                    },
+                ]
+            },
+            {
+                title: "Current Loans",
+                fields: [
+                    {
+                        name: "total_loan_amount",
+                        label: "Total loan amount",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "less than 50,000" },
+                            { id: "2", label: "50,000 - 1 lakh" },
+                            { id: "3", label: "1 lakh - 3 lakh" },
+                            { id: "4", label: "3 lakh - 5 lakh" },
+                            { id: "5", label: "5 lakh - 10 lakh" },
+                            { id: "6", label: "10 lakh - 20 lakh" },
+                            { id: "7", label: "above 20 lakh" },
+                        ],
+                    },
+
+                    {
+                        name: "loan_start_date",
+                        label: "When you took loan",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "0-12 months before" },
+                            { id: "2", label: "12-24 months before" },
+                            { id: "3", label: "24-36 months before" },
+                            { id: "4", label: "36-48 months before" },
+                            { id: "5", label: "48-60 months before" },
+                            { id: "6", label: "more than 60 months" },
+                        ],
+                    },
+                    {
+                        name: "loan_provider_bank",
+                        label: "Name the bank which provides loan to you. ",
+                        placeholder: "Bank name which provides loan",
+                        type: "String",
+                    },
+                    {
+                        name: "monthly_emi",
+                        label: "what is monthly EMI currently you are paying",
+                        placeholder: "Monthly EMI",
                         type: "String",
                     },
                 ]
@@ -377,7 +497,6 @@ export const BusinessLoan = {
                     },
                 ]
             },
-
         ]
     },
     Documents: {

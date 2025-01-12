@@ -176,7 +176,7 @@ export const PersonalLoan = {
                         name: "salary_account_bank",
                         label: "Salary Account Bank Name",
                         type: "String",
-                    }, 
+                    },
                     {
                         name: "savings_account_bank",
                         label: "Savings Account Bank Name",
@@ -206,9 +206,9 @@ export const PersonalLoan = {
                         ]
                     },
                     {
-                        name:"monthly_income",
-                        label:"Your Monthly Income",
-                        type:"Option",
+                        name: "monthly_income",
+                        label: "Your Monthly Income",
+                        type: "Option",
                         options: [
                             { id: "1", label: "less than 12,000" },
                             { id: "2", label: "15,000 - 20,000" },
@@ -219,17 +219,57 @@ export const PersonalLoan = {
                             { id: "5", label: "above 45,000" },
                         ],
                     },
-                    
+
                 ]
             },
             {
-                title:"Documents",
-                fields:[
+                title: "Office Address",
+                fields: [
+                    {
+                        name: "office_building_name",
+                        label: "Building/House Name",
+                        type: "String"
+                    },
+                    {
+                        name: "office_street_name",
+                        label: "Street/Road Name",
+                        type: "String"
+                    },
+                    {
+                        name: "office_landmark",
+                        label: "Landmark",
+                        type: "String"
+                    },
+                    {
+                        name: "office_city",
+                        label: "City",
+                        type: "String"
+                    },
+                    {
+                        name: "office_district",
+                        label: "District",
+                        type: "String"
+                    },
+                    {
+                        name: "office_state",
+                        label: "State",
+                        type: "String"
+                    },
+                    {
+                        name: "office_pincode",
+                        label: "Pincode",
+                        type: "String"
+                    },
+                ]
+            },
+            {
+                title: "Documents related query",
+                fields: [
                     {
                         name: "have_offer_letter",
                         label: "Do you have job offer letter of current job?",
                         type: "Binary",
-                        fields:[
+                        fields: [
                             {
                                 name: "offer_letter",
                                 label: "Offer Letter",
@@ -251,7 +291,7 @@ export const PersonalLoan = {
                         name: "has_bank_statement",
                         label: "Can you provide bank statement of last 6 or 12 months in Net banking formate?",
                         type: "Binary",
-                        
+
                     },
                     {
                         name: "has_current_loan",
@@ -261,8 +301,8 @@ export const PersonalLoan = {
                 ]
             },
             {
-                title:"Current Loans",
-                fields:[
+                title: "Current Loans",
+                fields: [
                     {
                         name: "total_loan_amount",
                         label: "Total loan amount",
@@ -277,7 +317,7 @@ export const PersonalLoan = {
                             { id: "7", label: "above 20 lakh" },
                         ],
                     },
-                   
+
                     {
                         name: "loan_start_date",
                         label: "When you took loan",
@@ -306,5 +346,88 @@ export const PersonalLoan = {
                 ]
             }
         ]
-    }
+    },
+
+    Documents: {
+        title: "Documents",
+        sections: [
+            {
+                title: "Persoanl Documents",
+                fields: [
+                    {
+                        name: "aadhar_front",
+                        label: "Uplaod aadhar front image",
+                        type: "File",
+                    },
+                    {
+                        name: "aadhar_back",
+                        label: "Uplaod aadhar back image",
+                        type: "File",
+                    },
+                    {
+                        name: "persoanl_pan",
+                        label: "Uplaod persoanl PAN image",
+                        type: "File",
+                    },
+                ]
+            },
+            {
+                title: "Business Documents",
+                fields: [
+                    {
+                        name: "comapny_image",
+                        label: "Upload company / firm image?",
+                        type: "File",
+                    },
+                    {
+                        name: "gst_certificate",
+                        label: "Upload GST certificate (if available)",
+                        type: "File",
+                    },
+                    {
+                        name: "udyam_registration",
+                        label: "Upload UDYAM registration (if available)",
+                        type: "File",
+                    },
+                    {
+                        name: "form_3",
+                        label: "Upload Form-3 (if available)",
+                        type: "File",
+                    },
+                    {
+                        name: "itr_22_23",
+                        label: "Upload ITR 2022-23 (if available)",
+                        type: "File",
+                    },
+                    {
+                        name: "itr_23_23",
+                        label: "Upload ITR 2023-24 (if available)",
+                        type: "File",
+                    },
+                    {
+                        name: "bank_statement",
+                        label: "Upload bank statement of last 12 months in net banking formate",
+                        type: "File",
+                    },
+                    {
+                        name: "shop_front",
+                        label: "Upload Shop front picture",
+                        type: "File",
+                    },
+                    {
+                        name: "house_electricity",
+                        label: "Upload house electricity bill",
+                        type: "File",
+                    },
+
+                    {
+                        name: "other_doc",
+                        label: "Upload any other documents",
+                        type: "File",
+                    },
+
+                ]
+            },
+        ]
+    },
 }

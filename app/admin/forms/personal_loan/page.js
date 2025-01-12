@@ -102,6 +102,11 @@ const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onC
 const StepForm = ({
     state, setState, step
 }) => {
+
+
+
+
+
     return <div className="flex flex-col gap-8">
         {
 
@@ -113,7 +118,7 @@ const StepForm = ({
                         <Separator className="w-full" />
                     </div>
                     <div className="grid grid-cols-3 gap-6">
-                        {section.fields.map((field, fieldInd) => <Step step={Object.keys(state)[step]} sectionInd={sectionIndex} fieldInd={fieldInd} field={field} setState={setState} key={`${sectionIndex}-${fieldInd}`} state={state} />)}
+                        {section.fields.map((field, fieldInd) => <Step step={Object.keys(state)[step]} sectionInd={sectionIndex} fieldInd={fieldInd} field={field} setState={setState} key={`${sectionIndex}-${fieldInd}`} state={state}/>)}
                     </div>
                 </section>
             })

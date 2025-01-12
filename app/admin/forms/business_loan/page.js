@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from "react";
-import { PersonalLoan } from '@/config/PersoanlLoan.js';
+import { BusinessLoan } from '@/config/BusinessLoan';
 import Formstepper from '@/components/common/Formstepper';
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator"
@@ -102,6 +102,11 @@ const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onC
 const StepForm = ({
     state, setState, step
 }) => {
+
+
+
+
+
     return <div className="flex flex-col gap-8">
         {
 
@@ -126,14 +131,14 @@ const StepForm = ({
 }
 
 
-const PersonalLoanForm = () => {
+const BusinessLoanForm = () => {
 
 
     // step denoting the current step of the form
     const [step, setStep] = useState(0);
 
     // state representing the formData
-    const [state, setState] = useState(PersonalLoan);
+    const [state, setState] = useState(BusinessLoan);
 
     // number of steps in form
     const stepLength = Object.keys(state).length;
@@ -188,4 +193,4 @@ const PersonalLoanForm = () => {
     )
 }
 
-export default PersonalLoanForm;
+export default BusinessLoanForm;

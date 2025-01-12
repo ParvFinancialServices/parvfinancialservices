@@ -1,6 +1,5 @@
-import { title } from "process";
 
-export const BusinessLoan = {
+export const VehicleLoan = {
     info: {
         title: "Prerequisits",
         sections: [{
@@ -11,6 +10,7 @@ export const BusinessLoan = {
                     label: "Name of referer",
                     type: "String",
                 },
+
             ]
         }]
     },
@@ -163,11 +163,83 @@ export const BusinessLoan = {
             }
         ]
     },
+    vehicleDetails: {
+        title: "Vehicle Details",
+        sections: [
+            {
+                title: "Vehicle Details",
+                fields: [
+                    {
+                        name: "which_vehicle",
+                        label: "Select vehicle loan type?",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "0-1 years" },
+                            { id: "2", label: "1-3 years" },
+                            { id: "3", label: "3-5 years" },
+                            { id: "4", label: "more than 5 years" },
+                        ]
+                    },
+                    {
+                        name: "when_purchase",
+                        label: "When you have to purchase vehicle?",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "within 7 days" },
+                            { id: "2", label: "10-15 days" },
+                            { id: "3", label: "15-30 days" },
+                            { id: "4", label: "30-90 days" },
+                            { id: "5", label: "later" },
+                        ]
+                    },
+                    {
+                        name: "estimated_cost",
+                        label: "What is estimated cost of vehicle?",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "5-10 lakhs" },
+                            { id: "2", label: "10-15 lakhs" },
+                            { id: "3", label: "15-20 lakhs" },
+                            { id: "4", label: "20-30 lakhs" },
+                            { id: "5", label: "30-50 lakhs" },
+                            { id: "6", label: "more than 50 lakhs" },
+                        ]
+                    },
+                    {
+                        name: "loan_you_need",
+                        label: "How much loan you need?",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "3-5 lakhs" },
+                            { id: "2", label: "5-10 lakhs" },
+                            { id: "3", label: "10-12 lakhs" },
+                            { id: "4", label: "12-20 lakhs" },
+                            { id: "5", label: "20-30 lakhs" },
+                            { id: "6", label: "30-50 lakhs" },
+                            { id: "7", label: "more than 50 lakhs" },
+                        ]
+                    },
+                    {
+                        name: "profession",
+                        label: "Select Profession type ",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "Job" },
+                            { id: "2", label: "Business" },
+                            { id: "3", label: "Othres" },
+                        ]
+                    },
+                ]
+            },
+
+
+        ]
+    },
     employment: {
         title: "Employment & Loans",
         sections: [
             {
-                title: "Business Income Details",
+                title: "Income Details",
                 fields: [
                     {
                         name: "company_name",
@@ -197,6 +269,64 @@ export const BusinessLoan = {
                             { id: "5", label: "I don't have any registartion" },
                         ]
                     },
+                ]
+            },
+            {
+                title: "Income Details",
+                fields: [
+                    {
+                        name: "current_company_name",
+                        label: "Current Company Name",
+                        type: "String",
+                    },
+                    {
+                        name: "salary_account_bank",
+                        label: "Salary Account Bank Name",
+                        type: "String",
+                    },
+                    {
+                        name: "savings_account_bank",
+                        label: "Savings Account Bank Name",
+                        type: "String",
+                    },
+                    {
+                        name: "job_tenure",
+                        label: "Job tenure in current company",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "0-12 months" },
+                            { id: "2", label: "12-24 months" },
+                            { id: "3", label: "24-60 months" },
+                            { id: "4", label: "more than 60 months" },
+                        ]
+                    },
+                    {
+                        name: "job_experience",
+                        label: "Experience",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "less than 1 year" },
+                            { id: "2", label: "1-2 years" },
+                            { id: "3", label: "2-3 years" },
+                            { id: "4", label: "3-5 years" },
+                            { id: "5", label: "more than 5 years" },
+                        ]
+                    },
+                    {
+                        name: "monthly_income",
+                        label: "Your Monthly Income",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "less than 12,000" },
+                            { id: "2", label: "15,000 - 20,000" },
+                            { id: "3", label: "20,000 - 25,000" },
+                            { id: "4", label: "25-000 - 30,000" },
+                            { id: "5", label: "30,000 - 35,000" },
+                            { id: "5", label: "35,000 - 45,000" },
+                            { id: "5", label: "above 45,000" },
+                        ],
+                    },
+
                 ]
             },
             {
@@ -296,7 +426,7 @@ export const BusinessLoan = {
                 ]
             },
             {
-                title: "Documents related query",
+                title: "Documents",
                 fields: [
                     {
                         name: "file_income_tax",

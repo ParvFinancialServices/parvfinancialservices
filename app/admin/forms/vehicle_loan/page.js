@@ -1,6 +1,5 @@
 'use client'
 import React, { useState } from "react";
-import { PersonalLoan } from '@/config/PersoanlLoan.js';
 import Formstepper from '@/components/common/Formstepper';
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator"
@@ -18,6 +17,8 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 import db from '@/lib/firestore';
 import { collection, addDoc } from "firebase/firestore";
+import { VehicleLoan } from "@/config/VehicleLoan";
+
 
 
 const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onChangeFunction, state }) => {
@@ -102,6 +103,11 @@ const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onC
 const StepForm = ({
     state, setState, step
 }) => {
+
+
+
+
+
     return <div className="flex flex-col gap-8">
         {
 
@@ -126,14 +132,17 @@ const StepForm = ({
 }
 
 
-const PersonalLoanForm = () => {
+const VehicleLoanForm = () => {
 
 
     // step denoting the current step of the form
     const [step, setStep] = useState(0);
 
     // state representing the formData
-    const [state, setState] = useState(PersonalLoan);
+    const [state, setState] = useState(VehicleLoan);
+    console.log(state);
+
+
 
     // number of steps in form
     const stepLength = Object.keys(state).length;
@@ -141,7 +150,8 @@ const PersonalLoanForm = () => {
 
 
     // const saveToLocalStorage = () => {
-    //     localStorage.setItem('formData', JSON.stringify(formData));
+    //     state?.step = step;
+    //     localStorage.setItem('formData', JSON.stringify(state));
     // };
 
     const handleSubmit = (e) => {
@@ -170,7 +180,7 @@ const PersonalLoanForm = () => {
                     step > 0 ? <Button type="button" variant="outline" onClick={() => setStep(state => state - 1)}>previous</Button> : null
                 }
                 {
-                    step <= stepLength - 2 ? <Button type="button" onClick={() => setStep(state => state + 1)}>next</Button> : null
+                    step <= stepLength - 2 ? <Button type="button" onClick={handleSubmit}>next</Button> : null
                 }
                 {
                     step == stepLength - 1 ? <Button type="button" onClick={async () => {
@@ -188,4 +198,4 @@ const PersonalLoanForm = () => {
     )
 }
 
-export default PersonalLoanForm;
+export default VehicleLoanForm;

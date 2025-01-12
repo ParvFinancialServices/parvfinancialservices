@@ -1,8 +1,38 @@
 "use client"
 
+// import * as React from "react"
+// import {
+//   AudioWaveform,
+//   BookOpen,
+//   Bot,
+//   ClipboardType,
+//   Command,
+//   Frame,
+//   GalleryVerticalEnd,
+//   Map,
+//   PieChart,
+//   Settings2,
+//   SquareTerminal,
+//   NotebookTabs,
+//   NotebookTabsIcon,
+//   FileUser,
+//   BriefcaseBusinessIcon,
+//   HomeIcon,
+//   CarIcon,
+//   HandCoinsIcon,
+//   Users2Icon,
+//   LucideNotebookPen,
+//   MessageSquareWarning,
+//   MessageSquareText,
+//   Contact2Icon,
+//   UserPlus2Icon,
+// } from "lucide-react"
+
 import { NavMain } from "@/components/nav-main.jsx"
 import { NavProjects } from "@/components/nav-projects.jsx"
-import { NavUser } from "@/components/nav-user";
+import { NavUser } from "@/components/nav-user"
+// import { TeamSwitcher } from "@/components/team-switcher"
+// import { FaUsersCog } from "@/components/react-icons/fa";
 import {
   Sidebar,
   SidebarContent,
@@ -16,7 +46,7 @@ import { AdminSidebar } from "@/config/AdminSideBar"
 import { useEffect } from "react"
 
 
-export function AppSidebar({ ...props }) {
+export function AdminSidebar({ ...props }) {
 
   return (
     <Sidebar collapsible="icon" {...props}>
