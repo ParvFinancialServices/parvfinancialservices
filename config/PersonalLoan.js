@@ -5,24 +5,24 @@ const PersonalLoanFieldSchema = object().shape({
     name: string().required('Field name is required'),
     label: string().required('Field label is required'),
     type: string()
-        .oneOf(['String', 'Boolean', 'Date', 'Binary', 'File'], 'Type must be one of: String, Boolean, Date, File')
+        .oneOf(['String', 'Boolean', 'Date', 'Binary', 'File','Option'], 'Type must be one of: String, Boolean, Date, File')
         .required('Field type is required'),
     value: lazy((value, context) => {
         const type = context.parent.type; // Access the `type` field from the same object
 
         switch (type) {
             case 'String':
-                return string().required('Value is required for type String');
+                return string().required('Enter a valid value');
             case 'Boolean':
-                return boolean().required('Value is required for type Boolean');
+                return boolean().required('Enter a valid value');
             case 'Option':
-                return string().required('Value is required for type Option');
+                return string().required('Enter a valid value');
             case 'Date':
-                return date().required('Value is required for type Date');
+                return date().required('Enter a valid value');
             case 'Binary':
-                return string().oneOf(['Yes', 'No'], 'Value is required for Binary type').required();
+                return string().oneOf(['Yes', 'No'], 'Enter a valid value').required();
             case 'File':
-                return mixed().required('Value is required for type File');
+                return mixed().required('Enter a valid value');
             default:
                 return mixed().required('Invalid type');
         }
@@ -99,7 +99,8 @@ export const PersonalLoan = {
                             { id: "5", label: "To repay other loan" },
                             { id: "6", label: "To construct home" },
                             { id: "7", label: "For other Persoanl reason" },
-                        ]
+                        ],
+                        value:"To purchase property"
                     },
                 ]
             },
@@ -255,7 +256,8 @@ export const PersonalLoan = {
                             { id: "2", label: "12-24 months" },
                             { id: "3", label: "24-60 months" },
                             { id: "4", label: "more than 60 months" },
-                        ]
+                        ],
+                        value:"0-12 months"
                     },
                     {
                         name: "job_experience",
@@ -267,7 +269,8 @@ export const PersonalLoan = {
                             { id: "3", label: "2-3 years" },
                             { id: "4", label: "3-5 years" },
                             { id: "5", label: "more than 5 years" },
-                        ]
+                        ],
+                        value:"less than 1 year"
                     },
                     {
                         name: "monthly_income",
@@ -282,6 +285,7 @@ export const PersonalLoan = {
                             { id: "5", label: "35,000 - 45,000" },
                             { id: "5", label: "above 45,000" },
                         ],
+                        value:"less than 12,000"
                     },
 
                 ]
@@ -407,6 +411,7 @@ export const PersonalLoan = {
                             { id: "6", label: "10 lakh - 20 lakh" },
                             { id: "7", label: "above 20 lakh" },
                         ],
+                        value:"less than 50,000"
                     },
 
                     {
@@ -421,6 +426,7 @@ export const PersonalLoan = {
                             { id: "5", label: "48-60 months before" },
                             { id: "6", label: "more than 60 months" },
                         ],
+                        value:"0-12 months before"
                     },
                     {
                         name: "loan_provider_bank",
