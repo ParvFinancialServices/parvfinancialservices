@@ -12,12 +12,7 @@ const PersonalLoanFieldSchema = object().shape({
 
         switch (type) {
             case 'String':
-                return string().required('Value is required for type String').test("string-test","String must be there",(_,context) => {
-                    if (!(value && value.length > 0)){
-                        console.error("value is not there");
-                        context.parent.error = "String must be there!"
-                    }
-                });
+                return string().required('Value is required for type String');
             case 'Boolean':
                 return boolean().required('Value is required for type Boolean');
             case 'Option':
@@ -57,13 +52,13 @@ const PersonalLoanStepSchema = object().shape({
     sections: array().of(
         PersonalLoanSectionSchema
     ).required('Sections are required'),
-}).oneOf(['info', 'personal_details', 'employment', 'Documents'], 'Info is required');
+});
 
 export const PersonalLoanSchema = object().shape({
     info: PersonalLoanStepSchema,
     personal_details: PersonalLoanStepSchema,
     employment: PersonalLoanStepSchema,
-    document: PersonalLoanStepSchema
+    documents: PersonalLoanStepSchema
 }).required();
 
 

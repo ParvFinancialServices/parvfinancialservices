@@ -211,8 +211,9 @@ const PersonalLoanForm = () => {
           
                             PersonalLoanSchema.validate(state,{abortEarly:false,}).then(e => console.log(e)).catch(e => {
                                 let newState = {...state};
-                                console.log(e.inner);
+                                console.log(e.inner,newState);
                                 e.inner.forEach(err => {
+                                    console.log(err.path);
                                     let path = err.path.split(".");
                                     path.pop();
                                     path = path.join(".");
