@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from "react";
-import { PersonalLoan } from '@/config/PersoanlLoan.js';
+import { PersonalLoan, PersonalLoanSchema } from '@/config/PersonalLoan.js';
 import Formstepper from '@/components/common/Formstepper';
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator"
@@ -15,9 +15,11 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-
+import {set} from "lodash"
 import db from '@/lib/firestore';
 import { collection, addDoc } from "firebase/firestore";
+import {getStorage} from "firebase/storage";
+import { useEffect } from "react";
 
 
 const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onChangeFunction, state }) => {
@@ -30,10 +32,10 @@ const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onC
             return { ...state };
         });
     };
-    let toggleOnChange = function (e) {
+    let toggleOnChange = function (e,fieldInd,toggleFieldInd) {
         setState((state) => {
-            console.log(state);
-            state[step].sections[sectionInd].fields[fieldInd].field[toggleFieldInd].value = e.target.value;
+            console.log(state,toggleFieldInd,fieldInd,sectionInd);
+            state[step].sections[sectionInd].fields[fieldInd].fields[toggleFieldInd].value = e.target.value;
             return { ...state };
         });
     };
@@ -44,20 +46,37 @@ const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onC
             return <div className="flex flex-col gap-2" key={"field-" + sectionInd + "-" + fieldInd}>
                 <Label htmlFor={field.name}>{field.label}</Label>
                 <Input id={field.name} value={field.value} onChange={onChangeFunction ? onChangeFunction : onChange} />
+                {
+                    field.error ?  <div>
+                    <p className="text-xs text-red-500">{field.error}</p>
+                </div> : null
+                }
+               
             </div>;
         case "Date":
             return <div className="flex flex-col gap-2">
                 <Label htmlFor={field.name}>{field.label}</Label>
-                <Input type="date" onChange={onChangeFunction ? onChangeFunction : onChange} />
+                <Input type="date" onChange={onChangeFunction ? onChangeFunction : onChange} value={field.value} />
+                {
+                    field.error ?  <div>
+                    <p className="text-xs text-red-500">{field.error}</p>
+                </div> : null
+                }
             </div>;
         case "Option":
             return <div className="flex flex-col gap-2 w-full">
                 <Label htmlFor={field.name}>{field.label}</Label>
-                <Select id={field.name} onChange={onChangeFunction ? onChangeFunction : onChange} >
-                    <SelectTrigger className="w-full" >
-                        <SelectValue placeholder={field.options[0].label} />
+                <Select id={field.name} onValueChange={(e) => {
+                    setState((state) => {
+                        console.log(state, step, e);
+                        state[step].sections[sectionInd].fields[fieldInd].value = e;
+                        return { ...state };
+                    })
+                }} >
+                    <SelectTrigger className="w-full"  >
+                        <SelectValue placeholder={field.value ? field.value : field.options[0].label} />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent >
                         <SelectGroup>
                             {
                                 field.options.map(option => <SelectItem value={option.label} key={option.label}>{option.label}</SelectItem>)
@@ -65,11 +84,16 @@ const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onC
                         </SelectGroup>
                     </SelectContent>
                 </Select>
+                {
+                    field.error ?  <div>
+                    <p className="text-xs text-red-500">{field.error}</p>
+                </div> : null
+                }
             </div>;
         case "Binary":
-            return <div className="flex flex-col gap-2">
+            return <div className="flex flex-col col-span-3 gap-4">
                 <Label htmlFor={field.name}>{field.label}</Label>
-                <RadioGroup defaultValue="No" className="flex flex-row gap-4 items-center" onValueChange={(e) => {
+                <RadioGroup value={field.value ? field.value : "No"} className="flex flex-row gap-4 items-center" onValueChange={(e) => {
                     setState((state) => {
                         console.log(state, step, e);
                         state[step].sections[sectionInd].fields[fieldInd].value = e;
@@ -83,13 +107,19 @@ const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onC
                         <Label><RadioGroupItem value="No" id="r2" /> No</Label>
                     </div>
                 </RadioGroup>
-                <div className="flex flex-col">
+                <div className="grid grid-cols-3 gap-6">
                     {
                         field.value == 'Yes' && field.fields && field.fields.map((e, toggleFieldInd) => {
-                            return <Step step={Object.keys(state)[step]} sectionInd={sectionInd} toggleFieldInd={toggleFieldInd} fieldInd={fieldInd} field={e} setState={setState} key={`${sectionInd}-${fieldInd}-${toggleFieldInd}`} onChangeFunction={toggleOnChange} state={state} />
+                            return <Step step={Object.keys(state)[step]} sectionInd={sectionInd} toggleFieldInd={toggleFieldInd} fieldInd={fieldInd} field={e} setState={setState} key={`${sectionInd}-${fieldInd}-${toggleFieldInd}`} onChangeFunction={(e) => toggleOnChange(e,fieldInd,toggleFieldInd)} state={state} />
                         })
                     }
                 </div>
+                <Separator/>
+            </div>
+        case "File":
+            return <div className="flex flex-col gap-2 w-full">
+                <Label htmlFor={field.name}>{field.label}</Label>
+                <Input id={field.name} type="file" />
             </div>
         default:
             return <div className="flex flex-col gap-2">
@@ -139,6 +169,9 @@ const PersonalLoanForm = () => {
     const stepLength = Object.keys(state).length;
 
 
+    useEffect(() => {
+        console.log('state:',state);
+    },[state]);
 
     // const saveToLocalStorage = () => {
     //     localStorage.setItem('formData', JSON.stringify(formData));
@@ -174,10 +207,27 @@ const PersonalLoanForm = () => {
                 }
                 {
                     step == stepLength - 1 ? <Button type="button" onClick={async () => {
-                        const docRef = await addDoc(collection(db, "items"), {
-                            name: "Rishab"
-                        });
-                        console.log("Document written with ID: ", docRef.id);
+
+          
+                            PersonalLoanSchema.validate(state,{abortEarly:false,}).then(e => console.log(e)).catch(e => {
+                                let newState = {...state};
+                                console.log(e.inner);
+                                e.inner.forEach(err => {
+                                    let path = err.path.split(".");
+                                    path.pop();
+                                    path = path.join(".");
+                                    set(newState,`${path}.error`,err.message);
+                                });
+
+                                setState(newState);
+                            });
+                  
+                        // const docRef = await addDoc(collection(db, "items"), {
+                        //     name: "Rishab"
+                        // });
+                        // const result = getStorage();
+                        // console.log(result);
+                        // console.log("Document written with ID: ", docRef.id);
                     }}>submit</Button> : null
                 }
 

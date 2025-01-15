@@ -1,3 +1,72 @@
+import { object, string, array, lazy, mixed, date, boolean } from "yup";
+
+
+const PersonalLoanFieldSchema = object().shape({
+    name: string().required('Field name is required'),
+    label: string().required('Field label is required'),
+    type: string()
+        .oneOf(['String', 'Boolean', 'Date', 'Binary', 'File'], 'Type must be one of: String, Boolean, Date, File')
+        .required('Field type is required'),
+    value: lazy((value, context) => {
+        const type = context.parent.type; // Access the `type` field from the same object
+
+        switch (type) {
+            case 'String':
+                return string().required('Value is required for type String').test("string-test","String must be there",(_,context) => {
+                    if (!(value && value.length > 0)){
+                        console.error("value is not there");
+                        context.parent.error = "String must be there!"
+                    }
+                });
+            case 'Boolean':
+                return boolean().required('Value is required for type Boolean');
+            case 'Option':
+                return string().required('Value is required for type Option');
+            case 'Date':
+                return date().required('Value is required for type Date');
+            case 'Binary':
+                return string().oneOf(['Yes', 'No'], 'Value is required for Binary type').required();
+            case 'File':
+                return mixed().required('Value is required for type File');
+            default:
+                return mixed().required('Invalid type');
+        }
+    }),
+    fields: array().when('type', {
+        is: (type) => ['String', 'Boolean'].includes(type),
+        then: () => array().notRequired().test(
+            'not-exist',
+            'Fields property must not exist when type is not Binary',
+            (value) => value === undefined || value === null
+        ),
+        otherwise: () => array()
+            .of(lazy(() => PersonalLoanFieldSchema)) // Reference schema for nested fields
+            .optional(),
+    }),
+});
+
+const PersonalLoanSectionSchema = object().shape({
+    title: string().required('Section title is required'),
+    fields: array().of(
+        PersonalLoanFieldSchema
+    ).required('Fields are required'),
+});
+
+const PersonalLoanStepSchema = object().shape({
+    title: string().required('Title is required'),
+    sections: array().of(
+        PersonalLoanSectionSchema
+    ).required('Sections are required'),
+}).oneOf(['info', 'personal_details', 'employment', 'Documents'], 'Info is required');
+
+export const PersonalLoanSchema = object().shape({
+    info: PersonalLoanStepSchema,
+    personal_details: PersonalLoanStepSchema,
+    employment: PersonalLoanStepSchema,
+    document: PersonalLoanStepSchema
+}).required();
+
+
 export const PersonalLoan = {
     info: {
         title: "Prerequisits",
@@ -272,8 +341,8 @@ export const PersonalLoan = {
                         fields: [
                             {
                                 name: "offer_letter",
-                                label: "Offer Letter",
-                                type: "String",
+                                label: "Upload your offer letter",
+                                type: "File",
                             }
                         ]
                     },
@@ -281,22 +350,49 @@ export const PersonalLoan = {
                         name: "have_tan_no",
                         label: "Do you have form-16 or TAN number?",
                         type: "Binary",
+                        fields: [
+                            {
+                                name: "tan_no",
+                                label: "Enter your TAN Number",
+                                type: "String",
+                            }
+                        ]
                     },
                     {
                         name: "has_salary_slip",
                         label: "Do you have salary slip of last 3 months?",
                         type: "Binary",
+                        fields: [
+                            {
+                                name: "salary_slip",
+                                label: "Upload your salary slip",
+                                type: "File",
+                            }
+                        ]
                     },
                     {
                         name: "has_bank_statement",
                         label: "Can you provide bank statement of last 6 or 12 months in Net banking formate?",
                         type: "Binary",
-
+                        fields: [
+                            {
+                                name: "bank_statement",
+                                label: "Upload your bank statement",
+                                type: "File",
+                            }
+                        ]
                     },
                     {
                         name: "has_current_loan",
                         label: "Do you have any current loan?",
                         type: "Binary",
+                        fields: [
+                            {
+                                name: "current loan",
+                                label: "Enter current loan number(s)",
+                                type: "String",
+                            }
+                        ]
                     },
                 ]
             },
@@ -347,8 +443,7 @@ export const PersonalLoan = {
             }
         ]
     },
-
-    Documents: {
+    documents: {
         title: "Documents",
         sections: [
             {
