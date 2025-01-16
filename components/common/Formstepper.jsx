@@ -1,5 +1,3 @@
-import { Separator } from "../ui/separator";
-
 const Icons = ({ fill }) => {
     return (
         <svg className="min-w-3.5 min-h-3.5 sm:w-4 sm:h-4" fill={fill} aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -11,14 +9,15 @@ const Icons = ({ fill }) => {
 const FormStepper = ({ keys, step }) => {
     return (
         <div className="flex flex-row items-center justify-stretch gap-4">
-
             {
                 keys.map((key, index) => {
                     return <div className={`flex flex-row gap-2 items-center justify-stretch ${index == keys.length - 1 ? "" : "flex-1" }`} key={key}>
+                        <div>
                         {
-                            step > index ? <Icons fill="blue" /> : <Icons fill="gray" />
+                            step > index ? <Icons fill="blue"/> : <Icons fill="gray" />
                         }
-                        <p className="min-w-max">{key}</p>
+                        </div>
+                        <p className={`min-w-max sm:block ${step == index ? "block" : "hidden" }`}>{key}</p>
                         {index == keys.length - 1 ? null : <hr className="flex-1 h-1" />}
                     </div>
                 })
