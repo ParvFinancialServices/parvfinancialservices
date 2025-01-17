@@ -77,6 +77,7 @@ const NavbarNew = () => {
                     </div>
                 </div>
             </div>
+
         </div>
     )
 }
