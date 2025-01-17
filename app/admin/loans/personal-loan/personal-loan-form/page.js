@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from "react";
-import { PersonalLoan } from '@/config/PersoanlLoan';
+import { PersonalLoan } from '@/config/PersonalLoan';
 import Formstepper from '@/components/common/Formstepper';
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator"

@@ -1,3 +1,67 @@
+import { object, string, array, lazy, mixed, date, boolean } from "yup";
+
+
+const PersonalLoanFieldSchema = object().shape({
+    name: string().required('Field name is required'),
+    label: string().required('Field label is required'),
+    type: string()
+        .oneOf(['String', 'Boolean', 'Date', 'Binary', 'File','Option'], 'Type must be one of: String, Boolean, Date, File')
+        .required('Field type is required'),
+    value: lazy((value, context) => {
+        const type = context.parent.type; // Access the `type` field from the same object
+
+        switch (type) {
+            case 'String':
+                return string().required('Enter a valid value');
+            case 'Boolean':
+                return boolean().required('Enter a valid value');
+            case 'Option':
+                return string().required('Enter a valid value');
+            case 'Date':
+                return date().required('Enter a valid value');
+            case 'Binary':
+                return string().oneOf(['Yes', 'No'], 'Enter a valid value').required();
+            case 'File':
+                return mixed().required('Enter a valid value');
+            default:
+                return mixed().required('Invalid type');
+        }
+    }),
+    fields: array().when('type', {
+        is: (type) => ['String', 'Boolean'].includes(type),
+        then: () => array().notRequired().test(
+            'not-exist',
+            'Fields property must not exist when type is not Binary',
+            (value) => value === undefined || value === null
+        ),
+        otherwise: () => array()
+            .of(lazy(() => PersonalLoanFieldSchema)) // Reference schema for nested fields
+            .optional(),
+    }),
+});
+
+const PersonalLoanSectionSchema = object().shape({
+    title: string().required('Section title is required'),
+    fields: array().of(
+        PersonalLoanFieldSchema
+    ).required('Fields are required'),
+});
+
+const PersonalLoanStepSchema = object().shape({
+    title: string().required('Title is required'),
+    sections: array().of(
+        PersonalLoanSectionSchema
+    ).required('Sections are required'),
+});
+
+export const PersonalLoanSchema = object().shape({
+    info: PersonalLoanStepSchema,
+    personal_details: PersonalLoanStepSchema,
+    employment: PersonalLoanStepSchema,
+    documents: PersonalLoanStepSchema
+}).required();
+
+
 export const PersonalLoan = {
     info: {
         title: "Prerequisits",
@@ -35,7 +99,8 @@ export const PersonalLoan = {
                             { id: "5", label: "To repay other loan" },
                             { id: "6", label: "To construct home" },
                             { id: "7", label: "For other Persoanl reason" },
-                        ]
+                        ],
+                        value:"To purchase property"
                     },
                 ]
             },
@@ -191,7 +256,8 @@ export const PersonalLoan = {
                             { id: "2", label: "12-24 months" },
                             { id: "3", label: "24-60 months" },
                             { id: "4", label: "more than 60 months" },
-                        ]
+                        ],
+                        value:"0-12 months"
                     },
                     {
                         name: "job_experience",
@@ -203,7 +269,8 @@ export const PersonalLoan = {
                             { id: "3", label: "2-3 years" },
                             { id: "4", label: "3-5 years" },
                             { id: "5", label: "more than 5 years" },
-                        ]
+                        ],
+                        value:"less than 1 year"
                     },
                     {
                         name: "monthly_income",
@@ -218,6 +285,7 @@ export const PersonalLoan = {
                             { id: "5", label: "35,000 - 45,000" },
                             { id: "5", label: "above 45,000" },
                         ],
+                        value:"less than 12,000"
                     },
 
                 ]
@@ -272,8 +340,8 @@ export const PersonalLoan = {
                         fields: [
                             {
                                 name: "offer_letter",
-                                label: "Offer Letter",
-                                type: "String",
+                                label: "Upload your offer letter",
+                                type: "File",
                             }
                         ]
                     },
@@ -281,22 +349,49 @@ export const PersonalLoan = {
                         name: "have_tan_no",
                         label: "Do you have form-16 or TAN number?",
                         type: "Binary",
+                        fields: [
+                            {
+                                name: "tan_no",
+                                label: "Enter your TAN Number",
+                                type: "String",
+                            }
+                        ]
                     },
                     {
                         name: "has_salary_slip",
                         label: "Do you have salary slip of last 3 months?",
                         type: "Binary",
+                        fields: [
+                            {
+                                name: "salary_slip",
+                                label: "Upload your salary slip",
+                                type: "File",
+                            }
+                        ]
                     },
                     {
                         name: "has_bank_statement",
                         label: "Can you provide bank statement of last 6 or 12 months in Net banking formate?",
                         type: "Binary",
-
+                        fields: [
+                            {
+                                name: "bank_statement",
+                                label: "Upload your bank statement",
+                                type: "File",
+                            }
+                        ]
                     },
                     {
                         name: "has_current_loan",
                         label: "Do you have any current loan?",
                         type: "Binary",
+                        fields: [
+                            {
+                                name: "current loan",
+                                label: "Enter current loan number(s)",
+                                type: "String",
+                            }
+                        ]
                     },
                 ]
             },
@@ -316,6 +411,7 @@ export const PersonalLoan = {
                             { id: "6", label: "10 lakh - 20 lakh" },
                             { id: "7", label: "above 20 lakh" },
                         ],
+                        value:"less than 50,000"
                     },
 
                     {
@@ -330,6 +426,7 @@ export const PersonalLoan = {
                             { id: "5", label: "48-60 months before" },
                             { id: "6", label: "more than 60 months" },
                         ],
+                        value:"0-12 months before"
                     },
                     {
                         name: "loan_provider_bank",
@@ -347,8 +444,7 @@ export const PersonalLoan = {
             }
         ]
     },
-
-    Documents: {
+    documents: {
         title: "Documents",
         sections: [
             {
