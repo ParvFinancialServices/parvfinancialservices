@@ -44,29 +44,29 @@ export const AdminSidebar = {
             items: [
                 {
                     title: "Personal Loan",
-                    url: "/dashboard/forms/personal_loan",
+                    url: "/admin/forms/personal_loan",
                     icon: FileUser,
                     isActive: true,
                 },
                 {
                     title: "Business Loan",
-                    url: "/dashboard/forms/business_loan",
+                    url: "/admin/forms/business_loan",
                     icon: BriefcaseBusinessIcon,
                     isActive: false,
                 },
                 {
                     title: "Home Loan",
-                    url: "/dashboard/forms/home_loan",
+                    url: "/admin/forms/home_loan",
                     icon: HomeIcon,
                 },
                 {
                     title: "Vehicle Loan",
-                    url: "/dashboard/forms/vehicle_loan",
+                    url: "/admin/forms/vehicle_loan",
                     icon: CarIcon,
                 },
                 {
                     title: "Gold Loan",
-                    url: "/dashboard/forms/gold_loan",
+                    url: "/admin/forms/gold_loan",
                     icon: HandCoinsIcon,
                 },
             ]
@@ -98,22 +98,22 @@ export const AdminSidebar = {
     projects: [
         {
             title: "Blogs",
-            url: "/dashboard/blogs",
+            url: "/admin/blogs",
             icon: LucideNotebookPen,
         },
         {
             title: "Testimonials",
-            url: "/dashboard/testimonials",
+            url: "/admin/testimonials",
             icon: MessageSquareText,
         },
         {
             title: "Contact us",
-            url: "/dashboard/contact_data",
+            url: "/admin/contact_data",
             icon: Contact2Icon,
         },
         {
             title: "Career applications",
-            url: "/dashboard/careers",
+            url: "/admin/careers",
             icon: UserPlus2Icon,
         },
     ],
