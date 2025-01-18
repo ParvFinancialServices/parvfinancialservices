@@ -1,9 +1,8 @@
 import Footer from "@/comp/footer/Footer";
 import Banner from "@/comp/Home/Banner";
-import NavbarNew, { Navbar } from "@/comp/Navbar/Navbar";
+import NavbarNew from "@/comp/Navbar/Navbar";
 import { Award, Car, CircleUser, Factory, Fence, Gem, GraduationCap, HomeIcon, Menu, ShieldPlus, Sparkles, Stethoscope, User } from "lucide-react";
 import { Poppins } from "next/font/google"
-import Link from "next/link";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -14,38 +13,9 @@ const poppins = Poppins({
 export default function Home() {
 
   return (
-    <div className={`${poppins.className} px-[3rem] w-screen min-h-screen h-fit flex flex-col bg-blue-100/75 relative`}>
-      <span className="sm:hidden block absolute top-0 right-0 p-4 w-fit">
-        <Menu />
-      </span>
+    <div className={`${poppins.className} w-screen min-h-screen h-fit flex flex-col bg-blue-100/75 relative`}>
       <NavbarNew />
-      {/* <header className="flex flex-row items-center justify-between p-4 px-8 top-0 w-full bg-blue-100/75  text-sm sm:sticky absolute -left-full sm:left-0">
-        <h4>Parv</h4>
-        <div className="flex flex-row items-center justify-center gap-4 flex-1">
-          <Link href="About">About Us</Link>
-          <Link href="About">Contact Us</Link>
-          <Link href="About">Career</Link>
-        </div>
-        <div className="flex flex-row items-center just">
-        <Link href="login" className="flex items-center justify-center px-4 py-2 bg-blue-800 rounded-md text-white">Login</Link>
-        </div>
-      </header> */}
       <main className="flex flex-col h-fit">
-        {/* <section className="flex items-cente justify-start h-screen min-w-screen flex-row">
-          <div className="flex flex-col gap-4 my-16 flex-1 sm:px-16 px-4">
-            <h1 className="sm:text-5xl max-w-[19ch] text-3xl">Your Trusted Partner in Achieving Financial Freedom</h1>
-            <p className="max-w-[50ch]">Parv Financial Services offers fast, reliable, and hassle-free loans to meet your needs. From personal to business and home loans, we provide low-interest rates, quick approvals, and flexible repayment options. Achieve your goals today—apply now!"</p>
-            <div className="flex gap-4">
-              <Link href="login" className="flex items-center justify-center px-4 py-2 bg-blue-800 rounded-md text-white">Contact Us</Link>
-              <Link href="login" className="flex items-center justify-center px-4 py-2 rounded-md border border-blue-800 text-blue-800">Login</Link>
-            </div>
-          </div>
-          <div className="flex-1 sm:block hidden overflow-hidden h-[36rem] bg-center bg-cover" style={{
-            backgroundImage: `url('/hero.png')`
-          }}>
-            <Image src={HeroSectionImage} className="w-full h-auto" alt="hero"/>
-          </div>
-        </section> */}
         <Banner />
         <section className="flex items-center justify-end sm:py-8 sm:px-16 p-4 min-h-screen min-w-screen">
           <div className="flex flex-col gap-8 flex-1">
