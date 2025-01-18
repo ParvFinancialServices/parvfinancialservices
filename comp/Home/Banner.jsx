@@ -19,13 +19,22 @@ const Banner = () => {
                 <div class="mt-4">
                     <a href="#contact" class="px-5 py-3 text-lg tracking-wider text-white bg-blue-500 rounded-lg md:px-8 hover:bg-blue-600 group"><span>Explore More</span> </a>
                 </div>
-            </div>
+                <section className="flex h-screen w-full flex-col sm:flex-row p-4 md:px-12 gap-8 sm:gap-0">
+                    <div className="flex flex-col items-start justify-center gap-8 flex-1">
+                        <h1 className="sm:text-5xl max-w-[20ch] text-3xl">{Content?.title}</h1>
+                        <p className="max-w-[60ch]">
+                            {Content?.desc}
+                        </p>
+                        <Link href="/" className=" px-10 py-2 rounded tracking-wider text-white bg-blue-500 md:px-8 hover:bg-blue-600 group">
+                            Explore our services
+                        </Link>
+                    </div>
 
-            <div class="pb-10 overflow-hidden md:p-10 lg:p-0 sm:pb-0">
-                <img id="heroImg1" class="transition-all duration-300 ease-in-out hover:scale-105 lg:w-full sm:mx-auto sm:w-4/6 sm:pb-12 lg:pb-0" src="https://bootstrapmade.com/demo/templates/FlexStart/assets/img/hero-img.png" alt="Awesome hero page image" width="500" height="488" />
-            </div>
-        </div>
-    )
+                    <div className="flex-1 h-full flex items-center justify-center">
+                        <img id="heroImg1" src="https://bootstrapmade.com/demo/templates/FlexStart/assets/img/hero-img.png" alt="Awesome hero page image" />
+                    </div>
+                </section >
+                )
 };
 
-export default Banner;
+                export default Banner;
