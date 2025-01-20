@@ -1,8 +1,17 @@
-import Footer from "@/comp/footer/Footer";
+import Footer from "@/comp/Home/Footer";
 import Banner from "@/comp/Home/Banner";
 import NavbarNew from "@/comp/Navbar/Navbar";
 import { Award, Car, CircleUser, Factory, Fence, Gem, GraduationCap, HomeIcon, Menu, ShieldPlus, Sparkles, Stethoscope, User } from "lucide-react";
-import { Poppins } from "next/font/google"
+import { Poppins } from "next/font/google";
+import About from '@/comp/Home/About'
+import Features from "@/comp/Home/Features";
+import Services from "@/comp/Home/Services";
+import LoanCalculator from "@/comp/Home/LoanCalculator";
+import LoanCalculatorSection from "@/comp/Home/LoanCalculatorSection";
+import FAQ from "@/comp/Home/FAQ";
+import LoanApplicationProcess from "@/comp/Home/Application";
+import TestimonialSection from "@/comp/Home/TestimonialSection";
+import ContactUs from "@/comp/Home/ContactUs";
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -13,11 +22,20 @@ const poppins = Poppins({
 export default function Home() {
 
   return (
-    <div className={`${poppins.className} w-screen min-h-screen h-fit flex flex-col bg-blue-100/75 relative`}>
+    // <div className={`${poppins.className} w-screen min-h-screen h-fit flex flex-col bg-blue-100/75 relative`}>
+    <div className={` w-screen min-h-screen h-fit flex flex-col bg-blue-100/75 relative`}>
       <NavbarNew />
-      <main className="flex flex-col h-fit">
+      <main className="flex flex-col h-fit px-3">
         <Banner />
-        <section className="flex items-center justify-end sm:py-8 sm:px-16 p-4 min-h-screen min-w-screen">
+        <About />
+        <Services />
+        <LoanCalculatorSection />
+        <LoanApplicationProcess />
+        <TestimonialSection />
+        <FAQ />
+        <ContactUs />
+
+        {/* <section className="flex items-center justify-end sm:py-8 sm:px-16 p-4 min-h-screen min-w-screen">
           <div className="flex flex-col gap-8 flex-1">
             <h4 className="w-fit flex items-center justify-center px-2 py-1 rounded-full bg-blue-400 text-xs">About Us</h4>
             <h2 className="text-3xl max-w-[40ch]">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h2>
@@ -141,8 +159,8 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
-        <section className="flex sm:flex-row flex-col items-stretch justify-end sm:py-8 sm:px-16 p-4 sm:min-h-screen min-w-screen gap-8">
+        </section> */}
+        {/* <section className="flex sm:flex-row flex-col items-stretch justify-end sm:py-8 sm:px-16 p-4 sm:min-h-screen min-w-screen gap-8">
           <div className="flex flex-col gap-8 flex-1">
             <h4 className="w-fit flex items-center justify-center px-2 py-1 rounded-full bg-blue-400 text-xs">Contact Us</h4>
             <h2 className="text-3xl max-w-[40ch]">Need Help? We're Here</h2>
@@ -157,7 +175,7 @@ export default function Home() {
             <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d902.3476113860994!2d84.263993!3d25.223771!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDEzJzI1LjMiTiA4NMKwMTUnNTAuNiJF!5e0!3m2!1sen!2sus!4v1736513599232!5m2!1sen!2sus" className="border-0 h-full w-full" allowFullScreen={false} loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
           </div>
 
-        </section>
+        </section> */}
       </main>
       {/* <footer className="flex flex-row p-8 justify-between bg-blue-400">
         <h4>Parv</h4>
