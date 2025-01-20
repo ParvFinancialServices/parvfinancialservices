@@ -17,7 +17,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 import db from '@/lib/firestore';
 import { collection, addDoc } from "firebase/firestore";
-import { VehicleLoan } from "@/config/VehicleLoan";
+import { VehicleLoan } from "@/config/forms/VehicleLoan";
 
 
 

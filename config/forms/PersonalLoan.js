@@ -98,7 +98,7 @@ export const PersonalLoan = {
                             { id: "4", label: "To pay credit card bill" },
                             { id: "5", label: "To repay other loan" },
                             { id: "6", label: "To construct home" },
-                            { id: "7", label: "For other Persoanl reason" },
+                            { id: "7", label: "For other Personal reason" },
                         ],
                         value:"To purchase property"
                     },
@@ -448,7 +448,7 @@ export const PersonalLoan = {
         title: "Documents",
         sections: [
             {
-                title: "Persoanl Documents",
+                title: "Personal Documents",
                 fields: [
                     {
                         name: "aadhar_front",
@@ -461,8 +461,8 @@ export const PersonalLoan = {
                         type: "File",
                     },
                     {
-                        name: "persoanl_pan",
-                        label: "Uplaod persoanl PAN image",
+                        name: "Personal_pan",
+                        label: "Uplaod Personal PAN image",
                         type: "File",
                     },
                 ]
