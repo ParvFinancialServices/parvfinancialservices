@@ -109,7 +109,7 @@ const Card = ({ data }) => {
 
 const Services = () => {
     return (
-        <div className="max-w-6xl py-10 mx-auto font-[sans-serif] p-6">
+        <div className="max-w-6xl py-10 mx-auto  p-6">
             <div className="text-center max-w-2xl mx-auto">
                 <div className="flex justify-center my-6">
                     <Heading text={'Services'} />

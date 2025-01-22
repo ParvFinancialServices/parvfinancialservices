@@ -30,9 +30,9 @@ const data = [
 const FaqBox = ({ item }) => {
     return (
         <div>
-            <h3 class="text-lg font-bold text-gray-700">{item?.question}</h3>
-            <div class="mt-2">
-                <p class="text-sm text-gray-600">{item?.answer}</p>
+            <h3 className="text-lg font-bold text-gray-700">{item?.question}</h3>
+            <div className="mt-2">
+                <p className="text-sm text-gray-600">{item?.answer}</p>
             </div>
         </div>
     )
@@ -41,18 +41,18 @@ const FaqBox = ({ item }) => {
 
 const FAQ = () => {
     return (
-        <div class=" py-10 font-sans">
-            <div class="max-w-6xl mx-auto font-sans">
+        <div className=" py-10 font-sans">
+            <div className="max-w-6xl mx-auto font-sans">
                 <div className="flex justify-center py-2">
                     <Heading text={"FAQs"} />
                 </div>
                 <div className="w-full flex justify-center flex-col">
-                    <h2 class="lg:text-4xl text-3xl font-bold text-gray-700 text-center">Frequently asked questions</h2>
-                    <p class="text-base text-gray-600 mt-3 text-center">
+                    <h2 className="lg:text-4xl text-3xl font-bold text-gray-700 text-center">Frequently asked questions</h2>
+                    <p className="text-base text-gray-600 mt-3 text-center">
                         Your Questions, Answered: Everything You Need to Know About Our Loans
                     </p>
                 </div>
-                <div class="grid lg:grid-cols-2 gap-8 mt-10">
+                <div className="grid lg:grid-cols-2 gap-8 mt-10">
                     {
                         data?.map((item, index) => {
                             return (
