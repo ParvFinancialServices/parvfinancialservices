@@ -1,3 +1,4 @@
+import { CheckCheckIcon } from "lucide-react";
 import Link from "next/link";
 import React from "react";
 
@@ -5,27 +6,57 @@ import React from "react";
 const Content = {
     title: 'Empowering Your Dreams with Easy Loans!',
     subTitle: "Affordable Home Loans, Vehicle Loans, and Gold Loans – All in One Place. Fast Approvals, Flexible EMI Plans, and Low Interest Rates.",
-    desc: "Turn your dreams into reality with affordable loans designed to suit your lifestyle. Whether it’s your dream home, a new vehicle, or leveraging your gold, we’re here to help with quick approvals and low-interest rates."
+    desc: "Turn your dreams into reality with affordable loans designed to suit your lifestyle. Whether it’s your dream home, a new vehicle, or leveraging your gold, we’re here to help with quick approvals and low-interest rates.",
+    ul: [
+        {
+            li: "Instant Approval for Eligible Applicants",
+        },
+        {
+            li: "Personal, Home, and Business Loans Available",
+        },
+        {
+            li: "Transparent Processes | No Hidden Charges",
+        },
+    ]
+
 }
 
 const Banner = () => {
     return (
-        <section className="flex h-screen w-full flex-col sm:flex-row p-4 md:px-12 gap-8 sm:gap-0">
-            <div className="flex flex-col items-start justify-center gap-8 flex-1">
-                <h1 className="sm:text-5xl max-w-[20ch] text-3xl">{Content?.title}</h1>
-                <p className="max-w-[60ch]">
-                    {Content?.desc}
-                </p>
-                <Link href="/" className=" px-10 py-2 rounded tracking-wider text-white bg-blue-500 md:px-8 hover:bg-blue-600 group">
-                    Explore our services
-                </Link>
-            </div>
+        <div className="mt-10">
+            <div class="items-center w-10/12 grid-cols-2 mx-auto overflow-x-hidden lg:grid md:py-14 lg:py-24 xl:py-14 lg:mt-3 xl:mt-5" data-aos="fade-right" data-aos-duration="800">
+                <div class="pr-2 md:mb-14 py-14 md:py-0">
+                    <h1 class="text-3xl font-semibold text-blue-900 xl:text-4xl leading-10 lg:text-3xl">{Content?.title}</h1>
+                    <p class=" py-2 text-lg text-gray-500 2xl:pr-5">
+                        {Content?.subTitle}
+                    </p>
+                    <div className="mb-10">
+                        {
+                            Content?.ul?.map((item, index) => {
+                                return (
+                                    <div className="flex justify-start items-center" key={index}>
+                                        <CheckCheckIcon className="text-orange-600 mr-2" size={18} />
+                                        <span className="text-sm py-2 text-gray-500">{item?.li}</span>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
 
-            <div className="flex-1 h-full flex items-center justify-center">
-                <img id="heroImg1" src="https://bootstrapmade.com/demo/templates/FlexStart/assets/img/hero-img.png" alt="Awesome hero page image" />
+                    <div class="mt-4">
+                        <a href="#contact" class="px-5 py-3 tracking-wider text-white bg-blue-500 rounded-lg md:px-8 hover:bg-blue-600 group">
+                            <span>Explore More Services</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="pb-10 overflow-hidden md:p-10 lg:p-0 sm:pb-0">
+                    <img id="heroImg1" class="transition-all duration-300 ease-in-out hover:scale-105 lg:w-full sm:mx-auto sm:w-4/6 sm:pb-12 lg:pb-0" src="https://bootstrapmade.com/demo/templates/FlexStart/assets/img/hero-img.png" alt="Awesome hero page image" width="500" height="488" />
+                </div>
             </div>
-        </section >
+        </div>
     )
-};
+}
+
 
 export default Banner;
