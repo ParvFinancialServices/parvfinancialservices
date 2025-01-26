@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { Heading } from "../Home/Common";
 import { MoveRight } from "lucide-react";
+import Link from "next/link";
 
 // export default function HomeLoanSection() {
 //     return (
@@ -129,9 +130,12 @@ export default function HomeLoanSection() {
                             Expert support to help you make informed decisions.
                         </li>
                     </ul>
-                    <button className="bg-blue-500 flex items-center gap-2 hover:gap-3 transition-all duration-500 text-white text-sm px-4 mt-6 py-2 rounded-lg shadow hover:bg-blue-600">
-                        Explore <MoveRight size={20} />
-                    </button>
+                    <Link href={'/services/home-loan'}>
+                        <button className="bg-blue-500 flex items-center gap-2 hover:gap-3 transition-all duration-500 text-white text-sm px-4 mt-6 py-2 rounded-lg shadow hover:bg-blue-600">
+                            Explore <MoveRight size={20} />
+                        </button>
+                    </Link>
+
                 </div>
 
                 {/* Image Section */}
