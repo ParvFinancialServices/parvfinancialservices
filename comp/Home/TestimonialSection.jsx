@@ -3,7 +3,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Heading } from "./Common";
+import { BigHeading, Heading } from "./Common";
 // import TestimonialCard from "./TestimonialCard";
 
 const testimonials = [
@@ -219,7 +219,8 @@ export default function TestimonialSection() {
                 <div className="w-full flex justify-center mb-5">
                     <Heading text={"Testimonial"} />
                 </div>
-                <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">What Our Customers Say</h2>
+                <BigHeading text={'What Our Customers Say'} />
+                {/* <h2 className="text-2xl font-bold text-center text-gray-800 mb-8"></h2> */}
                 <Slider {...settings}>
                     {testimonials.map((testimonial, index) => (
                         <div key={index} className="px-4">

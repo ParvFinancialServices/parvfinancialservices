@@ -1,17 +1,18 @@
 import React from "react";
-import { Heading } from "./Common";
+import { BigHeading, Heading } from "./Common";
 
 const ContactUs = () => {
     return (
         <div className="w-full bg-white py-5">
-            <div className="max-w-6xl mx-auto bg-white p-4 font-[sans-serif]">
-                <div className="flex justify-center flex-col w-full">
+            <div className=" mx-auto bg-white md:p-4 font-[sans-serif]">
+                <div className="flex justify-start md:justify-center flex-col w-full">
                     <div className="mx-auto my-4">
                         <Heading text={'Contact us'} />
                     </div>
-                    <div className=" mx-auto max-w-[60%]">
-                        <h2 className="text-gray-800 text-3xl font-bold text-center">Get In Touch</h2>
-                        <p className="text-sm text-gray-500 mt-4 leading-relaxed text-center">
+                    <div className=" mx-auto w-full px-4 md:max-w-[60%]">
+                        {/* <h2 className="text-gray-800 text-3xl font-bold text-center"></h2> */}
+                        <BigHeading text={'Get In Touch'} />
+                        <p className="text-sm text-gray-500 mt-4 leading-relaxed text-start md:text-center">
                             Have a question about our loan services, or need assistance with your application? Whether you're exploring your options or have specific inquiries, our friendly and knowledgeable team is here to guide you every step of the way.
                         </p>
                     </div>

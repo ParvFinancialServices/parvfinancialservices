@@ -19,3 +19,4 @@ export function Slider({ label, value, min, max, step, onChange, unit }) {
         </div>
     );
 }
+

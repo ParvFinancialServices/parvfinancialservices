@@ -34,7 +34,7 @@
 // }
 
 
-import { Pie } from "react-chartjs-2";
+import { Pie, Line } from "react-chartjs-2";
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale, LinearScale } from "chart.js";
 
 // Registering necessary components for the pie chart
@@ -59,9 +59,11 @@ export default function LoanGraph({ amount, length, interest }) {
     };
 
     return (
-        <div className="mt-8">
-            <h2 className="text-lg font-semibold text-center mb-4">Loan Breakdown (Pie Chart)</h2>
-            <Pie data={data} />
+        <div className=" h-96 w-full my-4 ">
+            {/* <h2 className="text-lg font-semibold text-center mb-4">Loan Breakdown (Pie Chart)</h2> */}
+            <div className="h-[20rem] w-full">
+                <Pie data={data} />
+            </div>
         </div>
     );
 }

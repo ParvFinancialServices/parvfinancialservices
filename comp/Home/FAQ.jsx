@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading } from "./Common";
+import { BigHeading, Heading } from "./Common";
 const data = [
     {
         "question": "What types of loans do you offer?",
@@ -47,7 +47,8 @@ const FAQ = () => {
                     <Heading text={"FAQs"} />
                 </div>
                 <div className="w-full flex justify-center flex-col">
-                    <h2 class="lg:text-4xl text-3xl font-bold text-gray-700 text-center">Frequently asked questions</h2>
+                    {/* <h2 class="lg:text-4xl text-3xl font-bold text-gray-700 text-center"></h2> */}
+                    <BigHeading text={'Frequently asked questions'} />
                     <p class="text-base text-gray-600 mt-3 text-center">
                         Your Questions, Answered: Everything You Need to Know About Our Loans
                     </p>

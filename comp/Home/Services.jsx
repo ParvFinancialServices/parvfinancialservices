@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading } from "./Common";
+import { BigHeading, Heading } from "./Common";
 import { BriefcaseBusiness, Building2Icon, BusIcon, Car, CastleIcon, Check, HandCoinsIcon, HomeIcon, icons, User2Icon } from "lucide-react";
 
 const loanDetails = [
@@ -109,12 +109,12 @@ const Card = ({ data }) => {
 
 const Services = () => {
     return (
-        <div className="max-w-6xl py-10 mx-auto font-[sans-serif] p-6">
-            <div className="text-center max-w-2xl mx-auto">
+        <div className=" py-4 md:py-10 mx-auto font-[sans-serif]">
+            <div className="text-center w-full md:max-w-2xl mx-auto">
                 <div className="flex justify-center my-6">
                     <Heading text={'Services'} />
                 </div>
-                <h2 className="text-gray-800 sm:text-3xl text-2xl font-extrabold">Simplify Your Success Today</h2>
+                <BigHeading text="Simplify Your Success Today" />
                 <p className="text-sm text-gray-600 mt-6">Discover innovative solutions designed to streamline your journey. Our exceptional services provide the tools and support you need to unlock potential, achieve goals, and excel effortlessly.</p>
             </div>
 
