@@ -28,17 +28,17 @@ const About = () => {
     return (
         <div className="bg-white">
 
-            <section className="py-24 relative xl:mr-0 lg:mr-5 mr-0">
-                <div className="w-full max-w-7xl px-4 md:px-5 lg:px-5 mx-auto">
-                    <div className="w-full justify-start items-center xl:gap-12 gap-10 grid lg:grid-cols-2 grid-cols-1">
-                        <div className="w-full flex-col justify-center lg:items-start items-center gap-10 inline-flex">
-                            <div className="w-full flex-col justify-center items-start gap-8 flex">
-                                <div className="flex-col justify-start lg:items-start items-center gap-4 flex">
+            <section class="py-10 md:py-24 relative xl:mr-0 lg:mr-5 mr-0">
+                <div class="w-full max-w-7xl px-4 md:px-5 lg:px-5 mx-auto">
+                    <div class="w-full justify-start items-center xl:gap-12 gap-10 grid lg:grid-cols-2 grid-cols-1">
+                        <div class="w-full flex-col justify-center lg:items-start items-center gap-10 inline-flex">
+                            <div class="w-full flex-col justify-center items-start gap-8 flex">
+                                <div class="flex-col justify-start lg:items-start items-center gap-4 flex">
                                     <Heading text={'About Us'} />
                                     {/* <h6 className="text-gray-100 text-xs bg-orange-500 px-3 rounded-full py-1 font-normal leading-relaxed">About Us</h6> */}
                                     <div className="w-full flex-col justify-start lg:items-start items-center gap-3 flex">
                                         <h2
-                                            className="text-indigo-700 text-4xl font-bold font-manrope leading-normal lg:text-start text-center">
+                                            class="text-indigo-700 text-xl md:text-4xl font-bold font-manrope leading-normal lg:text-start text-center">
                                             The Tale of Our Achievement Story</h2>
                                         <p
                                             className="text-gray-500 text-base font-normal leading-relaxed lg:text-start text-center">
@@ -79,7 +79,7 @@ const About = () => {
                                         </div>
                                     </div>
                                 </div> */}
-                                <div className="grid grid-cols-2 gap-3">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     {
                                         data?.box?.map((items, index) => {
                                             return (
