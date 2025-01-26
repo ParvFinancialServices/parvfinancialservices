@@ -17,7 +17,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 import db from '@/lib/firestore';
 import { collection, addDoc } from "firebase/firestore";
-import { HomeLoan } from "@/config/HomeLoan";
+import { HomeLoan } from "@/config/forms/HomeLoan";
 
 
 const Step = ({ sectionInd, fieldInd, toggleFieldInd, field, setState, step, onChangeFunction, state }) => {
