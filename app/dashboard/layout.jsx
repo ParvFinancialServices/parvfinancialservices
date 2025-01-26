@@ -4,7 +4,11 @@ import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/s
 import { Separator } from "@radix-ui/react-separator"
 
 
+
 const Layout = ({ children }) => {
+
+  
+
     return (
         <SidebarProvider>
             <AppSidebar />

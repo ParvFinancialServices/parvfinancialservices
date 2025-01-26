@@ -1,6 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import { PersonalLoan, PersonalLoanSchema } from "@/config/forms/PersonalLoan.js";
+import {
+  PersonalLoan,
+  PersonalLoanSchema,
+} from "@/config/forms/PersonalLoan.js";
 import Formstepper from "@/components/common/Formstepper";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
@@ -17,7 +20,13 @@ import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cloneDeep, forOwn, isObject, set, unset } from "lodash";
 import db from "@/lib/firestore";
-import { collection, addDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  setDoc,
+  doc,
+  getCountFromServer,
+} from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 import { useEffect } from "react";
 import File from "@/comp/File";
@@ -25,6 +34,9 @@ import { useRef } from "react";
 import { removeProperty } from "@/lib/utils";
 import CloseIcon from "@/public/close.png";
 import Image from "next/image";
+import { upload_data } from "@/api/file_action";
+import { useAdminState } from "@/app/dashboard/store";
+import { useRouter } from "next/navigation";
 
 const Step = ({
   sectionIndex,
@@ -225,6 +237,8 @@ const StepForm = ({ state, setState, step, readonly = false }) => {
 };
 
 const PersonalLoanForm = () => {
+  const router = useRouter();
+
   // step denoting the current step of the form
   const [step, setStep] = useState(0);
 
@@ -238,6 +252,7 @@ const PersonalLoanForm = () => {
   const [validationErrors, setValidationErrors] = useState([]);
 
   const previewRef = useRef();
+  const adminState = useAdminState();
 
   useEffect(() => {
     console.log("state:", state);
@@ -254,12 +269,21 @@ const PersonalLoanForm = () => {
       removeProperty(newState, "type");
       console.log(newState);
 
-      addDoc(collection(db, "personal_loans"), newState).then((result) => {
-        console.log(result);
-      });
-      // const result = getStorage();
-      // console.log(result);
-      // console.log("Document written with ID: ", docRef.id);
+      let personalLoansCollection = collection(db, "personal_loans");
+      let totalNumberOfLoans = await getCountFromServer(
+        personalLoansCollection
+      );
+      totalNumberOfLoans = totalNumberOfLoans.data().count + 1;
+      let currentLoanNumber =
+        "PL" + String(totalNumberOfLoans).padStart(6, "0");
+      await setDoc(doc(db, "personal_loans", currentLoanNumber), newState).then(
+        (result) => {
+          console.log(result);
+        }
+      );
+
+      adminState.setLoanNumber(currentLoanNumber);
+      router.push("/dashboard/admin/success");
     } else {
       console.log("else condition");
       // prod mode
@@ -268,15 +292,28 @@ const PersonalLoanForm = () => {
       // 3. if validation succeeds then remove unwanted properties from the object
       // then push the data to the db
       PersonalLoanSchema.validate(state, { abortEarly: false })
-        .then(() => {
+        .then(async () => {
           let newState = cloneDeep(state);
           removeProperty(newState, "options");
           removeProperty(newState, "type");
           console.log(newState);
 
-          addDoc(collection(db, "items"), newState).then((result) => {
+          let personalLoansCollection = collection(db, "personal_loans");
+          let totalNumberOfLoans = await getCountFromServer(
+            personalLoansCollection
+          );
+          totalNumberOfLoans = totalNumberOfLoans.data().count + 1;
+          let currentLoanNumber =
+            "PL" + String(totalNumberOfLoans).padStart(6, "0");
+          await setDoc(
+            doc(db, "personal_loans", currentLoanNumber),
+            newState
+          ).then((result) => {
             console.log(result);
           });
+
+          adminState.setLoanNumber(currentLoanNumber);
+          router.push("/dashboard/admin/success");
         })
         .catch((e) => {
           // we are cloning the current state of the form
@@ -352,10 +389,17 @@ const PersonalLoanForm = () => {
           </Button>
         ) : null}
       </div>
-      <dialog ref={previewRef} className="h-screen w-screen p-8 bg-white m-4 relative">
+      <dialog
+        ref={previewRef}
+        className="h-screen w-screen p-8 bg-white m-4 relative"
+      >
         <h1 className="text-3xl">Preview</h1>
-        <button type="button" onClick={(e) => previewRef.current.close()} className="h-12 w-12 p-4 absolute top-0 right-0">
-          <Image src={CloseIcon} alt="close"/>
+        <button
+          type="button"
+          onClick={(e) => previewRef.current.close()}
+          className="h-12 w-12 p-4 absolute top-0 right-0"
+        >
+          <Image src={CloseIcon} alt="close" />
         </button>
         <Separator />
         {Object.keys(state).map((key, index) => {
