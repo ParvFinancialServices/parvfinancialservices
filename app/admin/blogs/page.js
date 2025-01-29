@@ -12,8 +12,8 @@ const AddBlogsButton = () => {
 const Blogs = () => {
     return (
         <div className="px-10">
-            <AddBlogsButton />
-            <BlogsList />
+            {/* <AddBlogsButton /> */}
+            {/* <BlogsList /> */}
         </div>
     )
 };
