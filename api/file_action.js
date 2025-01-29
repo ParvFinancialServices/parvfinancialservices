@@ -22,6 +22,18 @@ sdk.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
+let app;
+try {
+  // console.log(Cred);
+  const Cred = JSON.parse(process.env.Key);
+  console.log("Cred", Cred);
+  app = admin.initializeApp({
+    credential: admin.credential.cert(Cred),
+  });
+} catch (error) {
+  app = admin.app();
+}
+
 export async function upload_doc({ file, folder }) {
   const uploader = sdk.uploader;
   let resource;
@@ -36,26 +48,27 @@ export async function upload_doc({ file, folder }) {
   return resource;
 }
 
-function getApp() {
-  let app;
-  try {
-    // console.log(Cred);
-    const Cred = JSON.parse(process.env.Key);
-    console.log("Cred",Cred);
-    app = admin.initializeApp({
-      credential: admin.credential.cert(Cred),
-    });
-  } catch (error) {
-    app = admin.app();
-  }
-  // console.log("app",app);
-  return app;
-}
+// function getApp() {
+//   let app;
+//   try {
+//     // console.log(Cred);
+//     const Cred = JSON.parse(process.env.Key);
+//     console.log("Cred", Cred);
+//     app = admin.initializeApp({
+//       credential: admin.credential.cert(Cred),
+//     });
+//   } catch (error) {
+//     app = admin.app();
+//   }
+//   // console.log("app",app);
+//   return app;
+// }
 
 export async function login(username, password) {
-  console.clear();
+  // console.clear();
+
   console.log(username, password);
-  const app = getApp();
+  // const app = getApp();
   const auth = app.auth();
 
   const db = app.firestore();
