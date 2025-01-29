@@ -79,34 +79,34 @@ export async function login(username, password) {
   snapshot.forEach(async (doc) => {
     cred = doc.data();
     console.log(cred);
-  });
-  if (cred.password == password) {
-    try {
-      const cookieStore = await cookies();
-      let string = jwt.sign(
-        {
-          username: cred.username,
-          role: cred.role,
-        },
-        "salt123"
-      );
-      console.log("string", string);
-      const token = await auth.createCustomToken(
-        "d8ad2d85-9416-4451-9ded-75f40a96d4c5",
-        {
-          role: cred.role,
-        }
-      );
+    if (cred.password == password) {
+      try {
+        const cookieStore = await cookies();
+        let string = jwt.sign(
+          {
+            username: cred.username,
+            role: cred.role,
+          },
+          "salt123"
+        );
+        console.log("string", string);
+        const token = await auth.createCustomToken(
+          "d8ad2d85-9416-4451-9ded-75f40a96d4c5",
+          {
+            role: cred.role,
+          }
+        );
 
-      console.log("token", token);
-      cookieStore.set("jwt", jwt, {
-        httpOnly: true,
-      });
-      return { token, cred };
-    } catch (error) {
-      return { error };
+        console.log("token", token);
+        cookieStore.set("jwt", jwt, {
+          httpOnly: true,
+        });
+        return { token, cred };
+      } catch (error) {
+        return { error };
+      }
+    } else {
+      return { error: "Username or password is incorrect" };
     }
-  } else {
-    return { error: "Username or password is incorrect" };
-  }
+  });
 }
