@@ -53,11 +53,10 @@ export async function upload_doc({ file, folder }) {
 // }
 
 export async function login(username, password) {
-  console.log(process.env);
   let app;
   try {
     // console.log(Cred);
-    const Cred = JSON.parse(process.env.Key);
+    const Cred = JSON.parse(process.env.KEY);
     console.log("Cred", Cred);
     app = admin.initializeApp({
       credential: admin.credential.cert(Cred),
