@@ -34,9 +34,11 @@ import { useRef } from "react";
 import { removeProperty } from "@/lib/utils";
 import CloseIcon from "@/public/close.png";
 import Image from "next/image";
-import { upload_data } from "@/api/file_action";
+import { login, upload_data } from "@/api/file_action";
 import { useAdminState } from "@/app/dashboard/store";
 import { useRouter } from "next/navigation";
+import { getAuth, signInWithCustomToken } from "firebase/auth";
+import app from "@/lib/firebaseConfig";
 
 const Step = ({
   sectionIndex,
@@ -257,6 +259,34 @@ const PersonalLoanForm = () => {
   useEffect(() => {
     console.log("state:", state);
   }, [state]);
+
+  useEffect(() => {
+    console.log("adminState", adminState);
+  }, [adminState]);
+
+  useEffect(() => {
+    // async function callIt() {
+    //   const auth = getAuth(app);
+    //   const res = await login("rishab@gmail.com", "123456");
+    //   console.log(res);
+    //   const { token } = res;
+    //   // await signInWithCustomToken(auth, token);
+    //   signInWithCustomToken(auth, token)
+    //     .then((userCredential) => {
+    //       // Signed in
+    //       const user = userCredential.user;
+    //       console.log(user);
+    //       // ...
+    //     })
+    //     .catch((error) => {
+    //       const errorCode = error.code;
+    //       const errorMessage = error.message;
+    //       console.log(error);
+    //       // ...
+    //     });
+    // }
+    // callIt();
+  }, []);
 
   let onSubmit = async () => {
     // test mode
