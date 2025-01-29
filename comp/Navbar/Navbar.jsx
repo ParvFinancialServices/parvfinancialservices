@@ -1,53 +1,146 @@
 'use client'
-import React from "react";
-const NavbarNew = () => {
-    return (
-        <div className="flex flex-row h-[75px] w-full items-center p-4 relative">
-            <a href="/" className="flex gap-1 text-blue-500 items-center pl-4">
-                <img src="/logo/PAR2.png" alt="logo" width="50" />
-                <div className="flex flex-col">
-                    <span className="text-xl font-bold text-blue-500">PARV</span>
-                    <span className="text-xs font-semibold text-blue-500">Financial Service</span>
-                </div>
-            </a>
-            <div className="absolute top-0 -left-[100vw] h-screen w-screen sm:relative  sm:h-[75px]  sm:left-0 bg-blue-100 sm:bg-transparent sm:flex sm:flex-row sm:items-center sm:gap-4 flex-1">
-                <ul className="flex flex-col sm:flex-row gap-4 p-4 sm:p-0 flex-1 items-center justify-center">
-                    <li><a href="#" className="hover:text-[#007bff] text-[#007bff] font-bold block text-base">Home</a></li>
-                    <li><a href="#" className="hover:text-[#007bff] text-gray-600 font-bold block text-base">Team</a></li>
-                    <li><a href="#" className="hover:text-[#007bff] text-gray-600 font-bold block text-base">Feature</a></li>
-                    <li><a href="#" className="hover:text-[#007bff] text-gray-600 font-bold block text-base">Blog</a></li>
-                    <li><a href="#" className="hover:text-[#007bff] text-gray-600 font-bold block text-base">About</a></li>
-                    <li><a href="#" className="hover:text-[#007bff] text-gray-600 font-bold block text-base">Contact</a></li>
-                </ul>
-                <button type="button"
-                    className="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-full text-white text-[15px] font-semibold flex items-center justify-center gap-2 mx-auto sm:ml-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="cursor-pointer fill-white inline w-4 h-4" viewBox="0 0 24 24">
-                        <circle cx="10" cy="7" r="6"></circle>
-                        <path
-                            d="M14 15H6a5 5 0 0 0-5 5 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 5 5 0 0 0-5-5zm8-4h-2.59l.3-.29a1 1 0 0 0-1.42-1.42l-2 2a1 1 0 0 0 0 1.42l2 2a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42l-.3-.29H22a1 1 0 0 0 0-2z">
-                        </path>
-                    </svg>
-                    Login
-                </button>
-            </div>
-            {/* <label class="inline-flex items-center cursor-pointer">
-                <input type="checkbox" value="" class="sr-only peer">
-                    <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">Toggle me</span>
-            </label> */}
+import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import React, { useState } from "react";
 
-            <button id="toggleMenu" className="sm:hidden ml-auto mr-4 p-2 border rounded-full fixed right-0">
-                <svg id="menuIcon" className="w-6 h-6" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path fillRule="evenodd"
-                        d="M3 5h14a1 1 0 110 2H3a1 1 0 110-2zm0 5h14a1 1 0 110 2H3a1 1 0 110-2zm0 5h14a1 1 0 110 2H3a1 1 0 110-2z"
-                        clipRule="evenodd"></path>
-                </svg>
-                <svg id="closeIcon" className="w-6 h-6 hidden" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                    <path fillRule="evenodd"
-                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 011.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                        clipRule="evenodd"></path>
-                </svg>
-            </button>
+const NavLinks = [
+    {
+        name: "Home",
+        url: "/"
+    },
+    {
+        name: "About us",
+        url: "/about"
+    },
+    {
+        name: "Services",
+        url: "/services"
+    },
+    {
+        name: "EMI Calculator",
+        url: "/calculator"
+    },
+    {
+        name: "DSA",
+        url: "/dsa"
+    },
+    {
+        name: "Loan Enquiry",
+        url: "/loan-enquiry"
+    },
+]
+
+const Mobilenavbar = ({ openNav, toggleNav, paths }) => {
+    return (
+        <div>
+            <Sheet open={openNav} onOpenChange={toggleNav} >
+                <SheetContent className="transition-all duration-500">
+                    <SheetTitle></SheetTitle>
+                    <SheetHeader>
+                        <Link href="/" className="flex items-center space-x-1 rtl:space-x-reverse">
+                            <img src={'/logo/PAR2.png'} className="h-10" alt="Logo" />
+                            <div className="flex flex-col justify-start">
+                                <span className=" text-2xl text-slate-600 font-semibold whitespace-nowrap leading-5 dark:text-white">PARV</span>
+                                <span className="text-[0.6rem] text-blue-600">Financial Services</span>
+                            </div>
+                        </Link>
+                    </SheetHeader>
+                    <SheetDescription className="transition-all duration-500">
+                        <div className="items-center justify-between w-full md:flex md:w-auto md:order-1" >
+                            <ul className="flex flex-col space-y-2 md:p-0 mt-4 font-medium text-base  md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                                {
+                                    NavLinks && NavLinks?.map((item, index) => {
+                                        const pathname = item?.url?.split("/")[1];
+
+                                        return (
+                                            <li key={index}>
+                                                <Link href={item?.url}
+                                                    className={`block py-2 px-3 rounded
+                                                         ${paths.includes(pathname) ? "md:text-blue-700 bg-blue-700 text-white" : ""}  md:p-0 md:dark:text-blue-500`}
+                                                    aria-current="page"
+                                                >
+                                                    {item?.name}
+                                                </Link>
+                                            </li>
+                                        )
+                                    })
+                                }
+                            </ul>
+                        </div>
+                    </SheetDescription>
+                </SheetContent>
+            </Sheet>
+        </div>
+    )
+}
+const NavbarNew = () => {
+    const [openNav, setOpennav] = useState(false);
+    const toggleNav = () => (setOpennav(!openNav));
+    const [navColar, setNavColar] = useState(false);
+    const pathName = usePathname();
+    const paths = pathName.split('/');
+    paths.shift();
+
+    // if (window.screenY > 2) {
+    //     setNavColar(true)
+    // }
+
+    return (
+        <div>
+            <nav className={` ${navColar ? "bg-white" : "bg-blue-100/70"} dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600`}>
+                <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                    <Link href="/" className="flex items-center space-x-1 rtl:space-x-reverse">
+                        <img src={'/logo/PAR2.png'} className="h-10" alt="Logo" />
+                        <div className="flex flex-col justify-start">
+                            <span className=" text-2xl text-slate-600 font-semibold whitespace-nowrap leading-5 dark:text-white">PARV</span>
+                            <span className="text-[0.6rem] text-blue-600">Financial Services</span>
+                        </div>
+                    </Link>
+                    <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                        <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Get started</button>
+                        <button
+                            data-collapse-toggle="navbar-sticky"
+                            type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                            aria-controls="navbar-sticky"
+                            aria-expanded="false"
+                            onClick={toggleNav}
+                        >
+                            <span className="sr-only">Open main menu</span>
+                            <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M1 1h15M1 7h15M1 13h15" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div className="items-center justify-between hidden w-full lg:flex md:w-auto md:order-1" id="navbar-sticky">
+                        <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:space-x-4 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                            {
+                                NavLinks && NavLinks?.map((item, index) => {
+                                    const pathname = item?.url?.split("/")[1];
+                                    console.log(pathname);
+                                    return (
+                                        <li key={index}>
+                                            <Link href={item?.url}
+                                                className={`block py-2 px-1 text-slate-800  ${paths.includes(pathname) ? "md:text-blue-700 border-b border-blue-700" : ""} md:p-0 md:dark:text-blue-500`}
+                                                aria-current="page"
+                                            >
+                                                {item?.name}
+                                            </Link>
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+
+            <Mobilenavbar
+                openNav={openNav}
+                toggleNav={toggleNav}
+                paths={paths}
+            />
         </div>
     )
 }
