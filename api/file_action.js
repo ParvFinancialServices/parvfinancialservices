@@ -62,6 +62,7 @@ export async function login(username, password) {
       credential: admin.credential.cert(Cred),
     });
   } catch (error) {
+    console.log(error);
     app = admin.app();
   }
 
