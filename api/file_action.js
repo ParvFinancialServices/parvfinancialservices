@@ -22,18 +22,6 @@ sdk.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-let app;
-try {
-  // console.log(Cred);
-  const Cred = JSON.parse(process.env.Key);
-  console.log("Cred", Cred);
-  app = admin.initializeApp({
-    credential: admin.credential.cert(Cred),
-  });
-} catch (error) {
-  app = admin.app();
-}
-
 export async function upload_doc({ file, folder }) {
   const uploader = sdk.uploader;
   let resource;
@@ -65,6 +53,18 @@ export async function upload_doc({ file, folder }) {
 // }
 
 export async function login(username, password) {
+  let app;
+  try {
+    // console.log(Cred);
+    const Cred = JSON.parse(process.env.Key);
+    console.log("Cred", Cred);
+    app = admin.initializeApp({
+      credential: admin.credential.cert(Cred),
+    });
+  } catch (error) {
+    app = admin.app();
+  }
+
   // console.clear();
 
   console.log(username, password);
