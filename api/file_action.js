@@ -53,6 +53,7 @@ export async function upload_doc({ file, folder }) {
 // }
 
 export async function login(username, password) {
+  console.log(process.env);
   let app;
   try {
     // console.log(Cred);
