@@ -1,20 +1,8 @@
 "use client"
 
-import * as React from "react"
+
 import {
-    AudioWaveform,
-    BookOpen,
-    Bot,
     ClipboardType,
-    Command,
-    Frame,
-    GalleryVerticalEnd,
-    Map,
-    PieChart,
-    Settings2,
-    SquareTerminal,
-    NotebookTabs,
-    NotebookTabsIcon,
     FileUser,
     BriefcaseBusinessIcon,
     HomeIcon,

@@ -45,7 +45,7 @@ export async function login(username, password) {
   const db = app.firestore();
 
   // getting profile details
-  let query = db.collection("cred").where("username", "==", username);
+  let query = db.collection("creds").where("username", "==", username);
   let snapshot = await query.get();
   snapshot.forEach((doc) => {
     profile = doc.data();
@@ -79,6 +79,8 @@ export async function login(username, password) {
       cookieStore.set("role", profile.role, {
         httpOnly: true,
       });
+      delete profile.password;
+      delete profile.salt;
       return { token, profile };
     } catch (error) {
       return { error };

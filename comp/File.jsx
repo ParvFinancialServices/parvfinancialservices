@@ -21,7 +21,7 @@ export default function File({ field, itemKey, setState, disabled }) {
     console.log(e, itemKey);
     let reader = new FileReader();
     reader.onload = async function (result) {
-      // let res = await upload_doc({ file: result.target.result, folder: "test" });
+      // let res = await upload_doc({ file: result.target.result, folder: field.name });
       let res = { public_id: "12345asd" };
       console.log("file upload successful! ", res);
       setState((state) => {
