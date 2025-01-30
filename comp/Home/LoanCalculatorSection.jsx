@@ -4,7 +4,7 @@ import { BigHeading, Heading } from "./Common";
 
 export default function LoanCalculatorSection() {
     return (
-        <section className="bg-gray-50 py-6 md:py-20">
+        <section className="bg-gray-50 py-6 md:py-20 px-6 md:px-16 lg:px-20">
             <div className=" max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
                 <div className="flex flex-col md:flex-row items-center">
                     {/* Left Side: Illustration */}

@@ -14,7 +14,7 @@ function ContactUs() {
             <NavbarNew />
             <main className=" mx-auto">
                 <Header title={'Loan Enquiry Form'} subTitle={'Please fill out the form below to inquire about our loan services. Once you submit the form, our representative will contact you shortly to discuss your requirements and guide you through the next steps.'}
-                    img={'/loan-enquiry.jpg'}
+                    img={'/services/loan-enquiry.png'}
                 />
                 <LoanEnquiryForm />
                 <PleaseNote />

@@ -219,7 +219,7 @@ export default function TestimonialSection() {
                 <div className="w-full flex justify-center mb-5">
                     <Heading text={"Testimonial"} />
                 </div>
-                <BigHeading text={'What Our Customers Say'} />
+                <BigHeading className="text-center pb-9" text={'What Our Customers Say'} />
                 {/* <h2 className="text-2xl font-bold text-center text-gray-800 mb-8"></h2> */}
                 <Slider {...settings}>
                     {testimonials.map((testimonial, index) => (

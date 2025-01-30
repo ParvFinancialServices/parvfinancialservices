@@ -48,7 +48,7 @@ const FAQ = () => {
                 </div>
                 <div className="w-full flex justify-center flex-col">
                     {/* <h2 class="lg:text-4xl text-3xl font-bold text-gray-700 text-center"></h2> */}
-                    <BigHeading text={'Frequently asked questions'} />
+                    <BigHeading className="text-center" text={'Frequently asked questions'} />
                     <p class="text-base text-gray-600 mt-3 text-center">
                         Your Questions, Answered: Everything You Need to Know About Our Loans
                     </p>
