@@ -261,7 +261,7 @@ const PersonalLoanForm = () => {
   }, [state]);
 
   useEffect(() => {
-    console.log("adminState", adminState);
+    console.log("adminState", adminState.profile);
   }, [adminState]);
 
   let onSubmit = async () => {

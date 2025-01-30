@@ -24,16 +24,19 @@ export default function LoginPage() {
     if (res.error) {
       throw error;
     } else {
+      // adminState.setProfile(res.profile);
       signInWithCustomToken(auth, res.token)
-        .then((userCredentials) => console.log(userCredentials))
+        .then(async (userCredentials) => {
+          let token = await userCredentials.user.getIdToken();
+          localStorage && localStorage.setItem("token", token);
+          router.push("/dashboard/admin/forms/personal_loan");
+        })
         .catch((error) => {
           const errorCode = error.code;
           const errorMessage = error.message;
           console.log(error);
           // ...
         });
-      adminState.setProfile(res.profile);
-      router.push("/dashboard/admin/forms/personal_loan");
     }
   }
 

@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { ChevronRight } from "lucide-react"
+import { ChevronRight } from "lucide-react";
 
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/components/ui/collapsible" 
+} from "@/components/ui/collapsible";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -16,12 +16,15 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
+import Link from "next/link";
 
-export function NavMain({ items,}) {
+export function NavMain({ items }) {
   return (
     <SidebarGroup>
-      <SidebarGroupLabel className="text-base font-medium">Dashboard</SidebarGroupLabel>
+      <SidebarGroupLabel className="text-base font-medium">
+        Dashboard
+      </SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible
@@ -32,29 +35,37 @@ export function NavMain({ items,}) {
           >
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
-                <SidebarMenuButton tooltip={item.title} 
-                // className={`${item?.isActive ? "bg-blue-500 text-white hover:bg-blue-400 hover:text-white" : "hover:bg-zinc-200"}`}
+                <SidebarMenuButton
+                  tooltip={item.title}
+                  // className={`${item?.isActive ? "bg-blue-500 text-white hover:bg-blue-400 hover:text-white" : "hover:bg-zinc-200"}`}
                 >
                   {item.icon && <item.icon />}
-                  <a href={item.url}>
+                  <Link href={item.url}>
                     <span>{item.title}</span>
-                  </a>
+                  </Link>
                   <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
                 </SidebarMenuButton>
               </CollapsibleTrigger>
               <CollapsibleContent>
-                <SidebarMenuSub >
+                <SidebarMenuSub>
                   {item.items?.map((subItem) => (
-                    <SidebarMenuSubItem key={subItem.title}
-                    className="flex gap-1 items-center "
-                     >
+                    <SidebarMenuSubItem
+                      key={subItem.title}
+                      className="flex gap-1 items-center "
+                    >
                       {/* {subItem?.icon && <subItem.icon size={17} className="text-sm"/>} */}
-                      <SidebarMenuSubButton asChild 
-                      className={`w-full ${subItem?.isActive ? "bg-blue-500 text-white hover:bg-blue-400 hover:text-white" : "hover:bg-zinc-200"}`}>
+                      <SidebarMenuSubButton
+                        asChild
+                        className={`w-full ${
+                          subItem?.isActive
+                            ? "bg-blue-500 text-white hover:bg-blue-400 hover:text-white"
+                            : "hover:bg-zinc-200"
+                        }`}
+                      >
                         {/* {subItem?.icon && <subItem.icon size={17}/>} */}
-                        <a href={subItem.url}>
+                        <Link href={subItem.url}>
                           <span>{subItem.title}</span>
-                        </a>
+                        </Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}
@@ -65,6 +76,5 @@ export function NavMain({ items,}) {
         ))}
       </SidebarMenu>
     </SidebarGroup>
-  )
+  );
 }
-
