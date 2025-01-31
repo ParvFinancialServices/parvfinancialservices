@@ -1,6 +1,48 @@
-import { LoginForm } from "@/components/login-form";
+"use client";
+
+import { login } from "@/api/file_action";
+import { Input } from "@/components/ui/input";
+import { useEffect } from "react";
+import { useState } from "react";
+import { useAdminState } from "../dashboard/store";
+import { useRouter } from "next/navigation";
+import { getAuth, signInWithCustomToken } from "firebase/auth";
+import app from "@/lib/firebaseConfig";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 export default function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const adminState = useAdminState();
+  async function callIt() {
+    const auth = getAuth(app);
+    const res = await login(username, password);
+    console.log(res);
+    if (res.error) {
+      throw error;
+    } else {
+      // adminState.setProfile(res.profile);
+      signInWithCustomToken(auth, res.token)
+        .then(async (userCredentials) => {
+          let token = await userCredentials.user.getIdToken();
+          localStorage && localStorage.setItem("token", token);
+          router.push("/dashboard/admin/forms/personal_loan");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(error);
+          // ...
+        });
+    }
+  }
+
+  useEffect(() => {
+    console.log(username, password);
+  }, [username, password]);
 
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
@@ -12,24 +54,27 @@ export default function LoginPage() {
         />
       </div>
       <div className="flex flex-col gap-4 p-6 md:p-10">
-        <div className="flex justify-center gap-2 md:justify-start">
-          {/* <a href="#" className="flex items-center gap-2 font-medium">
-            <div className="flex w-28 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <img
-              src="/logo/logo.jpg"
-              alt="Logo"
-              className="h-16"
-              />
-            </div>
-          </a> */}
-        </div>
         <div className="flex flex-1 items-center justify-center">
-          <div className="w-full max-w-xs">
-            <LoginForm />
+          <div className="flex flex-col gap-4 w-full max-w-xs">
+            <h1 className="text-3xl">Login</h1>
+            <Label htmlFor="username">Username</Label>
+            <Input
+              id="username"
+              onChange={(e) => setUsername(e.target.value)}
+            />
+            <Label htmlFor="username">Password</Label>
+            <Input
+              id="password"
+              type="password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <Link href="/forget-password">forget password?</Link>
+            <Button type="button" onClick={() => callIt()}>
+              submit
+            </Button>
           </div>
         </div>
       </div>
-
     </div>
-  )
+  );
 }
