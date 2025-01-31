@@ -27,42 +27,98 @@ export async function upload_doc({ file, folder }) {
   return resource;
 }
 
-export async function getUserData(token) {
+async function checkAuthentication(token) {
   const cookieStore = cookies();
   let role = cookieStore.get("role");
   let jwtToken = cookieStore.get("jwt");
 
   if (token && jwtToken.value) {
-    let profile;
     let app = getApp();
     let auth = app.auth();
     let res = await auth.verifyIdToken(token);
     let decoded = jwt.verify(jwtToken.value, process.env.SALT);
 
-    // console.log("decoded", decoded);
-    // console.log(role);
-    // console.log(res);
     if (res.role == role.value && res.role == decoded.role) {
-      // console.log(res);
-      // console.log(role);
-      const db = app.firestore();
-
-      // getting profile details
-      let query = db
-        .collection("creds")
-        .where("username", "==", decoded.username);
-      let snapshot = await query.select("username", "name", "role").get();
-
-      snapshot.forEach((doc) => {
-        profile = doc.data();
-      });
-
-      return { profile };
+      return {
+        decoded,
+        app,
+      };
     } else {
       redirect("/login");
     }
   } else {
     redirect("/login");
+  }
+}
+
+export async function getUserData(token) {
+  let { app, decoded } = await checkAuthentication(token);
+  const db = app.firestore();
+  let profile;
+  let query = db.collection("creds").where("username", "==", decoded.username);
+  let snapshot = await query.select("username", "name", "role").get();
+
+  snapshot.forEach((doc) => {
+    profile = doc.data();
+  });
+
+  return { profile };
+
+  // const cookieStore = cookies();
+  // let role = cookieStore.get("role");
+  // let jwtToken = cookieStore.get("jwt");
+
+  // if (token && jwtToken.value) {
+  //   let profile;
+  //   let app = getApp();
+  //   let auth = app.auth();
+  //   let res = await auth.verifyIdToken(token);
+  //   let decoded = jwt.verify(jwtToken.value, process.env.SALT);
+
+  //   // console.log("decoded", decoded);
+  //   // console.log(role);
+  //   // console.log(res);
+  //   if (res.role == role.value && res.role == decoded.role) {
+  //     // console.log(res);
+  //     // console.log(role);
+  //     const db = app.firestore();
+
+  //     // getting profile details
+  //     let query = db
+  //       .collection("creds")
+  //       .where("username", "==", decoded.username);
+  //     let snapshot = await query.select("username", "name", "role").get();
+
+  //     snapshot.forEach((doc) => {
+  //       profile = doc.data();
+  //     });
+
+  //     return { profile };
+  //   } else {
+  //     redirect("/login");
+  //   }
+  // } else {
+  //   redirect("/login");
+  // }
+}
+
+export async function getLoanData(token, type) {
+  let { app, decoded } = await checkAuthentication(token);
+  const db = app.firestore();
+
+  switch (type) {
+    case "Personal":
+      let data = [];
+      let query = db.collection("personal_loans");
+      let snapshot = await query.get();
+
+      snapshot.forEach((doc) => {
+        data.push({ id: doc.id, data: doc.data() });
+      });
+
+      return { data };
+    default:
+      return {};
   }
 }
 
@@ -75,7 +131,7 @@ function getApp() {
       credential: admin.credential.cert(serviceAccountCredentials),
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     app = admin.app();
   }
 
