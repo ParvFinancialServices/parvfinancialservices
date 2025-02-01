@@ -17,22 +17,46 @@ import {
 import { Separator } from "@radix-ui/react-separator";
 import { useAdminState } from "./store";
 import { useEffect } from "react";
+import { getAuth, signInWithCustomToken } from "firebase/auth";
+import app from "@/lib/firebaseConfig";
+import { useState } from "react";
 
 const Layout = ({ children }) => {
   let AdminState = useAdminState();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(function () {
     if (typeof window !== "undefined") {
-      let token = localStorage.getItem("token");
-      getUserData(token).then((res) => {
-        console.log(res);
-        AdminState.setProfile(res.profile);
-      });
+      let token;
+      if (AdminState.user.hasOwnProperty("uid")) {
+        AdminState.user.getIdToken().then((token) => {
+          getUserData(token).then((res) => {
+            console.log(res);
+            AdminState.setProfile(res.profile);
+            setIsLoading(false);
+          });
+        });
+      } else {
+        const auth = getAuth(app);
+        localStorage && (token = localStorage.getItem("token"));
+        console.log("token", token);
+        signInWithCustomToken(auth, token).then(async (userCredentials) => {
+          let user = userCredentials.user;
+          let token = await user.getIdToken();
+          // localStorage && localStorage.setItem("token", token);
+          AdminState.setUser(user);
+          getUserData(token).then((res) => {
+            console.log(res);
+            AdminState.setProfile(res.profile);
+            setIsLoading(false);
+          });
+        });
+      }
     }
   }, []);
 
   return (
     <SidebarProvider>
-      <AppSidebar state={AdminState}/>
+      <AppSidebar state={AdminState} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
@@ -53,7 +77,7 @@ const Layout = ({ children }) => {
             </Breadcrumb>
           </div>
         </header>
-        {children}
+        {isLoading ? <h1>Loading...</h1> : children}
       </SidebarInset>
     </SidebarProvider>
   );
