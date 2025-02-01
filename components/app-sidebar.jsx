@@ -1,45 +1,36 @@
-"use client"
+"use client";
 
-import { NavMain } from "@/components/nav-main.jsx"
-import { NavProjects } from "@/components/nav-projects.jsx"
+import { useAdminState } from "@/app/dashboard/store";
+import { NavMain } from "@/components/nav-main.jsx";
+import { NavProjects } from "@/components/nav-projects.jsx";
 import { NavUser } from "@/components/nav-user";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
-import { usePathname } from "next/navigation"
-import { useState } from "react"
-import { AdminSidebar } from "@/config/AdminSideBar"
-import { useEffect } from "react"
-
+} from "@/components/ui/sidebar";
+import { AdminSidebar } from "@/config/AdminSideBar";
 
 export function AppSidebar({ ...props }) {
+  const AdminState = useAdminState();
 
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        {/* <TeamSwitcher teams={data.teams} /> */}
-        <div className="w-full mx-auto gap-2 flex justify-center item-center">
-          <img
-            src="/logo/PAR2.png"
-            alt="Logo"
-            className="h-10 w-10 mx-auto"
-          />
-          <h2 className="text-[1.1rem] font-mono font-semibold leading-5">Parv Financial Service</h2>
+      <div className="w-full flex flex-row items-center justify-start p-2">
+        <div className="gap-2 flex flex-row justify-start items-center overflow-hidden w-fit">
+          <img src="/logo/PAR2.png" alt="Logo" className="w-10 aspect-square" />
+          <h2 className="min-w-max">Parv Financial Service</h2>
         </div>
-
-      </SidebarHeader>
+      </div>
       <SidebarContent>
         <NavMain items={AdminSidebar.navMain} />
         <NavProjects projects={AdminSidebar.projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={AdminSidebar?.user} />
+        <NavUser user={AdminState?.profile} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

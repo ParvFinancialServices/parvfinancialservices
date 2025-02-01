@@ -261,32 +261,8 @@ const PersonalLoanForm = () => {
   }, [state]);
 
   useEffect(() => {
-    console.log("adminState", adminState);
+    console.log("adminState", adminState.profile);
   }, [adminState]);
-
-  useEffect(() => {
-    // async function callIt() {
-    //   const auth = getAuth(app);
-    //   const res = await login("rishab@gmail.com", "123456");
-    //   console.log(res);
-    //   const { token } = res;
-    //   // await signInWithCustomToken(auth, token);
-    //   signInWithCustomToken(auth, token)
-    //     .then((userCredential) => {
-    //       // Signed in
-    //       const user = userCredential.user;
-    //       console.log(user);
-    //       // ...
-    //     })
-    //     .catch((error) => {
-    //       const errorCode = error.code;
-    //       const errorMessage = error.message;
-    //       console.log(error);
-    //       // ...
-    //     });
-    // }
-    // callIt();
-  }, []);
 
   let onSubmit = async () => {
     // test mode
@@ -423,30 +399,32 @@ const PersonalLoanForm = () => {
         ref={previewRef}
         className="h-screen w-screen p-8 bg-white m-4 relative"
       >
-        <h1 className="text-3xl">Preview</h1>
-        <button
-          type="button"
-          onClick={(e) => previewRef.current.close()}
-          className="h-12 w-12 p-4 absolute top-0 right-0"
-        >
-          <Image src={CloseIcon} alt="close" />
-        </button>
-        <Separator />
-        {Object.keys(state).map((key, index) => {
-          return (
-            <StepForm
-              setState={setState}
-              step={index}
-              key={key}
-              state={state}
-              readonly={true}
-            />
-          );
-        })}
-        <div className="flex justify-end">
-          <Button type="button" onClick={onSubmit}>
-            submit
-          </Button>
+        <div className="flex flex-col gap-4">
+          <h1 className="text-3xl">Preview</h1>
+          <button
+            type="button"
+            onClick={(e) => previewRef.current.close()}
+            className="h-12 w-12 p-4 absolute top-0 right-0"
+          >
+            <Image src={CloseIcon} alt="close" />
+          </button>
+          <Separator />
+          {Object.keys(state).map((key, index) => {
+            return (
+              <StepForm
+                setState={setState}
+                step={index}
+                key={key}
+                state={state}
+                readonly={true}
+              />
+            );
+          })}
+          <div className="flex justify-end">
+            <Button type="button" onClick={onSubmit}>
+              submit
+            </Button>
+          </div>
         </div>
       </dialog>
     </div>

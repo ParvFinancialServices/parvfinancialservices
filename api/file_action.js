@@ -1,21 +1,12 @@
 "use server";
 
-import { v2 as sdk } from "cloudinary";
-import { FirebaseError } from "firebase/app";
-import * as admin from "firebase-admin";
+import crypto from "crypto";
 import * as jwt from "jsonwebtoken";
-// import Cred from "@/key.json";
+import { v2 as sdk } from "cloudinary";
 import { cookies } from "next/headers";
+import * as admin from "firebase-admin";
+import { redirect } from "next/navigation";
 
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-  measurementId: process.env.NEXT_PUBLIC_MESAUREMENT_ID,
-};
 sdk.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
   api_key: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY,
@@ -36,73 +27,105 @@ export async function upload_doc({ file, folder }) {
   return resource;
 }
 
-// function getApp() {
-//   let app;
-//   try {
-//     // console.log(Cred);
-//     const Cred = JSON.parse(process.env.Key);
-//     console.log("Cred", Cred);
-//     app = admin.initializeApp({
-//       credential: admin.credential.cert(Cred),
-//     });
-//   } catch (error) {
-//     app = admin.app();
-//   }
-//   // console.log("app",app);
-//   return app;
-// }
+export async function getUserData(token) {
+  const cookieStore = cookies();
+  let role = cookieStore.get("role");
+  let jwtToken = cookieStore.get("jwt");
 
-export async function login(username, password) {
+  if (token && jwtToken.value) {
+    let profile;
+    let app = getApp();
+    let auth = app.auth();
+    let res = await auth.verifyIdToken(token);
+    let decoded = jwt.verify(jwtToken.value, process.env.SALT);
+
+    // console.log("decoded", decoded);
+    // console.log(role);
+    // console.log(res);
+    if (res.role == role.value && res.role == decoded.role) {
+      // console.log(res);
+      // console.log(role);
+      const db = app.firestore();
+
+      // getting profile details
+      let query = db
+        .collection("creds")
+        .where("username", "==", decoded.username);
+      let snapshot = await query.select("username", "name", "role").get();
+
+      snapshot.forEach((doc) => {
+        profile = doc.data();
+      });
+
+      return { profile };
+    } else {
+      redirect("/login");
+    }
+  } else {
+    redirect("/login");
+  }
+}
+
+function getApp() {
   let app;
+  // Initialising the firebase app using serviceAccountCredentials
   try {
-    // console.log(Cred);
-    const Cred = JSON.parse(process.env.KEY);
-    console.log("Cred", Cred);
+    const serviceAccountCredentials = JSON.parse(process.env.KEY);
     app = admin.initializeApp({
-      credential: admin.credential.cert(Cred),
+      credential: admin.credential.cert(serviceAccountCredentials),
     });
   } catch (error) {
     console.log(error);
     app = admin.app();
   }
 
-  // console.clear();
+  return app;
+}
 
-  console.log(username, password);
-  // const app = getApp();
+export async function login(username, password) {
+  let profile;
+  let app = getApp();
   const auth = app.auth();
-
   const db = app.firestore();
-  let cred;
-  let query = db.collection("cred").where("username", "==", username);
-  let snapshot = await query.get();
-  snapshot.forEach(async (doc) => {
-    cred = doc.data();
-    console.log(cred);
-  });
-  if (cred.password == password) {
-    try {
-      const cookieStore = await cookies();
-      let string = jwt.sign(
-        {
-          username: cred.username,
-          role: cred.role,
-        },
-        "salt123"
-      );
-      console.log("string", string);
-      const token = await auth.createCustomToken(
-        "d8ad2d85-9416-4451-9ded-75f40a96d4c5",
-        {
-          role: cred.role,
-        }
-      );
 
-      console.log("token", token);
-      cookieStore.set("jwt", jwt, {
-        httpOnly: true,
+  // getting profile details
+  let query = db.collection("creds").where("username", "==", username);
+  let snapshot = await query
+    .select("username", "password", "salt", "role")
+    .get();
+
+  snapshot.forEach((doc) => {
+    profile = doc.data();
+  });
+
+  // creating user provided password hash
+  password = crypto
+    .pbkdf2Sync(password, profile.salt, 10, 16, "sha512")
+    .toString("hex");
+
+  // checking password
+  if (profile.password == password) {
+    try {
+      const cookieStore = cookies();
+      let payload = {
+        username: profile.username,
+        role: profile.role,
+      };
+      let string = jwt.sign(payload, process.env.SALT);
+      let uuid = crypto.randomUUID();
+      // Creating a temporary token to sign in the user so that we can use the role inside security rules
+      const token = await auth.createCustomToken(uuid, {
+        role: profile.role,
       });
-      return { token, cred };
+      cookieStore.set("jwt", string, {
+        httpOnly: true,
+        maxAge: 86400,
+      });
+      cookieStore.set("role", profile.role, {
+        httpOnly: true,
+        maxAge: 86400,
+      });
+      return { token };
     } catch (error) {
       return { error };
     }
