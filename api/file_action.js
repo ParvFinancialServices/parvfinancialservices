@@ -32,19 +32,23 @@ async function checkAuthentication(token) {
   let role = cookieStore.get("role");
   let jwtToken = cookieStore.get("jwt");
 
-  if (token && jwtToken.value) {
-    let app = getApp();
-    let auth = app.auth();
-    let res = await auth.verifyIdToken(token);
-    let decoded = jwt.verify(jwtToken.value, process.env.SALT);
+  if (token) {
+    if (jwtToken?.value) {
+      let app = getApp();
+      let auth = app.auth();
+      let res = await auth.verifyIdToken(token);
+      let decoded = jwt.verify(jwtToken.value, process.env.SALT);
 
-    if (res.role == role.value && res.role == decoded.role) {
-      return {
-        decoded,
-        app,
-      };
+      if (res.role == role.value && res.role == decoded.role) {
+        return {
+          decoded,
+          app,
+        };
+      } else {
+        redirect("/login");
+      }
     } else {
-      redirect("/login");
+      throw new Error("JWT not found");
     }
   } else {
     redirect("/login");
@@ -175,11 +179,9 @@ export async function login(username, password) {
       });
       cookieStore.set("jwt", string, {
         httpOnly: true,
-        maxAge: 86400,
       });
       cookieStore.set("role", profile.role, {
         httpOnly: true,
-        maxAge: 86400,
       });
       return { token };
     } catch (error) {

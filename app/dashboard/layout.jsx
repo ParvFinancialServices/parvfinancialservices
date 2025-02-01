@@ -19,9 +19,11 @@ import { useAdminState } from "./store";
 import { useEffect } from "react";
 import { getAuth, signInWithCustomToken } from "firebase/auth";
 import app from "@/lib/firebaseConfig";
+import { useState } from "react";
 
 const Layout = ({ children }) => {
   let AdminState = useAdminState();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(function () {
     if (typeof window !== "undefined") {
       let token;
@@ -30,20 +32,22 @@ const Layout = ({ children }) => {
           getUserData(token).then((res) => {
             console.log(res);
             AdminState.setProfile(res.profile);
+            setIsLoading(false);
           });
         });
       } else {
         const auth = getAuth(app);
         localStorage && (token = localStorage.getItem("token"));
-        console.log("token",token);
+        console.log("token", token);
         signInWithCustomToken(auth, token).then(async (userCredentials) => {
           let user = userCredentials.user;
           let token = await user.getIdToken();
-          localStorage && localStorage.setItem("token", token);
+          // localStorage && localStorage.setItem("token", token);
           AdminState.setUser(user);
           getUserData(token).then((res) => {
             console.log(res);
             AdminState.setProfile(res.profile);
+            setIsLoading(false);
           });
         });
       }
@@ -73,7 +77,7 @@ const Layout = ({ children }) => {
             </Breadcrumb>
           </div>
         </header>
-        {children}
+        {isLoading ? <h1>Loading...</h1> : children}
       </SidebarInset>
     </SidebarProvider>
   );

@@ -3,9 +3,11 @@ import { NextResponse } from "next/server";
 // This function can be marked `async` if using `await` inside
 export function middleware(request) {
   let role = request.cookies.get("role");
+  let jwtToken = request.cookies.get("jwt");
   if (
     request.nextUrl.pathname.startsWith("/dashboard/admin") &&
-    role?.value !== "Admin"
+    role?.value !== "Admin" &&
+    !jwtToken
   ) {
     // const url = new URL()
     return NextResponse.redirect(new URL("/login", request.url));
