@@ -25,7 +25,7 @@ export default function Home() {
     // <div className={`${poppins.className} w-screen min-h-screen h-fit flex flex-col bg-blue-100/75 relative`}>
     <div className={` w-screen min-h-screen h-fit flex flex-col bg-blue-100/75 relative`}>
       <NavbarNew />
-      <main className="flex  flex-col h-fit px-6 md:px-16 lg:px-20">
+      <main className="flex  flex-col h-fit ">
         <Banner />
         <About />
         <Services />
