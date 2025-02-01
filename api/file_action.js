@@ -185,7 +185,8 @@ export async function login(username, password) {
       });
       return { token };
     } catch (error) {
-      return { error };
+      console.log(error);
+      return { error: "Unexpected error occured" };
     }
   } else {
     return { error: "Username or password is incorrect" };
