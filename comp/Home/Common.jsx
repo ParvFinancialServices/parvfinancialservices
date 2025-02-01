@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 
 
 export const Heading = ({ text }) => {
@@ -8,10 +9,10 @@ export const Heading = ({ text }) => {
     )
 };
 
-export const BigHeading = ({ text }) => {
+export const BigHeading = ({ text, className }) => {
     return (
         <div>
-            <h2 className="text-gray-800 sm:text-3xl text-2xl font-extrabold">{text}</h2>
+            <h2 className={cn("text-gray-800 sm:text-3xl text-2xl font-extrabold", className)}>{text}</h2>
         </div>
     )
 }

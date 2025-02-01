@@ -4,6 +4,8 @@ import LoanCalculator from "@/comp/Calculator/LoanCalculator";
 import Footer from "@/comp/Home/Footer";
 import NavbarNew from "@/comp/Navbar/Navbar";
 import EMINote from "@/comp/Calculator/EMINote";
+// import EmiContent from "@/comp/Calculator/Content";
+import EmiAccordion from "@/comp/Calculator/Content";
 
 
 const Calculator = () => {
@@ -15,6 +17,7 @@ const Calculator = () => {
                     <Header title={"EMI Calculator"} subTitle={"Your trusted financial Partner"} img={'/About/calculator.png'} />
                     <LoanCalculator />
                     <EMINote />
+                    <EmiAccordion />
                 </div>
             </div>
             <Footer />

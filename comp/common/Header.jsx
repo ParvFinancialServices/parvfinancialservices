@@ -1,17 +1,16 @@
 'use client'
 
-import { Calculator } from "lucide-react";
-
 export default function Header({ title, subTitle, img }) {
     return (
-        <header className="bg-blue-500 from-blue-300 to-indigo-700 text-white  py-3">
+        // <header className=" md:h-44 from-blue-500 to-teal-500  py-3">
+        <header className="bg-gradient-to-r from-blue-500 to-teal-500 text-white text-center py-12 px-6">
             <div className="max-w-6xl container mx-auto px-4 flex justify-between items-center">
-                <div className="space-y-4">
-                    <h1 className="text-3xl font-bold text-start"> {title}</h1>
+                <div className=" space-y-2 md:space-y-4">
+                    <h1 className="text-xl md:text-3xl font-bold text-start"> {title}</h1>
                     <p className="text-base text-start max-w-4xl ">{subTitle}</p>
                 </div>
                 <div className="hidden md:block">
-                    <img src={img} className="w-56" />
+                    <img src={img} className="w-full h-40" />
                     {/* <Calculator size={70} strokeWidth={1} /> */}
                 </div>
             </div>

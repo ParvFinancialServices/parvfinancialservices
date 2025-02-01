@@ -3,10 +3,10 @@ import SignUpForm from "./DSASignUPForm";
 export function HeaderSection() {
     return (
         <div className="bg-gradient-to-r from-blue-500 to-teal-500 text-white text-center py-12 px-6">
-            <h1 className="text-4xl font-bold mb-4">
+            <h1 className="text-2xl md:text-4xl font-bold mb-4">
                 Apply to Become a DSA Partner
             </h1>
-            <p className="text-lg">
+            <p className="md:text-lg">
                 Join our network of professionals and help others get access to financial solutions while you earn and grow.
             </p>
         </div>
@@ -16,7 +16,7 @@ export function HeaderSection() {
 
 export function FormInstructions() {
     return (
-        <div className="bg-gray-50 py-8 px-6 text-center">
+        <div className="bg-gray-50 py-8 md:px-6 text-center">
             <h2 className="text-2xl font-bold mb-4"> Apply For DSA </h2>
             <p className="text-gray-600">
                 Fill out the form below with accurate details. Once submitted, our team will review your application and get back to you shortly.
