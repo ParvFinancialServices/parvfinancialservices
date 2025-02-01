@@ -3,7 +3,7 @@ export default function HeroSection() {
         <section className="bg-gray-50 ">
             <div className="container mx-auto max-w-6xl px-6 lg:flex lg:items-center lg:space-x-8 py-16">
                 {/* Left Text Section */}
-                <div className="lg:w-1/2 text-center lg:text-left">
+                <div className="lg:w-1/2 text-start lg:text-left">
                     <h1 className="text-4xl font-bold text-gray-800">
                         Helping you achieve <span className="text-blue-600">financial freedom</span>.
                     </h1>

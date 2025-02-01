@@ -82,9 +82,9 @@ export default function SignUpForm() {
     };
 
     return (
-        <div className=" bg-gray-50 rounded-lg p-8">
+        <div className=" bg-gray-50 rounded-lg md:p-8">
             <form onSubmit={handleSubmit} className="container mx-auto mb-8">
-                <div className="container mx-auto grid grid-cols-3 gap-6">
+                <div className="container mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div>
                         <Input
                             name="fullName"

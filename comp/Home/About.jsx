@@ -26,8 +26,7 @@ const data = {
 }
 const About = () => {
     return (
-        <div className="bg-white">
-
+        <div className="bg-white px-6 md:px-16 lg:px-20">
             <section class="py-10 md:py-24 relative xl:mr-0 lg:mr-5 mr-0">
                 <div class="w-full max-w-7xl px-4 md:px-5 lg:px-5 mx-auto">
                     <div class="w-full justify-start items-center xl:gap-12 gap-10 grid lg:grid-cols-2 grid-cols-1">
