@@ -27,8 +27,9 @@ export default function LoginPage() {
       // adminState.setProfile(res.profile);
       signInWithCustomToken(auth, res.token)
         .then(async (userCredentials) => {
-          let token = await userCredentials.user.getIdToken();
-          localStorage && localStorage.setItem("token", token);
+          let user = userCredentials.user;
+          localStorage && localStorage.setItem("token", res.token);
+          adminState.setUser(user);
           router.push("/dashboard/admin/forms/personal_loan");
         })
         .catch((error) => {

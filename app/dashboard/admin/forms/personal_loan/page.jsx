@@ -73,7 +73,7 @@ const Step = ({
             id={field.name}
             value={field.value}
             onChange={(e) => onChange(key, e.target.value)}
-            disabled={readonly}
+            disabled={readonly || field.disabled}
           />
           {field.error ? (
             <div>
@@ -90,7 +90,7 @@ const Step = ({
             type="date"
             onChange={(e) => onChange(key, e.target.value)}
             value={field.value}
-            disabled={readonly}
+            disabled={readonly || field.disabled}
           />
           {field.error ? (
             <div>
@@ -106,7 +106,7 @@ const Step = ({
           <Select
             id={field.name}
             onValueChange={(e) => onChange(key, e)}
-            disabled={readonly}
+            disabled={readonly || field.disabled}
           >
             <SelectTrigger className="w-full">
               <SelectValue
@@ -135,7 +135,7 @@ const Step = ({
         <div className="flex flex-col col-span-3 gap-4" key={key}>
           <Label htmlFor={field.name}>{field.label}</Label>
           <RadioGroup
-            disabled={readonly}
+            disabled={readonly || field.disabled}
             value={field.value ? field.value : "No"}
             className="flex flex-row gap-4 items-center"
             onValueChange={(e) => onChange(key, e)}
@@ -180,7 +180,7 @@ const Step = ({
           itemKey={key}
           field={field}
           setState={setState}
-          disabled={readonly}
+          disabled={readonly || field.disabled}
         />
       );
     default:
@@ -191,7 +191,7 @@ const Step = ({
             id={field.name}
             value={field.value}
             onChange={(e) => onChange(key, e)}
-            disabled={readonly}
+            disabled={readonly || field.disabled}
           />
         </div>
       );
@@ -261,7 +261,9 @@ const PersonalLoanForm = () => {
   }, [state]);
 
   useEffect(() => {
-    console.log("adminState", adminState.profile);
+    console.log("adminState", adminState);
+    state.info.sections[0].fields[1].value = adminState.profile.username;
+    state.info.sections[0].fields[2].value = adminState.profile.name;
   }, [adminState]);
 
   let onSubmit = async () => {
