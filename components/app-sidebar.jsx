@@ -14,6 +14,8 @@ import { AdminSidebar } from "@/config/AdminSideBar";
 
 export function AppSidebar({ ...props }) {
   const AdminState = useAdminState();
+  console.log(props);
+  
 
   return (
     <Sidebar collapsible="icon" {...props}>

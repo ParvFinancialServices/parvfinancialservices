@@ -44,7 +44,7 @@ const Banner = () => {
                     </div>
 
                     <div className="mt-4">
-                        <a href="#contact" className="px-5 py-3 tracking-wider text-white bg-blue-500 rounded-lg md:px-8 hover:bg-blue-600 group">
+                        <a href="/services" className="px-5 py-3 tracking-wider text-white bg-blue-500 rounded-lg md:px-8 hover:bg-blue-600 group">
                             <span>Explore More Services</span>
                         </a>
                     </div>

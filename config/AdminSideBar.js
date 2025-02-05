@@ -114,3 +114,7 @@ export const AdminSidebar = {
     },
   ],
 };
+
+export const RmSideBar=()=>{
+  
+}

@@ -2,6 +2,7 @@
 import { ChevronRight } from "lucide-react";
 import React from "react";
 import { Heading } from "./Common";
+import Link from "next/link";
 
 
 const AboutBox = ({ head, para, imageUrl }) => {
@@ -46,38 +47,6 @@ const About = () => {
                                             success.</p>
                                     </div>
                                 </div>
-                                {/* <div className="w-full flex-col justify-center items-start gap-6 flex">
-                                    <div className="w-full justify-start items-center gap-8 grid md:grid-cols-2 grid-cols-1">
-                                        <div
-                                            className="w-full h-full p-3.5 rounded-xl border border-gray-200 hover:border-gray-400 transition-all duration-700 ease-in-out flex-col justify-start items-start gap-2.5 inline-flex">
-                                            <h4 className="text-gray-900 text-2xl font-bold font-manrope leading-9">33+ Years</h4>
-                                            <p className="text-gray-500 text-base font-normal leading-relaxed">Influencing Digital
-                                                Landscapes Together</p>
-                                        </div>
-                                        <div
-                                            className="w-full h-full p-3.5 rounded-xl border border-gray-200 hover:border-gray-400 transition-all duration-700 ease-in-out flex-col justify-start items-start gap-2.5 inline-flex">
-                                            <h4 className="text-gray-900 text-2xl font-bold font-manrope leading-9">125+ Projects
-                                            </h4>
-                                            <p className="text-gray-500 text-base font-normal leading-relaxed">Excellence Achieved
-                                                Through Success</p>
-                                        </div>
-                                    </div>
-                                    <div className="w-full h-full justify-start items-center gap-8 grid md:grid-cols-2 grid-cols-1">
-                                        <div
-                                            className="w-full p-3.5 rounded-xl border border-gray-200 hover:border-gray-400 transition-all duration-700 ease-in-out flex-col justify-start items-start gap-2.5 inline-flex">
-                                            <h4 className="text-gray-900 text-2xl font-bold font-manrope leading-9">26+ Awards</h4>
-                                            <p className="text-gray-500 text-base font-normal leading-relaxed">Our Dedication to
-                                                Innovation Wins Understanding</p>
-                                        </div>
-                                        <div
-                                            className="w-full h-full p-3.5 rounded-xl border border-gray-200 hover:border-gray-400 transition-all duration-700 ease-in-out flex-col justify-start items-start gap-2.5 inline-flex">
-                                            <h4 className="text-gray-900 text-2xl font-bold font-manrope leading-9">99% Happy
-                                                Clients</h4>
-                                            <p className="text-gray-500 text-base font-normal leading-relaxed">Mirrors our Focus on
-                                                Client Satisfaction.</p>
-                                        </div>
-                                    </div>
-                                </div> */}
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     {
                                         data?.box?.map((items, index) => {
@@ -90,6 +59,7 @@ const About = () => {
                                     }
                                 </div>
                             </div>
+                            <Link href={'/about'}>
                             <button
                                 className="sm:w-fit w-full group px-3.5 py-2 bg-blue-500 hover:bg-indigo-500 rounded-lg shadow-[0px_1px_2px_0px_rgba(16,_24,_40,_0.05)] transition-all duration-700 ease-in-out justify-center items-center flex">
                                 <span
@@ -97,6 +67,8 @@ const About = () => {
                                     More</span>
                                 <ChevronRight size={17} className="text-white" />
                             </button>
+                            </Link>
+                            
                         </div>
                         <div className="w-full lg:justify-start justify-center items-start flex">
                             <div

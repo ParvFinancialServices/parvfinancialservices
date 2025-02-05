@@ -81,7 +81,7 @@ const ContactUs = () => {
               </li>
             </ul>
           </div>
-          <div className="z-10 relative bg-red-500">
+          <div className="z-10 relative">
             <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3696018.429574582!2d84.264028!3d25.223685!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398d9f4fafc4cdc3%3A0xde2573891120ae88!2sPARV%20FINANCIAL%20SERVICES!5e0!3m2!1sen!2sin!4v1738207167113!5m2!1sen!2sin" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
