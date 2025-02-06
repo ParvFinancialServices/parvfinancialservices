@@ -20,8 +20,12 @@ import { useEffect } from "react";
 import { getAuth, signInWithCustomToken } from "firebase/auth";
 import app from "@/lib/firebaseConfig";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
+import { makeBreadcrumItem } from "@/lib/utils";
 
 const Layout = ({ children }) => {
+  const pathname = usePathname();
+  const breadcrumList = pathname.split("/").slice(3);
   let AdminState = useAdminState();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(function () {
@@ -64,15 +68,16 @@ const Layout = ({ children }) => {
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
               <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">
-                    Building Your Application
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-                </BreadcrumbItem>
+                {breadcrumList.map((e, ind) => (
+                  <>
+                    <BreadcrumbItem className="hidden md:block" key={e}>
+                      {makeBreadcrumItem(e)}
+                    </BreadcrumbItem>
+                    {ind < breadcrumList.length - 1 ? (
+                      <BreadcrumbSeparator className="hidden md:block" />
+                    ) : null}
+                  </>
+                ))}
               </BreadcrumbList>
             </Breadcrumb>
           </div>

@@ -275,6 +275,7 @@ const PersonalLoanForm = () => {
       let newState = cloneDeep(state);
       removeProperty(newState, "options");
       removeProperty(newState, "type");
+      newState.date = new Date().toLocaleString();
       console.log(newState);
 
       let personalLoansCollection = collection(db, "personal_loans");

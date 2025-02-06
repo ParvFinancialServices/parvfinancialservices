@@ -11,6 +11,8 @@ export function middleware(request) {
   ) {
     // const url = new URL()
     return NextResponse.redirect(new URL("/login", request.url));
+  }else{
+    console.log("else",role);
   }
 
   return NextResponse.next();

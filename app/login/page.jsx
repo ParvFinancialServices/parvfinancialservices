@@ -30,7 +30,16 @@ export default function LoginPage() {
           let user = userCredentials.user;
           localStorage && localStorage.setItem("token", res.token);
           adminState.setUser(user);
-          router.push("/dashboard/admin/forms/personal_loan");
+          switch (res.role) {
+            case "Admin":
+              router.push("/dashboard/admin/forms/personal_loan");
+              break;
+            case "DSA":
+              router.push("/dashboard/connector");
+            default:
+              router.push("/dashboard/connector");
+              break;
+          }
         })
         .catch((error) => {
           const errorCode = error.code;
