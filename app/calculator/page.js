@@ -1,28 +1,70 @@
-'use client'
-import Header from "@/comp/common/Header";
-import LoanCalculator from "@/comp/Calculator/LoanCalculator";
+// 'use client'
+// import Header from "@/comp/common/Header";
+// import LoanCalculator from "@/comp/Calculator/LoanCalculator";
+// import Footer from "@/comp/Home/Footer";
+// import NavbarNew from "@/comp/Navbar/Navbar";
+// import EMINote from "@/comp/Calculator/EMINote";
+// // import EmiContent from "@/comp/Calculator/Content";
+// import EmiAccordion from "@/comp/Calculator/Content";
+
+
+// const Calculator = () => {
+//     return (
+//         <div className="mt-[4.5rem]">
+//             <NavbarNew />
+//             <div>
+//                 <div className="flex-grow">
+//                     <Header title={"EMI Calculator"} subTitle={"Your trusted financial Partner"} img={'/About/calculator.png'} />
+//                     <LoanCalculator />
+//                     <EMINote />
+//                     <EmiAccordion />
+//                 </div>
+//             </div>
+//             <Footer />
+//         </div>
+//     )
+// }
+
+// export default Calculator;
+
+
+import Head from 'next/head';
 import Footer from "@/comp/Home/Footer";
 import NavbarNew from "@/comp/Navbar/Navbar";
+import DSAPage from "@/comp/dsa/DSAPage";
+import LoanCalculator from "@/comp/Calculator/LoanCalculator";
 import EMINote from "@/comp/Calculator/EMINote";
-// import EmiContent from "@/comp/Calculator/Content";
 import EmiAccordion from "@/comp/Calculator/Content";
+import Header from "@/comp/common/Header";
+import React from "react";
 
-
-const Calculator = () => {
+function Connector() {
     return (
-        <div className="mt-[4.5rem]">
-            <NavbarNew />
+        <>
+            <Head>
+                <title>EMI Calculator | Parv Financial Services</title>
+                <meta name="description" content="Use our EMI Calculator to estimate your loan repayments with ease. Plan your finances with Parv Financial Services and make informed decisions." />
+                <meta name="keywords" content="EMI calculator, loan calculator, financial planning, loan EMI, Parv Financial Services" />
+                <meta name="author" content="Parv Financial Services" />
+                <meta property="og:title" content="EMI Calculator | Parv Financial Services" />
+                <meta property="og:description" content="Calculate your loan EMI easily with Parv Financial Services' EMI Calculator. Plan your loan repayments effectively!" />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://www.parvfinancialservices.com/calculator" />
+                <meta property="og:image" content="/About/calculator.png" />
+                <meta name="robots" content="index, follow" />
+            </Head>
             <div>
-                <div className="flex-grow">
+                <NavbarNew />
+                <main className="mt-[4.5rem]">
                     <Header title={"EMI Calculator"} subTitle={"Your trusted financial Partner"} img={'/About/calculator.png'} />
                     <LoanCalculator />
                     <EMINote />
                     <EmiAccordion />
-                </div>
+                </main>
+                <Footer />
             </div>
-            <Footer />
-        </div>
-    )
-}
+        </>
+    );
+};
 
-export default Calculator;
+export default Connector;

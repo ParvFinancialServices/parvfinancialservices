@@ -4,7 +4,7 @@ import { BigHeading, Heading } from "./Common";
 const ContactUs = () => {
   return (
     <div className="w-full bg-white py-5 px-6 md:px-16 lg:px-20">
-      <div className=" mx-auto bg-white md:p-4 font-[sans-serif]">
+      <div className=" mx-auto container bg-white md:p-4 font-[sans-serif]">
         <div className="flex justify-start md:justify-center flex-col w-full">
           <div className="mx-auto my-4">
             <Heading text={'Contact us'} />

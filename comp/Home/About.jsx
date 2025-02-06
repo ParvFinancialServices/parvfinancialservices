@@ -22,7 +22,7 @@ const data = {
         <AboutBox head={'20+ Years of Expertise'} para={'Empowering Financial Growth with Reliable Loan Solutions'} imageUrl={'/About/experies.png'} />,
         <AboutBox head={'15,000+ Successful Loans'} para={'Helping Customers Achieve Their Goals with Confidence'} imageUrl={'/About/loan.png'} />,
         <AboutBox head={'30+ Prestigious Awards'} para={'Honored for Our Commitment to Excellence and Innovation'} imageUrl={'/About/medal.png'} />,
-        <AboutBox head={'97% Client Success Rate'} para={'Delivering Results That Matter, Every Time'} imageUrl={'/About/client.png'} />,
+        <AboutBox head={'97% Client Success Rate'} para={'Consistently delivering impactful financial solutions for success, trust, and growth'} imageUrl={'/About/client.png'} />,
     ]
 }
 const About = () => {
