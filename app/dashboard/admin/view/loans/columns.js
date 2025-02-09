@@ -9,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { multiValueFilter } from "@/lib/utils";
 import { ArrowUpDown } from "lucide-react";
 import { MoreHorizontal } from "lucide-react";
 
@@ -16,17 +17,18 @@ export const columns = [
   {
     accessorKey: "type",
     header: "Type",
-    meta: {
-      filterVariant: "select",
-    },
+    enableColumnFilter: true,
+    filterFn: multiValueFilter,
   },
   {
     accessorKey: "loanid",
     header: "Loan ID",
+    enableColumnFilter: false,
   },
   {
     accessorKey: "name",
     header: "Name",
+    enableColumnFilter: false,
   },
   {
     accessorKey: "date",
@@ -42,20 +44,19 @@ export const columns = [
       );
     },
     cell: ({ row }) => <div className="lowercase">{row.getValue("date")}</div>,
+    enableColumnFilter: false,
   },
   {
     accessorKey: "connector_id",
     header: "Connector's ID",
+    enableColumnFilter: true,
+    filterFn: multiValueFilter,
   },
   {
     accessorKey: "connector_name",
     header: "Connector's Name",
-    meta: {
-      filterVariant: "select",
-    },
-    filterFn: (row, columnId, filterValue) => {
-      return row[columnId] == filterValue;
-    },
+    enableColumnFilter: true,
+    filterFn: multiValueFilter,
   },
   {
     id: "edit",
@@ -81,5 +82,6 @@ export const columns = [
         </DropdownMenu>
       );
     },
+    enableColumnFilter: false,
   },
 ];

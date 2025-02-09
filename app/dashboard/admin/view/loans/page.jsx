@@ -4,44 +4,40 @@ import { columns } from "./columns";
 import { getLoanData } from "@/api/file_action";
 import { useEffect } from "react";
 import { useState } from "react";
-import { extractTableData } from "@/lib/utils";
-import app from "@/lib/firebaseConfig";
-import { getAuth } from "firebase/auth";
+import { extractParticularField, extractTableData } from "@/lib/utils";
 import { useAdminState } from "@/app/dashboard/store";
+import Table from "@/comp/Table";
+import { Button } from "@/components/ui/button";
 
 export default function Page() {
   const AdminState = useAdminState();
   let [data, setData] = useState([]);
+  let [filterData, setFilterData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
   let list = [
     "info.sections[0].fields[1].value",
     "info.sections[0].fields[2].value",
-    "personal_details.sections[1].fields[0].value",
+    "type",
   ];
 
-  useEffect(function () {
-    if (typeof window !== "undefined") {
-      // async function getData() {
-      //   let token = AdminState.user.getIdToken();
-      //   return getLoanData(token, "Personal")
-      //     .then((res) => {
-      //       setData(extractTableData(res.data, list, "Personal"));
-      //       console.log(data);
-      //     })
-      //     .catch((err) => {
-      //       if (err.includes("Firebase ID token has expired")) {
-      //         const auth = getAuth(app);
-      //         const token = auth.get;
-      //       }
-      //     });
-      // }
-
-      AdminState.user.getIdToken().then(async (token) => {
-        const res = await getLoanData(token, "Personal");
+  useEffect(() => {
+    AdminState.user.getIdToken().then((token) => {
+      console.log(token);
+      getLoanData(token, "Personal").then((res) => {
+        console.log(res);
         const result = extractTableData(res.data, list, "Personal");
-        setData(result);
+        let d = {
+          connector_id: extractParticularField(list[0], res.data),
+          connector_name: extractParticularField(list[1], res.data),
+          type: extractParticularField(list[2], res.data),
+        };
         console.log(result);
+        console.log(d);
+        setData(result);
+        setFilterData(d);
+        setIsLoading(false);
       });
-    }
+    });
   }, []);
 
   // type of loan
@@ -52,9 +48,57 @@ export default function Page() {
   // connector ID
   // view/edit
 
+  function exportTableToExcel(tableId) {
+    // Get the table element using the provided ID
+    const table = document.getElementById(tableId).cloneNode(true);
+    const filterElements = table.querySelectorAll(".filter-element");
+    console.log(filterElements);
+    filterElements.forEach((e) => {
+      console.log(e);
+      e.parentElement.removeChild(e);
+    });
+
+    // Extract the HTML content of the table
+    const html = table.outerHTML;
+    console.log(html);
+
+    // Create a Blob containing the HTML data with Excel MIME type
+    const blob = new Blob([html], { type: "application/vnd.ms-excel" });
+
+    // Create a URL for the Blob
+    const url = URL.createObjectURL(blob);
+
+    // Create a temporary anchor element for downloading
+    const a = document.createElement("a");
+    a.href = url;
+
+    // Set the desired filename for the downloaded file
+    a.download = "table.xls";
+
+    // Simulate a click on the anchor to trigger download
+    a.click();
+
+    // Release the URL object to free up resources
+    URL.revokeObjectURL(url);
+  }
+
+  // Attach the function to the export button's click event
+  // document.getElementById('exportButton').addEventListener('click', function() {
+  //   exportTableToExcel('tableId');
+  // });
+
   return (
-    <div className="container mx-auto p-4">
-      <DataTable columns={columns} data={data} />
+    <div className="container mx-auto p-4 flex flex-col gap-2">
+      <div className="flex items-center justify-end">
+        <Button className="w-fit" onClick={() => exportTableToExcel("myTable")}>
+          Download
+        </Button>
+      </div>
+      {!isLoading ? (
+        <Table columns={columns} data={data} filter={filterData} />
+      ) : (
+        <p>loading..</p>
+      )}
     </div>
   );
 }

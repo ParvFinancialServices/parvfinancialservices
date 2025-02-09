@@ -42,7 +42,7 @@ const Layout = ({ children }) => {
       } else {
         const auth = getAuth(app);
         localStorage && (token = localStorage.getItem("token"));
-        console.log("token", token);
+        // console.log("token", token);
         signInWithCustomToken(auth, token).then(async (userCredentials) => {
           let user = userCredentials.user;
           let token = await user.getIdToken();

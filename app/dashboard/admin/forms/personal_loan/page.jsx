@@ -276,6 +276,7 @@ const PersonalLoanForm = () => {
       removeProperty(newState, "options");
       removeProperty(newState, "type");
       newState.date = new Date().toLocaleString();
+      newState.type = "Personal";
       console.log(newState);
 
       let personalLoansCollection = collection(db, "personal_loans");
