@@ -16,6 +16,8 @@ import Link from "next/link";
 
 export function AppSidebar({ ...props }) {
   const AdminState = useAdminState();
+  console.log(props);
+  
 
   return (
     <Sidebar collapsible="icon" {...props}>

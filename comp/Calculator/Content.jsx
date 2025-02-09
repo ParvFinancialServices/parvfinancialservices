@@ -44,8 +44,8 @@ export const emiContent = [
 
 export default function EmiAccordion() {
     return (
-        <div className="px-6 md:px-16 lg:px-20">
-            <Accordion type="single" collapsible className="w-full">
+        <div className="px-6 container max-w-7xl md:px-16 lg:px-20">
+            <Accordion type="double" collapsible className="w-full">
                 {
                     emiContent?.map((item, index) => (
                         <AccordionItem value={`item-${index + 1}`} key={index}>

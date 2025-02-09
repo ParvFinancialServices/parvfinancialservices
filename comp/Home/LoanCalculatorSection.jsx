@@ -1,6 +1,7 @@
 // components/LoanCalculatorSection.js
 import { Button } from "@/components/ui/button"; // Import ShadCN Button component
 import { BigHeading, Heading } from "./Common";
+import Link from "next/link";
 
 export default function LoanCalculatorSection() {
     return (
@@ -22,7 +23,7 @@ export default function LoanCalculatorSection() {
                             <Heading text={'Calculator'} />
                         </div>
                         <BigHeading text={'Plan Your Finances with Ease'} />
-                        <p className="mt-4 text-gray-600">
+                        <p className="mt-4 text-gray-600 font-medium">
                             Unleash the power of simplicity and gain control over your
                             financial goals. Our loan calculator makes budgeting effortless
                             and helps you make informed decisions.
@@ -33,7 +34,9 @@ export default function LoanCalculatorSection() {
                             <li>• Understand your financial options clearly.</li>
                             <li>• Plan your future with confidence.</li>
                         </ul>
-                        <Button className="mt-6 bg-blue-500 ">Calculate Now</Button>
+                        <Link href={'/calculator'}>
+                        <Button className="mt-6 bg-blue-500 py-4 hover:bg-blue-600 ">Calculate Now</Button>
+                        </Link>
                     </div>
                 </div>
             </div>

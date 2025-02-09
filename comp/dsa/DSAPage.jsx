@@ -56,7 +56,7 @@ export function HowItWorks() {
     const icons = [<FileText size={40} />, <Users size={40} />, <CheckCircle size={40} />, <DollarSign size={40} />];
 
     return (
-        <div className="py-12 p-8 bg-gray-100">
+        <div className="py-12 p-8 bg-gradient-to-r from-blue-50 to-purple-50">
             <h2 className="text-2xl font-bold text-blue-900 mb-4">{title}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto">
                 {steps.map((step, index) => (
@@ -112,7 +112,7 @@ export function BenefitsSection() {
     ];
 
     return (
-        <div className="bg-white p-8 rounded-lg shadow-lg mb-8">
+        <div className="bg-white p-8 rounded-lg shadow mb-8">
             <h2 className="text-2xl font-bold text-blue-900 mb-4">
                 Benefits of Joining as a DSA
             </h2>
@@ -208,7 +208,7 @@ export function ProductsSection() {
     ];
 
     return (
-        <div className="py-12 p-8 bg-gray-50">
+        <div className="py-12 p-8 bg-white">
             <h2 className="text-2xl font-bold text-blue-900 mb-4">{title}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
                 {categories.map((category, index) => (
@@ -235,7 +235,7 @@ export function EligibilitySection() {
     const icons = [<User size={40} />, <Network size={40} />, <BookOpen size={40} />];
 
     return (
-        <div className="py-12 p-8 bg-gray-50 ">
+        <div className="py-12 p-8 bg-gradient-to-r from-blue-50 to-purple-50 ">
             <h2 className="text-2xl font-bold text-blue-900 mb-4">{title}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mx-auto">
                 {points.map((point, index) => (
@@ -256,8 +256,8 @@ export function EligibilitySection() {
 
 export default function AboutDSAPage() {
     return (
-        <div className="bg-gradient-to-r from-blue-50 to-purple-50 min-h-screen py-12">
-            <div className="container mx-auto px-4">
+        <div className="bg-gradient-to-r container mx-auto from-blue-50 to-purple-50 min-h-screen py-12">
+            <div className="containe mx-auto px-4">
                 {/* Hero Section */}
                 <HeroSection />
 

@@ -4,48 +4,53 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { BigHeading, Heading } from "./Common";
-// import TestimonialCard from "./TestimonialCard";
 
 const testimonials = [
     {
-        imgSrc: "https://readymadeui.com/team-1.webp",
-        name: "Sarah Johnson",
-        title: "Food Critic",
+        name: "Amit Kumar",
+        location: "Patna, Bihar",
         rating: 5,
-        description:
-            "This restaurant exceeded all my expectations! The flavors were exquisite and perfectly balanced. Every dish demonstrated remarkable culinary expertise. The ambiance was sophisticated yet welcoming.",
+        description: "Parv Financial Services made getting a loan hassle-free. Their quick approval process and supportive staff ensured I got the funds I needed without any stress. Highly recommended!"
     },
     {
-        imgSrc: "https://readymadeui.com/team-2.webp",
-        name: "John Doe",
-        title: "Travel Blogger",
+        name: "Priya Sharma",
+        location: "Muzaffarpur, Bihar",
+        rating: 5,
+        description: "I'm really grateful to Parv Financial Services for helping me secure a loan when I needed it the most. Their transparency and professionalism stood out, making them my go-to financial partner."
+    },
+    {
+        name: "Rahul Verma",
+        location: "Gaya, Bihar",
         rating: 4,
-        description:
-            "A truly memorable dining experience! The menu was innovative, and the service was impeccable. I can’t wait to visit again.",
+        description: "As someone from Bihar, finding a reliable loan provider can be challenging. Parv Financial Services exceeded my expectations with their excellent customer service and competitive rates. Thank you!"
     },
     {
-        imgSrc: "https://readymadeui.com/team-3.webp",
-        name: "Emily Davis",
-        title: "Lifestyle Influencer",
+        name: "Sunita Devi",
+        location: "Bhagalpur, Bihar",
         rating: 5,
-        description:
-            "From start to finish, everything was just perfect. The staff was friendly, and the food was divine. Highly recommended!",
+        description: "Parv Financial Services understands the needs of customers like us in India. They provided personalized assistance and tailored solutions that fit perfectly with my financial situation. Definitely trustworthy!"
     },
-];
+    {
+        name: "Vikash Singh",
+        location: "Darbhanga, Bihar",
+        rating: 4,
+        description: "I couldn't have asked for a better experience with Parv Financial Services. Their efficient process and clear communication made obtaining a loan a straightforward process. I'm thankful for their support."
+    }
+]
 
 
-export function TestimonialCard({ imgSrc, name, title, rating, description }) {
+export function TestimonialCard({ imgSrc, name, location, rating, description }) {
     return (
         <div className="break-inside-avoid p-4 rounded-lg bg-gray-100 relative h-72 w-full">
             <div className="flex flex-wrap items-center gap-4">
                 <img
-                    src={imgSrc}
+                    src={imgSrc || '/user.png'}
                     alt={name}
-                    className="w-14 h-14 rounded-full border-2 border-purple-500"
+                    className="w-12 h-12 rounded-full"
                 />
                 <div>
                     <h4 className="text-gray-800 text-sm whitespace-nowrap font-bold">{name}</h4>
-                    <p className="mt-0.5 text-xs text-gray-500">{title}</p>
+                    <p className="mt-0.5 text-xs text-gray-500">{location}</p>
                 </div>
             </div>
             <div className="flex space-x-1 mt-4">
@@ -67,55 +72,7 @@ export function TestimonialCard({ imgSrc, name, title, rating, description }) {
     );
 }
 
-// Custom Previous Arrow Button
-function PrevArrow({ className, onClick }) {
-    return (
-        <button
-            className={`${className} w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center shadow-lg hover:bg-purple-600 transition absolute -left-5 z-10`}
-            onClick={onClick}
-        >
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6 text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-            >
-                <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                />
-            </svg>
-        </button>
-    );
-}
 
-// Custom Next Arrow Button
-function NextArrow({ className, onClick }) {
-    return (
-        <button
-            className={`${className} w-10 h-10 bg-purple-500 rounded-full flex items-center justify-center shadow-lg hover:bg-purple-600 transition absolute -right-5 z-10`}
-            onClick={onClick}
-        >
-            <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6 text-black"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-            >
-                <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                />
-            </svg>
-        </button>
-    );
-}
 
 const CustomPrevArrow = (props) => {
     const { onClick } = props;
@@ -161,33 +118,6 @@ const CustomNextArrow = (props) => {
 };
 
 export default function TestimonialSection() {
-    //   const testimonials = [
-    //     {
-    //       imgSrc: "https://readymadeui.com/team-1.webp",
-    //       name: "Sarah Johnson",
-    //       title: "Food Critic",
-    //       rating: 5,
-    //       description:
-    //         "This restaurant exceeded all my expectations! The flavors were exquisite and perfectly balanced. Every dish demonstrated remarkable culinary expertise. The ambiance was sophisticated yet welcoming.",
-    //     },
-    //     {
-    //       imgSrc: "https://readymadeui.com/team-2.webp",
-    //       name: "John Doe",
-    //       title: "Travel Blogger",
-    //       rating: 4,
-    //       description:
-    //         "A truly memorable dining experience! The menu was innovative, and the service was impeccable. I can’t wait to visit again.",
-    //     },
-    //     {
-    //       imgSrc: "https://readymadeui.com/team-3.webp",
-    //       name: "Emily Davis",
-    //       title: "Lifestyle Influencer",
-    //       rating: 5,
-    //       description:
-    //         "From start to finish, everything was just perfect. The staff was friendly, and the food was divine. Highly recommended!",
-    //     },
-    //   ];
-
     const settings = {
         dots: true,
         infinite: true,
@@ -198,10 +128,20 @@ export default function TestimonialSection() {
         prevArrow: <CustomPrevArrow />,
         nextArrow: <CustomNextArrow />,
         customPaging: (i) => (
-            <button className="w-4 h-4 bg-gray-300 rounded-full hover:bg-purple-500 transition duration-300"></button>
+            <button className="w-4 h-4 bg-gray-300 rounded-full transition duration-300 "></button>
         ),
         appendDots: (dots) => (
-            <div className="mt-20 flex justify-center space-x-2">{dots}</div>
+            // <div className="h-20 flex justify-center space-x-2 p-4">{dots}</div>
+            <div
+            className="bg-red-200"
+                style={{
+                    backgroundColor: "#fff",
+                    borderRadius: "10px",
+                    paddingTop: "10px"
+                }}
+            >
+                <ul style={{ marginTop: "20px" }}> {dots} </ul>
+            </div>
         ),
         responsive: [
             {

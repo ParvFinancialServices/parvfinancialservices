@@ -4,9 +4,9 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <footer>
-            <div className="bg-gray-800 py-4 text-gray-400">
-                <div className="container px-4 mx-auto">
+        <footer className="w-full mx-auto">
+            <div className="bg-gray-800 w-full py-4 text-gray-400">
+                <div className=" px-4 max-w-7xl mx-auto">
                     <div className="-mx-4 flex flex-wrap justify-between">
                         <div className="px-4 my-4 w-full xl:w-1/3">
                             <Link href="/" className="flex items-center space-x-1 rtl:space-x-reverse">
@@ -94,10 +94,10 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            <div className="bg-slate-700 py-4 text-gray-100">
-                <div className="container mx-auto px-4">
-                    <div className="-mx-4 flex flex-wrap justify-between">
-                        <div className="px-4 w-full text-xs text-center sm:w-auto sm:text-left">
+            <div className="bg-slate-700 py-4 w-full text-gray-100">
+                <div className="container w-full mx-auto px-4">
+                    <div className="-mx-4 w-full flex flex-wrap justify-between">
+                        <div className="px-4 w-full text-xs text-center ">
                             Copyright © Parv financial services. All Rights Reserved.
                         </div>
                     </div>

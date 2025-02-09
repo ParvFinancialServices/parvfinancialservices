@@ -77,8 +77,6 @@ const loanDetails = [
     }
 ];
 
-console.log(loanDetails);
-
 
 const Card = ({ data }) => {
     return (
@@ -109,7 +107,7 @@ const Card = ({ data }) => {
 
 const Services = () => {
     return (
-        <div className=" py-4 md:py-10 mx-auto font-[sans-serif] px-6 md:px-16 lg:px-20">
+        <div className=" py-4 md:py-10 mx-auto font-[sans-serif] ">
             <div className="text-center w-full md:max-w-2xl mx-auto">
                 <div className="flex justify-center my-6">
                     <Heading text={'Services'} />
