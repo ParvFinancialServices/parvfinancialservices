@@ -16,6 +16,7 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { UserRoundCheck } from "lucide-react";
+import { logout } from "@/api/file_action";
 
 export function NavUser({ user }) {
   const { isMobile } = useSidebar();
@@ -56,7 +57,7 @@ export function NavUser({ user }) {
                 </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => logout()}>
               <LogOut />
               Log out
             </DropdownMenuItem>
