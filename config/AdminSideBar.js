@@ -75,21 +75,22 @@ export const AdminSidebar = {
         },
       ],
     },
-    {
-      title: "Loans",
-      url: "#",
-      icon: Users2Icon,
-      items: [
-        {
-          title: "Category Wise",
-          url: "/dashboard/admin/view/loans/category",
-        },
-        {
-          title: "Member Wise",
-          url: "/dashboard/admin/view/loans/member",
-        },
-      ],
-    },
+    // {
+    //   title: "Loans",
+    //   url: "#",
+    //   icon: Users2Icon,
+    //   url:
+    //   items: [
+    //     {
+    //       title: "Category Wise",
+    //       url: "/dashboard/admin/view/loans/category",
+    //     },
+    //     {
+    //       title: "Member Wise",
+    //       url: "/dashboard/admin/view/loans/member",
+    //     },
+    //   ],
+    // },
   ],
   projects: [
     {

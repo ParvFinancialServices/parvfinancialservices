@@ -8,9 +8,11 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarMenuButton,
   SidebarRail,
 } from "@/components/ui/sidebar";
 import { AdminSidebar } from "@/config/AdminSideBar";
+import Link from "next/link";
 
 export function AppSidebar({ ...props }) {
   const AdminState = useAdminState();
@@ -25,6 +27,11 @@ export function AppSidebar({ ...props }) {
       </div>
       <SidebarContent>
         <NavMain items={AdminSidebar.navMain} />
+        <SidebarMenuButton asChild>
+          <Link href="/dashboard/admin/view/loans">
+            <span>Loan Reports</span>
+          </Link>
+        </SidebarMenuButton>
         <NavProjects projects={AdminSidebar.projects} />
       </SidebarContent>
       <SidebarFooter>
