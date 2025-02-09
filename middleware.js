@@ -1,21 +1,28 @@
 import { NextResponse } from "next/server";
+import { pageAccess } from "./config/middlewareConfig";
 
 // This function can be marked `async` if using `await` inside
 export function middleware(request) {
   let role = request.cookies.get("role");
   let jwtToken = request.cookies.get("jwt");
-  if (
-    request.nextUrl.pathname.startsWith("/dashboard/admin") &&
-    role?.value !== "Admin" &&
-    !jwtToken
-  ) {
-    // const url = new URL()
-    return NextResponse.redirect(new URL("/login", request.url));
-  }else{
-    console.log("else",role);
-  }
+  let isAuthorised = false;
+  if (role && jwtToken) {
+    pageAccess[role.value].forEach((path) => {
+      console.log(path);
+      if (request.nextUrl.pathname.startsWith(path)) {
+        isAuthorised = true;
+        return;
+      }
+    });
 
-  return NextResponse.next();
+    if (isAuthorised) {
+      return NextResponse.next();
+    } else {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+  } else {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
 }
 
 // See "Matching Paths" below to learn more

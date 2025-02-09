@@ -21,7 +21,6 @@ export const AdminSidebar = {
       title: "Loan Applications",
       url: "/dashboard",
       icon: ClipboardType,
-      isActive: true,
       items: [
         {
           title: "Personal Loan",
@@ -75,22 +74,17 @@ export const AdminSidebar = {
         },
       ],
     },
-    // {
-    //   title: "Loans",
-    //   url: "#",
-    //   icon: Users2Icon,
-    //   url:
-    //   items: [
-    //     {
-    //       title: "Category Wise",
-    //       url: "/dashboard/admin/view/loans/category",
-    //     },
-    //     {
-    //       title: "Member Wise",
-    //       url: "/dashboard/admin/view/loans/member",
-    //     },
-    //   ],
-    // },
+    {
+      title: "Reports",
+      url: "#",
+      icon: Users2Icon,
+      items: [
+        {
+          title: "Loans Report",
+          url: "/dashboard/admin/view/loans",
+        },
+      ],
+    },
   ],
   projects: [
     {
@@ -259,5 +253,3 @@ export const DSASidebar = {
     // },
   ],
 };
-
-

@@ -13,11 +13,12 @@ import {
 } from "@/components/ui/sidebar";
 import { AdminSidebar } from "@/config/AdminSideBar";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function AppSidebar({ ...props }) {
   const AdminState = useAdminState();
+  const pathname = usePathname();
   console.log(props);
-  
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -28,13 +29,8 @@ export function AppSidebar({ ...props }) {
         </div>
       </div>
       <SidebarContent>
-        <NavMain items={AdminSidebar.navMain} />
-        <SidebarMenuButton asChild>
-          <Link href="/dashboard/admin/view/loans">
-            <span>Loan Reports</span>
-          </Link>
-        </SidebarMenuButton>
-        <NavProjects projects={AdminSidebar.projects} />
+        <NavMain items={AdminSidebar.navMain} pathname={pathname} />
+        <NavProjects projects={AdminSidebar.projects} pathname={pathname} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={AdminState?.profile} />

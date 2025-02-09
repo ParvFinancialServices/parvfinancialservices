@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/sidebar";
 import Link from "next/link";
 
-export function NavMain({ items }) {
+export function NavMain({ items, pathname }) {
   return (
     <SidebarGroup>
       <SidebarGroupLabel className="text-base font-medium">
@@ -27,12 +27,7 @@ export function NavMain({ items }) {
       </SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
-          <Collapsible
-            key={item.title}
-            asChild
-            defaultOpen={item.isActive}
-            className="group/collapsible"
-          >
+          <Collapsible key={item.title} asChild className="group/collapsible">
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
                 <SidebarMenuButton
@@ -57,7 +52,7 @@ export function NavMain({ items }) {
                       <SidebarMenuSubButton
                         asChild
                         className={`w-full ${
-                          subItem?.isActive
+                          subItem?.url == pathname
                             ? "bg-blue-500 text-white hover:bg-blue-400 hover:text-white"
                             : "hover:bg-zinc-200"
                         }`}
