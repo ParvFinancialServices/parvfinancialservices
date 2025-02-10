@@ -4,7 +4,7 @@ import { login } from "@/api/file_action";
 import { Input } from "@/components/ui/input";
 import { useEffect } from "react";
 import { useState } from "react";
-import { useAdminState } from "../dashboard/store";
+import { useUserState } from "../dashboard/store";
 import { useRouter } from "next/navigation";
 import { getAuth, signInWithCustomToken } from "firebase/auth";
 import app from "@/lib/firebaseConfig";
@@ -16,20 +16,21 @@ export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const adminState = useAdminState();
+  const userState = useUserState();
   async function callIt() {
     const auth = getAuth(app);
     const res = await login(username, password);
     console.log(res);
     if (res.error) {
-      throw error;
+      // throw error;
+      alert(res.error);
     } else {
-      // adminState.setProfile(res.profile);
+      // userState.setProfile(res.profile);
       signInWithCustomToken(auth, res.token)
         .then(async (userCredentials) => {
           let user = userCredentials.user;
           localStorage && localStorage.setItem("token", res.token);
-          adminState.setUser(user);
+          userState.setUser(user);
           switch (res.role) {
             case "Admin":
               router.push("/dashboard/admin/forms/personal_loan");
@@ -65,24 +66,30 @@ export default function LoginPage() {
       </div>
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex flex-1 items-center justify-center">
-          <div className="flex flex-col gap-4 w-full max-w-xs">
+          <form
+            className="flex flex-col gap-4 w-full max-w-xs"
+            onSubmit={async (e) => {
+              e.preventDefault();
+              await callIt();
+            }}
+          >
             <h1 className="text-3xl">Login</h1>
             <Label htmlFor="username">Username</Label>
             <Input
               id="username"
               onChange={(e) => setUsername(e.target.value)}
+              required
             />
             <Label htmlFor="username">Password</Label>
             <Input
               id="password"
               type="password"
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
             <Link href="/forget-password">forget password?</Link>
-            <Button type="button" onClick={() => callIt()}>
-              submit
-            </Button>
-          </div>
+            <Button type="submit">submit</Button>
+          </form>
         </div>
       </div>
     </div>

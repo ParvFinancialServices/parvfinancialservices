@@ -1,13 +1,13 @@
 'use client'
 
-import { useAdminState } from "../../store";
+import { useUserState } from "../../store";
 
 export default function Page() {
-  const adminState = useAdminState();
+  const userState = useUserState();
   return (
     <div>
       <h1>Success</h1>
-      <p>{adminState.loanNumber}</p>
+      <p>{userState.loanNumber}</p>
     </div>
   );
 }

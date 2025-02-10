@@ -1,6 +1,6 @@
 "use client";
 
-import { useAdminState } from "@/app/dashboard/store";
+import { useUserState } from "@/app/dashboard/store";
 import { NavMain } from "@/components/nav-main.jsx";
 import { NavProjects } from "@/components/nav-projects.jsx";
 import { NavUser } from "@/components/nav-user";
@@ -16,7 +16,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export function AppSidebar({ ...props }) {
-  const AdminState = useAdminState();
+  const userState = useUserState();
   const pathname = usePathname();
   console.log(props);
 
@@ -33,7 +33,7 @@ export function AppSidebar({ ...props }) {
         <NavProjects projects={AdminSidebar.projects} pathname={pathname} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={AdminState?.profile} />
+        <NavUser user={userState?.profile} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

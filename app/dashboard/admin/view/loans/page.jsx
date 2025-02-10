@@ -5,12 +5,12 @@ import { getLoanData } from "@/api/file_action";
 import { useEffect } from "react";
 import { useState } from "react";
 import { extractParticularField, extractTableData } from "@/lib/utils";
-import { useAdminState } from "@/app/dashboard/store";
+import { useUserState } from "@/app/dashboard/store";
 import Table from "@/comp/Table";
 import { Button } from "@/components/ui/button";
 
 export default function Page() {
-  const AdminState = useAdminState();
+  const userState = useUserState();
   let [data, setData] = useState([]);
   let [filterData, setFilterData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +21,7 @@ export default function Page() {
   ];
 
   useEffect(() => {
-    AdminState.user.getIdToken().then((token) => {
+    userState.user.getIdToken().then((token) => {
       console.log(token);
       getLoanData(token, "Personal").then((res) => {
         console.log(res);
