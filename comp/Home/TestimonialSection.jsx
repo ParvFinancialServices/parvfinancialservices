@@ -100,7 +100,7 @@ const CustomNextArrow = (props) => {
     const { onClick } = props;
     return (
         <div
-            className="custom-arrow custom-next"
+            className="custom-arrow hidden md:block custom-next"
             onClick={onClick}
             style={{
                 position: "absolute",

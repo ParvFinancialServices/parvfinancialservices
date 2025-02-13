@@ -8,17 +8,63 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
-  SidebarMenuButton,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { AdminSidebar } from "@/config/AdminSideBar";
-import Link from "next/link";
+import { AdminSidebar, DSASidebar, FieldStaffSidebar, RMSidebar, TelecallerSidebar } from "@/config/AdminSideBar";
 import { usePathname } from "next/navigation";
+import { use, useEffect, useState } from "react";
 
 export function AppSidebar({ ...props }) {
   const userState = useUserState();
   const pathname = usePathname();
-  console.log(props);
+  const [roleData, setRoleData] = useState(null);
+  console.log(roleData);
+  
+  const { profile } = AdminState;
+  console.log(AdminState);
+  
+  //  switch (profile?.role) {
+  //   case "admin":
+  //     setRoleData(AdminSidebar);
+  //     break;
+  //   case "rm":
+  //     setRoleData(RMSidebar);
+  //     break;
+  //   case "dsa":
+  //     setRoleData(DSASidebar);
+  //     break;
+  //   case "telecaller":
+  //     setRoleData(TelecallerSidebar);
+  //     break;
+  //   case "fieldstaff":
+  //     setRoleData(FieldStaffSidebar);
+  //     break;
+  //   default:
+  //     setRoleData(FieldStaffSidebar);
+  //     break;
+  // }
+  useEffect(() => {
+    switch (profile?.role) {
+      case "admin":
+        setRoleData(AdminSidebar);
+        break;
+      case "rm":
+        setRoleData(RMSidebar);
+        break;
+      case "dsa":
+        setRoleData(DSASidebar);
+        break;
+      case "telecaller":
+        setRoleData(TelecallerSidebar);
+        break;
+      case "fieldstaff":
+        setRoleData(FieldStaffSidebar);
+        break;
+      default:
+        setRoleData(FieldStaffSidebar);
+        break;
+    }
+  }, [profile]);
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -29,10 +75,11 @@ export function AppSidebar({ ...props }) {
         </div>
       </div>
       <SidebarContent>
-        <NavMain items={AdminSidebar.navMain} pathname={pathname} />
-        <NavProjects projects={AdminSidebar.projects} pathname={pathname} />
+        <NavMain items={roleData.navMain} pathname={pathname} />
+        <NavProjects projects={roleData.projects} pathname={pathname} />
       </SidebarContent>
       <SidebarFooter>
+        <NavUser user={roleData?.profile} />
         <NavUser user={userState?.profile} />
       </SidebarFooter>
       <SidebarRail />
