@@ -15,7 +15,7 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Separator } from "@radix-ui/react-separator";
-import { useAdminState } from "./store";
+import { useUserState } from "./store";
 import { useEffect } from "react";
 import { getAuth, signInWithCustomToken } from "firebase/auth";
 import app from "@/lib/firebaseConfig";
@@ -26,16 +26,16 @@ import { makeBreadcrumItem } from "@/lib/utils";
 const Layout = ({ children }) => {
   const pathname = usePathname();
   const breadcrumList = pathname.split("/").slice(3);
-  let AdminState = useAdminState();
+  let userState = useUserState();
   const [isLoading, setIsLoading] = useState(true);
   useEffect(function () {
     if (typeof window !== "undefined") {
       let token;
-      if (AdminState.user.hasOwnProperty("uid")) {
-        AdminState.user.getIdToken().then((token) => {
+      if (userState.user.hasOwnProperty("uid")) {
+        userState.user.getIdToken().then((token) => {
           getUserData(token).then((res) => {
             console.log(res);
-            AdminState.setProfile(res.profile);
+            userState.setProfile(res.profile);
             setIsLoading(false);
           });
         });
@@ -47,10 +47,10 @@ const Layout = ({ children }) => {
           let user = userCredentials.user;
           let token = await user.getIdToken();
           // localStorage && localStorage.setItem("token", token);
-          AdminState.setUser(user);
+          userState.setUser(user);
           getUserData(token).then((res) => {
             console.log(res);
-            AdminState.setProfile(res.profile);
+            userState.setProfile(res.profile);
             setIsLoading(false);
           });
         });
@@ -60,7 +60,7 @@ const Layout = ({ children }) => {
 
   return (
     <SidebarProvider>
-      <AppSidebar state={AdminState} />
+      <AppSidebar state={userState} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
