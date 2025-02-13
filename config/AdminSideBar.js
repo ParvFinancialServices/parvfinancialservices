@@ -27,7 +27,7 @@ export const AdminSidebar = {
       items: [
         {
           title: "Personal Loan",
-          url: "/dashboard/admin/forms/personal_loan",
+          url: "/dashboard/forms/personal_loan",
           icon: FileUser,
           isActive: true,
         },
@@ -61,19 +61,19 @@ export const AdminSidebar = {
       items: [
         {
           title: "Connectors",
-          url: "/dashboard/connectors",
+          url: "/dashboard/connector",
         },
         {
           title: "Regional manager",
-          url: "/dashboard/connectors",
+          url: "/dashboard/connector",
         },
         {
           title: "Field Staff",
-          url: "/dashboard/connectors",
+          url: "/dashboard/connector",
         },
         {
           title: "Telecaller",
-          url: "/dashboard/connectors",
+          url: "/dashboard/connector",
         },
       ],
     },
@@ -123,7 +123,7 @@ export const RMSidebar = {
       items: [
         {
           title: "Personal Loan",
-          url: "/dashboard/admin/forms/personal_loan",
+          url: "/dashboard/forms/personal_loan",
           icon: FileUser,
           isActive: true,
         },
@@ -195,7 +195,7 @@ export const DSASidebar = {
       items: [
         {
           title: "Personal Loan",
-          url: "/dashboard/admin/forms/personal_loan",
+          url: "/dashboard/forms/personal_loan",
           icon: FileUser,
           isActive: true,
         },

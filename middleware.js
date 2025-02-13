@@ -15,12 +15,15 @@ export function middleware(request) {
       }
     });
 
+    console.log("isAuthorized",isAuthorised);
+
     if (isAuthorised) {
       return NextResponse.next();
     } else {
       return NextResponse.redirect(new URL("/login", request.url));
     }
   } else {
+    console.log("else",role,jwtToken);
     return NextResponse.redirect(new URL("/login", request.url));
   }
 }

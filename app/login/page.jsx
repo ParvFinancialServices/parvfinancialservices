@@ -33,7 +33,7 @@ export default function LoginPage() {
           userState.setUser(user);
           switch (res.role) {
             case "Admin":
-              router.push("/dashboard/admin/forms/personal_loan");
+              router.push("/dashboard/forms/personal_loan");
               break;
             case "DSA":
               router.push("/dashboard/connector");
