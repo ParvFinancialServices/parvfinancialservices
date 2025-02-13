@@ -18,27 +18,22 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { cloneDeep, forOwn, isObject, set, unset } from "lodash";
+import { cloneDeep, set, unset } from "lodash";
 import db from "@/lib/firestore";
 import {
   collection,
-  addDoc,
   setDoc,
   doc,
   getCountFromServer,
 } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
 import { useEffect } from "react";
 import File from "@/comp/File";
 import { useRef } from "react";
 import { removeProperty } from "@/lib/utils";
 import CloseIcon from "@/public/close.png";
 import Image from "next/image";
-import { login, upload_data } from "@/api/file_action";
 import { useUserState } from "@/app/dashboard/store";
 import { useRouter } from "next/navigation";
-import { getAuth, signInWithCustomToken } from "firebase/auth";
-import app from "@/lib/firebaseConfig";
 
 const Step = ({
   sectionIndex,
