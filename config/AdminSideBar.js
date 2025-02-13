@@ -13,6 +13,9 @@ import {
   MessageSquareText,
   Contact2Icon,
   UserPlus2Icon,
+  List,
+  Menu,
+  LayoutDashboard,
 } from "lucide-react";
 
 export const AdminSidebar = {
@@ -109,7 +112,7 @@ export const AdminSidebar = {
     },
   ],
 };
-
+// RM side bar
 export const RMSidebar = {
   navMain: [
     {
@@ -226,6 +229,43 @@ export const DSASidebar = {
       items: [
         {
           title: "Category Wise",
+          url: "/dashboard/dsa/view/loans/category",
+        },
+        {
+          title: "Member Wise",
+          url: "/dashboard/dsa/view/loans/member",
+        },
+      ],
+    },
+  ],
+  projects: [
+    {
+      title: "My Income",
+      url: "/dsa/my-income",
+      icon: HandCoinsIcon,
+    },
+    {
+      title: "Dashboard",
+      url: "/dsa/dashboard",
+      icon: LayoutDashboard,
+    },
+    {
+      title: "Raise Ticket",
+      url: "/dsa/raise-ticket",
+      icon: Contact2Icon,
+    },
+  ],
+};
+export const TelecallerSidebar = {
+  navMain: [
+    
+    {
+      title: "Calling List",
+      url: "#",
+      icon: List,
+      items: [
+        {
+          title: "Daily Calling List",
           url: "/dashboard/admin/view/loans/category",
         },
         {
@@ -241,11 +281,52 @@ export const DSASidebar = {
       url: "/admin/my-income",
       icon: HandCoinsIcon,
     },
+    {
+      title: "Dashboard",
+      url: "/telecaller/dashboard",
+      icon: LayoutDashboard,
+    },
     // {
-    //   title: "Testimonials",
-    //   url: "/admin/testimonials",
-    //   icon: MessageSquareText,
+    //   title: "Contact us",
+    //   url: "/admin/contact_data",
+    //   icon: Contact2Icon,
     // },
+  ],
+};
+export const FieldStaffSidebar = {
+  navMain: [
+    
+    {
+      title: "Field Report",
+      url: "#",
+      icon: Users2Icon,
+      items: [
+        {
+          title: "Client Visit",
+          url: "/dashboard/admin/view/loans/category",
+        },
+        {
+          title: "Loan Collection Report",
+          url: "/dashboard/admin/view/loans/member",
+        },
+        {
+          title: "Loan Disbursement Report",
+          url: "/dashboard/admin/view/loans/member",
+        },
+      ],
+    },
+  ],
+  projects: [
+    {
+      title: "My Income",
+      url: "/admin/my-income",
+      icon: HandCoinsIcon,
+    },
+    {
+      title: "Dashboard",
+      url: "/fieldstaff/dashboard",
+      icon: LayoutDashboard,
+    },
     // {
     //   title: "Contact us",
     //   url: "/admin/contact_data",

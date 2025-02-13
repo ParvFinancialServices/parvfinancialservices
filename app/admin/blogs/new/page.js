@@ -1,11 +1,11 @@
 'use client'
 import React from "react";
-// import AddBlogForm from "@/comp/blogs/AddBlogForm";
+import AddBlogForm from "@/comp/blogs/AddBlogForm";
 
 const AddNewBlogs = () => {
     return (
         <div>
-            {/* <AddBlogForm /> */}
+            <AddBlogForm />
         </div>
     )
 }
