@@ -1,4 +1,6 @@
-import { BlogsList } from "@/comp/blogs/BlogsList";
+'use client'
+
+// import { BlogsList } from "@/comp/blogs/BlogsList";
 import { Button } from "@/components/ui/button";
 
 const AddBlogsButton = () => {

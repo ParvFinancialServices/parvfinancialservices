@@ -10,61 +10,40 @@ import {
   SidebarFooter,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { AdminSidebar, DSASidebar, FieldStaffSidebar, RMSidebar, TelecallerSidebar } from "@/config/AdminSideBar";
+import {
+  AdminSidebar,
+  DSASidebar,
+  FieldStaffSidebar,
+  RMSidebar,
+  TelecallerSidebar,
+} from "@/config/AdminSideBar";
 import { usePathname } from "next/navigation";
-import { use, useEffect, useState } from "react";
 
 export function AppSidebar({ ...props }) {
   const userState = useUserState();
   const pathname = usePathname();
-  const [roleData, setRoleData] = useState(null);
-  console.log(roleData);
-  
-  const { profile } = AdminState;
-  console.log(AdminState);
-  
-  //  switch (profile?.role) {
-  //   case "admin":
-  //     setRoleData(AdminSidebar);
-  //     break;
-  //   case "rm":
-  //     setRoleData(RMSidebar);
-  //     break;
-  //   case "dsa":
-  //     setRoleData(DSASidebar);
-  //     break;
-  //   case "telecaller":
-  //     setRoleData(TelecallerSidebar);
-  //     break;
-  //   case "fieldstaff":
-  //     setRoleData(FieldStaffSidebar);
-  //     break;
-  //   default:
-  //     setRoleData(FieldStaffSidebar);
-  //     break;
-  // }
-  useEffect(() => {
-    switch (profile?.role) {
-      case "admin":
-        setRoleData(AdminSidebar);
-        break;
-      case "rm":
-        setRoleData(RMSidebar);
-        break;
-      case "dsa":
-        setRoleData(DSASidebar);
-        break;
-      case "telecaller":
-        setRoleData(TelecallerSidebar);
-        break;
-      case "fieldstaff":
-        setRoleData(FieldStaffSidebar);
-        break;
-      default:
-        setRoleData(FieldStaffSidebar);
-        break;
-    }
-  }, [profile]);
+  let roleData = {};
+
+  switch (userState.profile?.role) {
+    case "Admin":
+      roleData = AdminSidebar;
+      break;
+    case "rm":
+      roleData = RMSidebar;
+      break;
+    case "DSA":
+      roleData = DSASidebar;
+      break;
+    case "telecaller":
+      roleData = TelecallerSidebar;
+      break;
+    case "fieldstaff":
+      roleData = FieldStaffSidebar;
+      break;
+    default:
+      roleData = FieldStaffSidebar;
+      break;
+  }
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -79,7 +58,6 @@ export function AppSidebar({ ...props }) {
         <NavProjects projects={roleData.projects} pathname={pathname} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={roleData?.profile} />
         <NavUser user={userState?.profile} />
       </SidebarFooter>
       <SidebarRail />
