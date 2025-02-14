@@ -1,37 +1,6 @@
-// 'use client'
-// import Header from "@/comp/common/Header";
-// import LoanCalculator from "@/comp/Calculator/LoanCalculator";
-// import Footer from "@/comp/Home/Footer";
-// import NavbarNew from "@/comp/Navbar/Navbar";
-// import EMINote from "@/comp/Calculator/EMINote";
-// // import EmiContent from "@/comp/Calculator/Content";
-// import EmiAccordion from "@/comp/Calculator/Content";
-
-
-// const Calculator = () => {
-//     return (
-//         <div className="mt-[4.5rem]">
-//             <NavbarNew />
-//             <div>
-//                 <div className="flex-grow">
-//                     <Header title={"EMI Calculator"} subTitle={"Your trusted financial Partner"} img={'/About/calculator.png'} />
-//                     <LoanCalculator />
-//                     <EMINote />
-//                     <EmiAccordion />
-//                 </div>
-//             </div>
-//             <Footer />
-//         </div>
-//     )
-// }
-
-// export default Calculator;
-
-
 import Head from 'next/head';
 import Footer from "@/comp/Home/Footer";
 import NavbarNew from "@/comp/Navbar/Navbar";
-import DSAPage from "@/comp/dsa/DSAPage";
 import LoanCalculator from "@/comp/Calculator/LoanCalculator";
 import EMINote from "@/comp/Calculator/EMINote";
 import EmiAccordion from "@/comp/Calculator/Content";

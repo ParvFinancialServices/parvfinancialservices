@@ -6,14 +6,14 @@ import Link from "next/link";
 export default function LoanCalculatorSection() {
     return (
         <section className="bg-gray-50 py-6 md:py-20 px-6 md:px-16 lg:px-20">
-            <div className=" max-w-7xl mx-auto px-6 md:px-12 lg:px-20">
+            <div className=" max-w-7xl mx-auto md:px-12 lg:px-20">
                 <div className="flex flex-col md:flex-row items-center">
                     {/* Left Side: Illustration */}
                     <div className="w-full md:w-1/2 flex justify-center">
                         <img
                             src="/About/calculator.png"
                             alt="Loan Calculator Illustration"
-                            className="max-w-sm md:max-w-md"
+                            className="min-w-32 md:max-w-md"
                         />
                     </div>
 
