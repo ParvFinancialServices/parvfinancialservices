@@ -322,9 +322,19 @@ export async function sendMail() {
     text: "Hello this is a text mail!",
   };
 
-  auth.sendMail(receiver, (error, emailResponse) => {
-    if (error) throw error;
-    console.log("success!");
-    response.end();
-  });
+  console.log("request received", receiver);
+
+  try {
+    await auth.sendMail(receiver);
+  } catch (e) {
+    console.log(e);
+  }
+  return {
+    msg: "mail sent",
+  };
+  // auth.sendMail(receiver, (error, emailResponse) => {
+  //   if (error) throw error;
+  //   console.log("success!");
+  //   response.end();
+  // });
 }

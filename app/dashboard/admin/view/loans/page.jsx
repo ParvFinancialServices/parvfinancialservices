@@ -93,7 +93,14 @@ export default function Page() {
         <Button className="w-fit" onClick={() => exportTableToExcel("myTable")}>
           Download
         </Button>
-        <Button onClick={() => sendMail()}>send mail</Button>
+        <Button
+          onClick={() => {
+            let { msg } = sendMail();
+            console.log(msg);
+          }}
+        >
+          send mail
+        </Button>
       </div>
       {!isLoading ? (
         <Table columns={columns} data={data} filter={filterData} />
