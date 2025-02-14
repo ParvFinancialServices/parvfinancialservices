@@ -27,7 +27,7 @@ export const AdminSidebar = {
       items: [
         {
           title: "Personal Loan",
-          url: "/dashboard/admin/forms/personal_loan",
+          url: "/dashboard/forms/personal_loan",
           icon: FileUser,
           isActive: true,
         },
@@ -61,19 +61,30 @@ export const AdminSidebar = {
       items: [
         {
           title: "Connectors",
-          url: "/dashboard/connectors",
+          url: "/dashboard/connector",
         },
         {
           title: "Regional manager",
-          url: "/dashboard/connectors",
+          url: "/dashboard/connector",
         },
         {
           title: "Field Staff",
-          url: "/dashboard/connectors",
+          url: "/dashboard/connector",
         },
         {
           title: "Telecaller",
-          url: "/dashboard/connectors",
+          url: "/dashboard/connector",
+        },
+      ],
+    },
+    {
+      title: "Actions",
+      url: "#",
+      icon: Users2Icon,
+      items: [
+        {
+          title: "Account Creation",
+          url: "/dashboard/admin/signup",
         },
       ],
     },
@@ -123,7 +134,7 @@ export const RMSidebar = {
       items: [
         {
           title: "Personal Loan",
-          url: "/dashboard/admin/forms/personal_loan",
+          url: "/dashboard/forms/personal_loan",
           icon: FileUser,
           isActive: true,
         },
@@ -195,7 +206,7 @@ export const DSASidebar = {
       items: [
         {
           title: "Personal Loan",
-          url: "/dashboard/admin/forms/personal_loan",
+          url: "/dashboard/forms/personal_loan",
           icon: FileUser,
           isActive: true,
         },
@@ -258,7 +269,6 @@ export const DSASidebar = {
 };
 export const TelecallerSidebar = {
   navMain: [
-    
     {
       title: "Calling List",
       url: "#",
@@ -295,7 +305,6 @@ export const TelecallerSidebar = {
 };
 export const FieldStaffSidebar = {
   navMain: [
-    
     {
       title: "Field Report",
       url: "#",

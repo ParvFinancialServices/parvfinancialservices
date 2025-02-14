@@ -1,4 +1,4 @@
 export const pageAccess = {
-  Admin: ["/dashboard/admin"],
-  DSA: ["/dashboard/connector"],
+  Admin: ["/dashboard/admin", "/dashboard/forms"],
+  DSA: ["/dashboard/connector", "/dashboard/forms"],
 };
