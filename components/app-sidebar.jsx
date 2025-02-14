@@ -1,6 +1,6 @@
 "use client";
 
-import { useAdminState } from "@/app/dashboard/store";
+import { useUserState } from "@/app/dashboard/store";
 import { NavMain } from "@/components/nav-main.jsx";
 import { NavProjects } from "@/components/nav-projects.jsx";
 import { NavUser } from "@/components/nav-user";
@@ -15,7 +15,7 @@ import { usePathname } from "next/navigation";
 import { use, useEffect, useState } from "react";
 
 export function AppSidebar({ ...props }) {
-  const AdminState = useAdminState();
+  const userState = useUserState();
   const pathname = usePathname();
   const [roleData, setRoleData] = useState(null);
   console.log(roleData);
@@ -80,6 +80,7 @@ export function AppSidebar({ ...props }) {
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={roleData?.profile} />
+        <NavUser user={userState?.profile} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

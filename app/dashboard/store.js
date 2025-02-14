@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export const useAdminState = create((set) => ({
+export const useUserState = create((set) => ({
   loanNumber: 0,
   profile: {},
   user:{},
