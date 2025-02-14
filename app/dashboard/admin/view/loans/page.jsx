@@ -1,7 +1,7 @@
 "use client";
 import { DataTable } from "@/comp/DataTable";
 import { columns } from "./columns";
-import { getLoanData } from "@/api/file_action";
+import { getLoanData, sendMail } from "@/api/file_action";
 import { useEffect } from "react";
 import { useState } from "react";
 import { extractParticularField, extractTableData } from "@/lib/utils";
@@ -93,6 +93,7 @@ export default function Page() {
         <Button className="w-fit" onClick={() => exportTableToExcel("myTable")}>
           Download
         </Button>
+        <Button onClick={() => sendMail()}>send mail</Button>
       </div>
       {!isLoading ? (
         <Table columns={columns} data={data} filter={filterData} />

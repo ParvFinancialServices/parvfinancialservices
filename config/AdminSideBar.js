@@ -78,6 +78,17 @@ export const AdminSidebar = {
       ],
     },
     {
+      title: "Actions",
+      url: "#",
+      icon: Users2Icon,
+      items: [
+        {
+          title: "Account Creation",
+          url: "/dashboard/admin/signup",
+        },
+      ],
+    },
+    {
       title: "Reports",
       url: "#",
       icon: Users2Icon,
@@ -258,7 +269,6 @@ export const DSASidebar = {
 };
 export const TelecallerSidebar = {
   navMain: [
-    
     {
       title: "Calling List",
       url: "#",
@@ -295,7 +305,6 @@ export const TelecallerSidebar = {
 };
 export const FieldStaffSidebar = {
   navMain: [
-    
     {
       title: "Field Report",
       url: "#",

@@ -1,228 +1,219 @@
 "use client";
 import React, { useState } from "react";
-import { PersonalLoan, PersonalLoanSchema } from "@/config/forms/PersonalLoan.js";
-import Formstepper from "@/components/common/Formstepper";
-import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
-import { Label } from "@/components/ui/label";
 import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+  PersonalLoan,
+  PersonalLoanSchema,
+} from "@/config/forms/PersonalLoan.js";
+import Formstepper from "@/components/common/Formstepper";
+import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { cloneDeep, forOwn, isObject, set, unset } from "lodash";
+import { cloneDeep, set, unset } from "lodash";
 import db from "@/lib/firestore";
 import { collection, addDoc } from "firebase/firestore";
-import { getStorage } from "firebase/storage";
 import { useEffect } from "react";
-import File from "@/comp/File";
 import { useRef } from "react";
 import { removeProperty } from "@/lib/utils";
 import CloseIcon from "@/public/close.png";
 import Image from "next/image";
+import { StepForm } from "@/comp/StepForm";
 
-const Step = ({
-  sectionIndex,
-  fieldInd,
-  toggleFieldInd,
-  field,
-  setState,
-  step,
-  state,
-  currentStepName,
-  readonly = false,
-}) => {
-  // function to change state for form elements
-  let onChange = (key, value) => {
-    setState((state) => {
-      set(state, `${key}.value`, value);
-      return { ...state };
-    });
-  };
+// const Step = ({
+//   sectionIndex,
+//   fieldInd,
+//   toggleFieldInd,
+//   field,
+//   setState,
+//   step,
+//   state,
+//   currentStepName,
+//   readonly = false,
+// }) => {
+//   // function to change state for form elements
+//   let onChange = (key, value) => {
+//     setState((state) => {
+//       set(state, `${key}.value`, value);
+//       return { ...state };
+//     });
+//   };
 
-  // key of form element used for key and state change
-  let key = !isNaN(Number(toggleFieldInd))
-    ? `${currentStepName}.sections[${sectionIndex}].fields[${fieldInd}].fields[${toggleFieldInd}]`
-    : `${currentStepName}.sections[${sectionIndex}].fields[${fieldInd}]`;
+//   // key of form element used for key and state change
+//   let key = !isNaN(Number(toggleFieldInd))
+//     ? `${currentStepName}.sections[${sectionIndex}].fields[${fieldInd}].fields[${toggleFieldInd}]`
+//     : `${currentStepName}.sections[${sectionIndex}].fields[${fieldInd}]`;
 
-  switch (field.type) {
-    case "String":
-      return (
-        <div className="flex flex-col gap-2" key={key}>
-          <Label htmlFor={field.name}>{field.label}</Label>
-          <Input
-            id={field.name}
-            value={field.value}
-            onChange={(e) => onChange(key, e.target.value)}
-            disabled={readonly}
-          />
-          {field.error ? (
-            <div>
-              <p className="text-xs text-red-500">{field.error}</p>
-            </div>
-          ) : null}
-        </div>
-      );
-    case "Date":
-      return (
-        <div className="flex flex-col gap-2" key={key}>
-          <Label htmlFor={field.name}>{field.label}</Label>
-          <Input
-            type="date"
-            onChange={(e) => onChange(key, e.target.value)}
-            value={field.value}
-            disabled={readonly}
-          />
-          {field.error ? (
-            <div>
-              <p className="text-xs text-red-500">{field.error}</p>
-            </div>
-          ) : null}
-        </div>
-      );
-    case "Option":
-      return (
-        <div className="flex flex-col gap-2 w-full" key={key}>
-          <Label htmlFor={field.name}>{field.label}</Label>
-          <Select
-            id={field.name}
-            onValueChange={(e) => onChange(key, e)}
-            disabled={readonly}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue
-                placeholder={field.value ? field.value : field.options[0].label}
-              />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {field.options.map((option) => (
-                  <SelectItem value={option.label} key={option.label}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          {field.error ? (
-            <div>
-              <p className="text-xs text-red-500">{field.error}</p>
-            </div>
-          ) : null}
-        </div>
-      );
-    case "Binary":
-      return (
-        <div className="flex flex-col col-span-3 gap-4" key={key}>
-          <Label htmlFor={field.name}>{field.label}</Label>
-          <RadioGroup
-            disabled={readonly}
-            value={field.value ? field.value : "No"}
-            className="flex flex-row gap-4 items-center"
-            onValueChange={(e) => onChange(key, e)}
-          >
-            <div className="flex items-center space-x-2">
-              <Label>
-                <RadioGroupItem value="Yes" /> Yes
-              </Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Label>
-                <RadioGroupItem value="No" id="r2" /> No
-              </Label>
-            </div>
-          </RadioGroup>
-          <div className="grid grid-cols-3 gap-6">
-            {field.value == "Yes" &&
-              field.fields &&
-              field.fields.map((e, toggleFieldInd) => {
-                return (
-                  <Step
-                    readonly={readonly}
-                    step={Object.keys(state)[step]}
-                    sectionIndex={sectionIndex}
-                    toggleFieldInd={toggleFieldInd}
-                    fieldInd={fieldInd}
-                    field={e}
-                    setState={setState}
-                    key={`${sectionIndex}-${fieldInd}-${toggleFieldInd}`}
-                    currentStepName={currentStepName}
-                    state={state}
-                  />
-                );
-              })}
-          </div>
-          <Separator />
-        </div>
-      );
-    case "File":
-      return (
-        <File
-          itemKey={key}
-          field={field}
-          setState={setState}
-          disabled={readonly}
-        />
-      );
-    default:
-      return (
-        <div className="flex flex-col gap-2" key={key}>
-          <Label htmlFor={field.name}>{field.label}</Label>
-          <Input
-            id={field.name}
-            value={field.value}
-            onChange={(e) => onChange(key, e)}
-            disabled={readonly}
-          />
-        </div>
-      );
-  }
-};
+//   switch (field.type) {
+//     case "String":
+//       return (
+//         <div className="flex flex-col gap-2" key={key}>
+//           <Label htmlFor={field.name}>{field.label}</Label>
+//           <Input
+//             id={field.name}
+//             value={field.value}
+//             onChange={(e) => onChange(key, e.target.value)}
+//             disabled={readonly}
+//           />
+//           {field.error ? (
+//             <div>
+//               <p className="text-xs text-red-500">{field.error}</p>
+//             </div>
+//           ) : null}
+//         </div>
+//       );
+//     case "Date":
+//       return (
+//         <div className="flex flex-col gap-2" key={key}>
+//           <Label htmlFor={field.name}>{field.label}</Label>
+//           <Input
+//             type="date"
+//             onChange={(e) => onChange(key, e.target.value)}
+//             value={field.value}
+//             disabled={readonly}
+//           />
+//           {field.error ? (
+//             <div>
+//               <p className="text-xs text-red-500">{field.error}</p>
+//             </div>
+//           ) : null}
+//         </div>
+//       );
+//     case "Option":
+//       return (
+//         <div className="flex flex-col gap-2 w-full" key={key}>
+//           <Label htmlFor={field.name}>{field.label}</Label>
+//           <Select
+//             id={field.name}
+//             onValueChange={(e) => onChange(key, e)}
+//             disabled={readonly}
+//           >
+//             <SelectTrigger className="w-full">
+//               <SelectValue
+//                 placeholder={field.value ? field.value : field.options[0].label}
+//               />
+//             </SelectTrigger>
+//             <SelectContent>
+//               <SelectGroup>
+//                 {field.options.map((option) => (
+//                   <SelectItem value={option.label} key={option.label}>
+//                     {option.label}
+//                   </SelectItem>
+//                 ))}
+//               </SelectGroup>
+//             </SelectContent>
+//           </Select>
+//           {field.error ? (
+//             <div>
+//               <p className="text-xs text-red-500">{field.error}</p>
+//             </div>
+//           ) : null}
+//         </div>
+//       );
+//     case "Binary":
+//       return (
+//         <div className="flex flex-col col-span-3 gap-4" key={key}>
+//           <Label htmlFor={field.name}>{field.label}</Label>
+//           <RadioGroup
+//             disabled={readonly}
+//             value={field.value ? field.value : "No"}
+//             className="flex flex-row gap-4 items-center"
+//             onValueChange={(e) => onChange(key, e)}
+//           >
+//             <div className="flex items-center space-x-2">
+//               <Label>
+//                 <RadioGroupItem value="Yes" /> Yes
+//               </Label>
+//             </div>
+//             <div className="flex items-center space-x-2">
+//               <Label>
+//                 <RadioGroupItem value="No" id="r2" /> No
+//               </Label>
+//             </div>
+//           </RadioGroup>
+//           <div className="grid grid-cols-3 gap-6">
+//             {field.value == "Yes" &&
+//               field.fields &&
+//               field.fields.map((e, toggleFieldInd) => {
+//                 return (
+//                   <Step
+//                     readonly={readonly}
+//                     step={Object.keys(state)[step]}
+//                     sectionIndex={sectionIndex}
+//                     toggleFieldInd={toggleFieldInd}
+//                     fieldInd={fieldInd}
+//                     field={e}
+//                     setState={setState}
+//                     key={`${sectionIndex}-${fieldInd}-${toggleFieldInd}`}
+//                     currentStepName={currentStepName}
+//                     state={state}
+//                   />
+//                 );
+//               })}
+//           </div>
+//           <Separator />
+//         </div>
+//       );
+//     case "File":
+//       return (
+//         <File
+//           itemKey={key}
+//           field={field}
+//           setState={setState}
+//           disabled={readonly}
+//         />
+//       );
+//     default:
+//       return (
+//         <div className="flex flex-col gap-2" key={key}>
+//           <Label htmlFor={field.name}>{field.label}</Label>
+//           <Input
+//             id={field.name}
+//             value={field.value}
+//             onChange={(e) => onChange(key, e)}
+//             disabled={readonly}
+//           />
+//         </div>
+//       );
+//   }
+// };
 
-const StepForm = ({ state, setState, step, readonly = false }) => {
-  //current form step property name
-  let currentStepName = Object.keys(state)[step];
+// const StepForm = ({ state, setState, step, readonly = false }) => {
+//   //current form step property name
+//   let currentStepName = Object.keys(state)[step];
 
-  return (
-    <div className="flex flex-col gap-8">
-      {state[currentStepName].sections.map((section, sectionIndex) => {
-        return (
-          <section
-            className="flex flex-col gap-4"
-            key={`${currentStepName}.section[${sectionIndex}]`}
-          >
-            <div className="flex flex-col gap-2">
-              <h2>{section.title}</h2>
-              <Separator className="w-full" />
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {section.fields.map((field, fieldInd) => (
-                <Step
-                  step={Object.keys(state)[step]}
-                  sectionIndex={sectionIndex}
-                  fieldInd={fieldInd}
-                  field={field}
-                  setState={setState}
-                  key={`${sectionIndex}-${fieldInd}`}
-                  state={state}
-                  currentStepName={currentStepName}
-                  readonly={readonly}
-                />
-              ))}
-            </div>
-          </section>
-        );
-      })}
-    </div>
-  );
+//   return (
+//     <div className="flex flex-col gap-8">
+//       {state[currentStepName].sections.map((section, sectionIndex) => {
+//         return (
+//           <section
+//             className="flex flex-col gap-4"
+//             key={`${currentStepName}.section[${sectionIndex}]`}
+//           >
+//             <div className="flex flex-col gap-2">
+//               <h2>{section.title}</h2>
+//               <Separator className="w-full" />
+//             </div>
+//             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+//               {section.fields.map((field, fieldInd) => (
+//                 <Step
+//                   step={Object.keys(state)[step]}
+//                   sectionIndex={sectionIndex}
+//                   fieldInd={fieldInd}
+//                   field={field}
+//                   setState={setState}
+//                   key={`${sectionIndex}-${fieldInd}`}
+//                   state={state}
+//                   currentStepName={currentStepName}
+//                   readonly={readonly}
+//                 />
+//               ))}
+//             </div>
+//           </section>
+//         );
+//       })}
+//     </div>
+//   );
 
-  // return <Step state={state} setState={setState} step={step}></Step>
-};
+//   // return <Step state={state} setState={setState} step={step}></Step>
+// };
 
 const PersonalLoanForm = () => {
   // step denoting the current step of the form
@@ -352,10 +343,17 @@ const PersonalLoanForm = () => {
           </Button>
         ) : null}
       </div>
-      <dialog ref={previewRef} className="h-screen w-screen p-8 bg-white m-4 relative">
+      <dialog
+        ref={previewRef}
+        className="h-screen w-screen p-8 bg-white m-4 relative"
+      >
         <h1 className="text-3xl">Preview</h1>
-        <button type="button" onClick={(e) => previewRef.current.close()} className="h-12 w-12 p-4 absolute top-0 right-0">
-          <Image src={CloseIcon} alt="close"/>
+        <button
+          type="button"
+          onClick={(e) => previewRef.current.close()}
+          className="h-12 w-12 p-4 absolute top-0 right-0"
+        >
+          <Image src={CloseIcon} alt="close" />
         </button>
         <Separator />
         {Object.keys(state).map((key, index) => {

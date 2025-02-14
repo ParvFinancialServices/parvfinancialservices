@@ -5,16 +5,11 @@ import * as jwt from "jsonwebtoken";
 import { v2 as sdk } from "cloudinary";
 import { cookies } from "next/headers";
 import * as admin from "firebase-admin";
-import { getDatabase } from "firebase-admin/database";
 import { redirect } from "next/navigation";
-import {
-  addDoc,
-  collection,
-  doc,
-  getFirestore,
-  setDoc,
-} from "firebase/firestore";
 import { error } from "console";
+import { get } from "lodash";
+import { getUsername } from "@/lib/utils";
+import * as nodemailer from "nodemailer";
 
 sdk.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -68,12 +63,15 @@ async function checkAuthentication(token) {
 export async function getUserData(token) {
   let { decoded } = await checkAuthentication(token);
   const db = admin.firestore();
-  let profile;
+  let profile = {};
   let query = db.collection("creds").where("username", "==", decoded.username);
-  let snapshot = await query.select("username", "name", "role").get();
+  let snapshot = await query.get();
 
   snapshot.forEach((doc) => {
-    profile = doc.data();
+    doc = doc.data();
+    profile.username = get(doc, "username");
+    profile.name = get(doc, "info.sections[0].fields[0].value");
+    profile.role = get(doc, "role");
   });
 
   return { profile };
@@ -167,20 +165,26 @@ function getApp() {
 }
 
 export async function login(username, password) {
-  let profile;
+  let profile = {};
   getApp();
   const auth = admin.auth();
   const db = admin.firestore();
 
   // getting profile details
   let query = db.collection("creds").where("username", "==", username);
-  let snapshot = await query
-    .select("username", "password", "salt", "role")
-    .get();
+  let snapshot = await query.get();
 
   snapshot.forEach((doc) => {
-    profile = doc.data();
+    doc = doc.data();
+    profile.username = get(doc, "username");
+    profile.password = get(doc, "password");
+    profile.salt = get(doc, "salt");
+    profile.role = get(doc, "role");
   });
+
+  // snapshot.forEach((doc) => {
+  //   profile = doc.data();
+  // });
 
   // creating user provided password hash
   password = crypto
@@ -229,7 +233,9 @@ export async function createDSAAccount(data) {
 
   let username = "DSA" + length;
   let salt = crypto.randomBytes(16).toString("hex");
-  let pass = data.mobileNo.slice(0, 5) + data.pincode;
+  let pass =
+    get(data, "info.sections[0].fields[0].value").slice(0, 3) +
+    get(data, "info.sections[0].fields[5].value").slice(0, 3);
   let password = crypto
     .pbkdf2Sync(pass, salt, 10, 16, "sha512")
     .toString("hex");
@@ -239,11 +245,46 @@ export async function createDSAAccount(data) {
   data.role = "DSA";
 
   await db.collection("creds").add(data);
+
+  //need to remove from production
   cookieStore.set("username", username);
   cookieStore.set("password", pass);
+
   redirect("/login");
 }
 
+export async function createAccount(token, data) {
+  const cookieStore = cookies();
+  let { decoded } = await checkAuthentication(token);
+  console.log("decoded", decoded);
+  console.log("data", JSON.stringify(data));
+  if (decoded.role !== "Admin") {
+    return false;
+  }
+
+  const db = admin.firestore();
+  const role = get(data, "info.sections[1].fields[0].value");
+  let snapshot = await db.collection("creds").where("role", "==", role).get();
+  let length = snapshot.size + 1;
+
+  let username = getUsername(role, length);
+  let salt = crypto.randomBytes(16).toString("hex");
+  let pass =
+    get(data, "info.sections[0].fields[0].value").slice(0, 3) +
+    get(data, "info.sections[0].fields[5].value").slice(0, 3);
+  let password = crypto
+    .pbkdf2Sync(pass, salt, 10, 16, "sha512")
+    .toString("hex");
+  data.salt = salt;
+  data.password = password;
+  data.username = username;
+  data.role = role;
+
+  await db.collection("creds").add(data);
+  cookieStore.set("username", username);
+  cookieStore.set("password", pass);
+  // redirect("/dashboard/admin/success");
+}
 export async function logout() {
   try {
     const cookieStore = cookies();
@@ -261,4 +302,29 @@ export async function logout() {
     console.log(error);
     redirect("/login");
   }
+}
+
+export async function sendMail() {
+  const auth = nodemailer.createTransport({
+    service: "gmail",
+    secure: true,
+    port: 465,
+    auth: {
+      user: "parvmultiservices@gmail.com",
+      pass: process.env.LESS_SECURE_PASS,
+    },
+  });
+
+  const receiver = {
+    from: "parvmultiservices@gmail.com",
+    to: "rishab.rishu49@gmail.com",
+    subject: "Node Js Mail Testing!",
+    text: "Hello this is a text mail!",
+  };
+
+  auth.sendMail(receiver, (error, emailResponse) => {
+    if (error) throw error;
+    console.log("success!");
+    response.end();
+  });
 }
