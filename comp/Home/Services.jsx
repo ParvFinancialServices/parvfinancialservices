@@ -107,8 +107,8 @@ const Card = ({ data }) => {
 
 const Services = () => {
     return (
-        <div className=" py-4 md:py-10 mx-auto font-[sans-serif] ">
-            <div className="text-center w-full md:max-w-2xl mx-auto">
+        <div className=" px-4 py-4 md:py-10 space-y-6 mx-auto font-[sans-serif] ">
+            <div className="text-start md:text-center w-full md:max-w-2xl mx-auto">
                 <div className="flex justify-center my-6">
                     <Heading text={'Services'} />
                 </div>
@@ -116,7 +116,7 @@ const Services = () => {
                 <p className="text-sm text-gray-600 mt-6">Discover innovative solutions designed to streamline your journey. Our exceptional services provide the tools and support you need to unlock potential, achieve goals, and excel effortlessly.</p>
             </div>
 
-            <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-5 mt-16 max-md:max-w-lg mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 gap-5 max-md:max-w-lg mx-auto">
                 {
                     loanDetails?.map((item, index) => {
                         return (

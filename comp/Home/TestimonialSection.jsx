@@ -78,7 +78,7 @@ const CustomPrevArrow = (props) => {
     const { onClick } = props;
     return (
         <div
-            className="custom-arrow custom-prev"
+            className="custom-arrow hidden md:block custom-prev"
             onClick={onClick}
             style={{
                 position: "absolute",
@@ -131,7 +131,6 @@ export default function TestimonialSection() {
             <button className="w-4 h-4 bg-gray-300 rounded-full transition duration-300 "></button>
         ),
         appendDots: (dots) => (
-            // <div className="h-20 flex justify-center space-x-2 p-4">{dots}</div>
             <div
             className="bg-red-200"
                 style={{
@@ -160,10 +159,11 @@ export default function TestimonialSection() {
                     <Heading text={"Testimonial"} />
                 </div>
                 <BigHeading className="text-center pb-9" text={'What Our Customers Say'} />
-                {/* <h2 className="text-2xl font-bold text-center text-gray-800 mb-8"></h2> */}
-                <Slider {...settings}>
+                <Slider {...settings}
+                className=" max-w-5xl"
+                >
                     {testimonials.map((testimonial, index) => (
-                        <div key={index} className="px-4">
+                        <div key={index} className="px-2">
                             <TestimonialCard {...testimonial} />
                         </div>
                     ))}

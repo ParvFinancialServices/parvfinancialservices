@@ -51,8 +51,6 @@ export function WhoIsDSA() {
 
 export function HowItWorks() {
     const { title, steps } = dsaContent.howItWorks;
-
-    // Icons for the steps (customize as per your preference)
     const icons = [<FileText size={40} />, <Users size={40} />, <CheckCircle size={40} />, <DollarSign size={40} />];
 
     return (
@@ -60,7 +58,7 @@ export function HowItWorks() {
             <h2 className="text-2xl font-bold text-blue-900 mb-4">{title}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mx-auto">
                 {steps.map((step, index) => (
-                    <Card key={index} className="bg-white shadow-lg rounded-lg hover:shadow-xl transition-shadow duration-300">
+                    <Card key={index} className="bg-white rounded-lg hover:shadow-xl transition-shadow duration-300">
                         <CardContent className="flex flex-col items-center p-6 text-center">
                             {/* Icon */}
                             <div className="mb-4 text-blue-600">{icons[index]}</div>
@@ -112,13 +110,13 @@ export function BenefitsSection() {
     ];
 
     return (
-        <div className="bg-white p-8 rounded-lg shadow mb-8">
+        <div className="p-8 rounded-lg mb-8">
             <h2 className="text-2xl font-bold text-blue-900 mb-4">
                 Benefits of Joining as a DSA
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {benefits.map((benefit, index) => (
-                    <div key={index} className="bg-blue-50 p-6 rounded-lg">
+                    <div key={index} className="bg-white p-6 rounded-lg">
                         <h3 className="text-xl font-semibold text-blue-900 mb-2">
                             {benefit.icon} {benefit.title}
                         </h3>
@@ -177,7 +175,7 @@ export function FAQSection() {
     ];
 
     return (
-        <div className="bg-white p-8 rounded-lg shadow-lg mb-8">
+        <div className=" p-8 rounded-lg mb-8">
             <h2 className="text-2xl font-bold text-blue-900 mb-6">Frequently Asked Questions</h2>
             <Accordion type="single" collapsible className="w-full">
                 {faqs.map((faq, index) => (
@@ -208,7 +206,7 @@ export function ProductsSection() {
     ];
 
     return (
-        <div className="py-12 p-8 bg-white">
+        <div className="py-12 p-8">
             <h2 className="text-2xl font-bold text-blue-900 mb-4">{title}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mx-auto">
                 {categories.map((category, index) => (
@@ -256,8 +254,8 @@ export function EligibilitySection() {
 
 export default function AboutDSAPage() {
     return (
-        <div className="bg-gradient-to-r container mx-auto from-blue-50 to-purple-50 min-h-screen py-12">
-            <div className="containe mx-auto px-4">
+        <div className="bg-gradient-to-r w-full mx-auto from-blue-50 to-purple-50 min-h-screen py-12">
+            <div className="container mx-auto px-4">
                 {/* Hero Section */}
                 <HeroSection />
 
