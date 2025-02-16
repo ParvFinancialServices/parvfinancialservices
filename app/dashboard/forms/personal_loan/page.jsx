@@ -31,7 +31,7 @@ import { getStorage } from "firebase/storage";
 import { useEffect } from "react";
 import File from "@/comp/File";
 import { useRef } from "react";
-import { removeProperty } from "@/lib/utils";
+import { removeProperty, updateErrors } from "@/lib/utils";
 import CloseIcon from "@/public/close.png";
 import Image from "next/image";
 import { login, setLoanData, upload_data } from "@/api/file_action";
@@ -283,7 +283,7 @@ const PersonalLoanForm = () => {
     // test mode
     // 1. remove all of the unwanted properties from the object
     // 2. then push the data to the db
-    if (process.env.NEXT_PUBLIC_TEST_MODE) {
+    if (process.env.NEXT_PUBLIC_TEST_MODE == "true") {
       console.log("If statement");
       let newState = cloneDeep(state);
       removeProperty(newState, "options");
@@ -319,25 +319,9 @@ const PersonalLoanForm = () => {
           let newState = cloneDeep(state);
           removeProperty(newState, "options");
           removeProperty(newState, "type");
+          newState.date = new Date().toLocaleString();
+          newState.type = "Personal";
           console.log(newState);
-
-          //
-          // let personalLoansCollection = collection(db, "personal_loans");
-          // let totalNumberOfLoans = await getCountFromServer(
-          //   personalLoansCollection
-          // );
-          // totalNumberOfLoans = totalNumberOfLoans.data().count + 1;
-          // let currentLoanNumber =
-          //   "PL" + String(totalNumberOfLoans).padStart(6, "0");
-          // await setDoc(
-          //   doc(db, "personal_loans", currentLoanNumber),
-          //   newState
-          // ).then((result) => {
-          //   console.log(result);
-          // });
-
-          // userState.setLoanNumber(currentLoanNumber);
-          // router.push("/dashboard/admin/success");
 
           userState.user.getIdToken().then((token) => {
             previewRef.current.close();
@@ -354,31 +338,7 @@ const PersonalLoanForm = () => {
           });
         })
         .catch((e) => {
-          // we are cloning the current state of the form
-          let newState = { ...state };
-          console.log("this is the newState", { ...newState });
-
-          // we are removing any error values present in the object
-          validationErrors.forEach((err) => {
-            console.log(err.path);
-            let path = err.path.split(".");
-            path.pop();
-            path = path.join(".");
-            unset(newState, `${path}.error`);
-          });
-          console.log("this is the state after error removal", {
-            ...newState,
-          });
-
-          // we are adding the necessary error values in the object
-          e.inner.forEach((err) => {
-            console.log(err.path);
-            let path = err.path.split(".");
-            path.pop();
-            path = path.join(".");
-            set(newState, `${path}.error`, err.message);
-          });
-          console.log("this is after error addition", { ...newState });
+          let newState = updateErrors(state, validationErrors, e);
 
           // we are storing the reference of the current error so that on next submission of form we can remove it
           setValidationErrors(e.inner);

@@ -51,6 +51,7 @@ const AccountCreationFieldSchema = object().shape({
         .optional(),
   }),
   disabled: boolean().notRequired(),
+  isRequired:boolean()
 });
 
 const AccountCreationSectionSchema = object().shape({
