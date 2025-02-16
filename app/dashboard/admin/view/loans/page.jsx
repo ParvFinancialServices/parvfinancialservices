@@ -94,8 +94,8 @@ export default function Page() {
           Download
         </Button>
         <Button
-          onClick={() => {
-            let { msg } = sendMail();
+          onClick={async () => {
+            let { msg } = await sendMail();
             console.log(msg);
           }}
         >
