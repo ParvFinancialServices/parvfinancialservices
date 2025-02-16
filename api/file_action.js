@@ -8,8 +8,12 @@ import * as admin from "firebase-admin";
 import { redirect } from "next/navigation";
 import { error } from "console";
 import { get } from "lodash";
-import { getUsername } from "@/lib/utils";
+import { getLoanType, getUsername } from "@/lib/utils";
 import * as nodemailer from "nodemailer";
+import {
+  getAccountCreationSuccessTemplate,
+  getOTPTemplate,
+} from "@/config/mailTemplate";
 
 sdk.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -275,6 +279,7 @@ export async function createAccount(token, data) {
   let password = crypto
     .pbkdf2Sync(pass, salt, 10, 16, "sha512")
     .toString("hex");
+  let email = get(data, "info.sections[0].fields[7].value");
   data.salt = salt;
   data.password = password;
   data.username = username;
@@ -283,6 +288,27 @@ export async function createAccount(token, data) {
   await db.collection("creds").add(data);
   cookieStore.set("username", username);
   cookieStore.set("password", pass);
+
+  let res = sendMail("account_success", {
+    username: username,
+    password: pass,
+    email: email,
+  });
+
+  sendMail("password_reset",{
+    email:email
+  });
+  if (res.err) {
+    return {
+      err: "Unexpected error occured",
+    };
+  } else {
+    return {
+      msg: "Account Creation Successful, Username and password sent to your registered email ID",
+      username: username,
+    };
+  }
+
   // redirect("/dashboard/admin/success");
 }
 export async function logout() {
@@ -304,7 +330,26 @@ export async function logout() {
   }
 }
 
-export async function sendMail() {
+export async function sendMail(type, body) {
+  let template = "";
+  let subject = "";
+  console.log(body);
+  switch (type) {
+    case "account_success":
+      var result = getAccountCreationSuccessTemplate(
+        body.username,
+        body.password
+      );
+      template = result.template;
+      subject = result.subject;
+      break;
+    case "password_reset":
+      var result = getOTPTemplate("123456");
+      template = result.template;
+      subject = result.subject;
+      break;
+  }
+
   const auth = nodemailer.createTransport({
     service: "gmail",
     secure: true,
@@ -317,17 +362,42 @@ export async function sendMail() {
 
   const receiver = {
     from: "parvmultiservices@gmail.com",
-    to: "rishab.rishu49@gmail.com",
-    subject: "Node Js Mail Testing!",
-    text: "Hello this is a text mail!",
+    to: body.email,
+    subject: subject,
+    html: template,
   };
 
   try {
     await auth.sendMail(receiver);
   } catch (e) {
     console.log(e);
+    return {
+      err: e,
+    };
   }
   return {
     msg: "mail sent",
+  };
+}
+
+export async function setLoanData(token, data, type) {
+  let { decoded } = await checkAuthentication(token);
+  console.log("decoded", decoded);
+  console.log("data", JSON.stringify(data));
+  if (decoded.role !== "Admin" && decoded.role !== "DSA") {
+    return false;
+  }
+
+  const db = admin.firestore();
+  let snapshot = await db.collection("personal_loans").get();
+  let length = snapshot.size + 1;
+  let loanData = getLoanType(type, length);
+  data.status = "VERIFICATION";
+
+  await db.collection(loanData.key).doc(loanData.value).set(data);
+
+  console.log("loanData", loanData);
+  return {
+    loanID: loanData.value,
   };
 }

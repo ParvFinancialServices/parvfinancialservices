@@ -1,27 +1,33 @@
 "use client";
 import { createAccount } from "@/api/file_action";
 import { StepForm } from "@/comp/StepForm";
-import { AccountCreation } from "@/config/forms/AdminAccountCreation";
+import { AdminAccountCreation } from "@/config/forms/AccountCreation";
 import { useState } from "react";
 import { useUserState } from "../../store";
 import { removeProperty } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { cloneDeep } from "lodash";
 
 export default function Page() {
-  const [state, setState] = useState(AccountCreation);
+  const [state, setState] = useState(AdminAccountCreation);
   const userState = useUserState();
   let onSubmit = () => {
     console.log(state);
     userState.user.getIdToken().then(function (token) {
-      let data = deepClone(state);
+      let data = cloneDeep(state);
       removeProperty(data, "type");
       removeProperty(data, "options");
-      createAccount(token, data);
-      // .then((res) => {
-      //   console.log(res);
-      //   userState.setProfile(res.profile);
-      //   setIsLoading(false);
-      // });
+      userState.setShowLoader(true);
+      createAccount(token, data).then((res) => {
+        if (res.msg) {
+          userState.setShowLoader(false);
+          userState.setShowInfo(true);
+          userState.setInfo({
+            desc: res.msg,
+            highlight: res.username,
+          });
+        }
+      });
     });
   };
 

@@ -34,11 +34,24 @@ import { useRef } from "react";
 import { removeProperty } from "@/lib/utils";
 import CloseIcon from "@/public/close.png";
 import Image from "next/image";
-import { login, upload_data } from "@/api/file_action";
+import { login, setLoanData, upload_data } from "@/api/file_action";
 import { useUserState } from "@/app/dashboard/store";
 import { useRouter } from "next/navigation";
 import { getAuth, signInWithCustomToken } from "firebase/auth";
 import app from "@/lib/firebaseConfig";
+import { Loader2 } from "lucide-react";
+import { LucideLoader2 } from "lucide-react";
+import { Loader2Icon } from "lucide-react";
+
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { AlertDialogHeader } from "@/components/ui/alert-dialog";
 
 const Step = ({
   sectionIndex,
@@ -279,21 +292,21 @@ const PersonalLoanForm = () => {
       newState.type = "Personal";
       console.log(newState);
 
-      let personalLoansCollection = collection(db, "personal_loans");
-      let totalNumberOfLoans = await getCountFromServer(
-        personalLoansCollection
-      );
-      totalNumberOfLoans = totalNumberOfLoans.data().count + 1;
-      let currentLoanNumber =
-        "PL" + String(totalNumberOfLoans).padStart(6, "0");
-      await setDoc(doc(db, "personal_loans", currentLoanNumber), newState).then(
-        (result) => {
-          console.log(result);
-        }
-      );
-
-      userState.setLoanNumber(currentLoanNumber);
-      router.push("/dashboard/admin/success");
+      userState.user.getIdToken().then((token) => {
+        previewRef.current.close();
+        userState.setShowLoader(true);
+        setTimeout(() => {
+          setLoanData(token, newState, "Personal").then((res) => {
+            userState.setInfo({
+              desc: `You have successfully applied for Personal Loan with loan ID`,
+              highlight: res.loanID,
+            });
+            userState.setShowLoader(false);
+            userState.setShowInfo(true);
+            setState(PersonalLoan);
+          });
+        }, 2000);
+      });
     } else {
       console.log("else condition");
       // prod mode
@@ -308,22 +321,37 @@ const PersonalLoanForm = () => {
           removeProperty(newState, "type");
           console.log(newState);
 
-          let personalLoansCollection = collection(db, "personal_loans");
-          let totalNumberOfLoans = await getCountFromServer(
-            personalLoansCollection
-          );
-          totalNumberOfLoans = totalNumberOfLoans.data().count + 1;
-          let currentLoanNumber =
-            "PL" + String(totalNumberOfLoans).padStart(6, "0");
-          await setDoc(
-            doc(db, "personal_loans", currentLoanNumber),
-            newState
-          ).then((result) => {
-            console.log(result);
-          });
+          //
+          // let personalLoansCollection = collection(db, "personal_loans");
+          // let totalNumberOfLoans = await getCountFromServer(
+          //   personalLoansCollection
+          // );
+          // totalNumberOfLoans = totalNumberOfLoans.data().count + 1;
+          // let currentLoanNumber =
+          //   "PL" + String(totalNumberOfLoans).padStart(6, "0");
+          // await setDoc(
+          //   doc(db, "personal_loans", currentLoanNumber),
+          //   newState
+          // ).then((result) => {
+          //   console.log(result);
+          // });
 
-          userState.setLoanNumber(currentLoanNumber);
-          router.push("/dashboard/admin/success");
+          // userState.setLoanNumber(currentLoanNumber);
+          // router.push("/dashboard/admin/success");
+
+          userState.user.getIdToken().then((token) => {
+            previewRef.current.close();
+            userState.setShowLoader(true);
+            setLoanData(token, newState, "Personal").then((res) => {
+              userState.setInfo({
+                desc: `You have successfully applied for Personal Loan with loan ID`,
+                highlight: res.loanID,
+              });
+              userState.setShowLoader(false);
+              userState.setShowInfo(true);
+              setState(PersonalLoan);
+            });
+          });
         })
         .catch((e) => {
           // we are cloning the current state of the form
@@ -362,7 +390,7 @@ const PersonalLoanForm = () => {
   };
 
   return (
-    <div className="border p-6 m-4">
+    <div className="relative border p-6 m-4">
       <div className="mb-8">
         <Formstepper
           step={step}
@@ -399,6 +427,7 @@ const PersonalLoanForm = () => {
           </Button>
         ) : null}
       </div>
+
       <dialog
         ref={previewRef}
         className="h-screen w-screen p-8 bg-white m-4 relative"

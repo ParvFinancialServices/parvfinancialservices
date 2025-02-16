@@ -4,9 +4,7 @@ import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
-  BreadcrumbPage,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import {
@@ -22,12 +20,24 @@ import app from "@/lib/firebaseConfig";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { makeBreadcrumItem } from "@/lib/utils";
+import { Loader2Icon } from "lucide-react";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { AlertDialogHeader } from "@/components/ui/alert-dialog";
+import { Button } from "@/components/ui/button";
 
 const Layout = ({ children }) => {
   const pathname = usePathname();
   const breadcrumList = pathname.split("/").slice(3);
   let userState = useUserState();
   const [isLoading, setIsLoading] = useState(true);
+
   useEffect(function () {
     if (typeof window !== "undefined") {
       let token;
@@ -69,14 +79,14 @@ const Layout = ({ children }) => {
             <Breadcrumb>
               <BreadcrumbList>
                 {breadcrumList.map((e, ind) => (
-                  <>
-                    <BreadcrumbItem className="hidden md:block" key={e}>
+                  <span key={e}>
+                    <BreadcrumbItem className="hidden md:block">
                       {makeBreadcrumItem(e)}
                     </BreadcrumbItem>
                     {ind < breadcrumList.length - 1 ? (
                       <BreadcrumbSeparator className="hidden md:block" />
                     ) : null}
-                  </>
+                  </span>
                 ))}
               </BreadcrumbList>
             </Breadcrumb>
@@ -84,6 +94,35 @@ const Layout = ({ children }) => {
         </header>
         {isLoading ? <h1>Loading...</h1> : children}
       </SidebarInset>
+      <Dialog open={userState.showLoader}>
+        <DialogContent className="sm:max-w-md">
+          <div className="flex items-center justify-center">
+            <Loader2Icon color="black" className="animate-spin" />
+          </div>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={userState.showInfo}>
+        <DialogContent className="sm:max-w-md">
+          <AlertDialogHeader>
+            <DialogTitle>Congratulations</DialogTitle>
+            <DialogDescription>{userState.info.desc}</DialogDescription>
+          </AlertDialogHeader>
+          <div className="flex items-center justify-center text-lg font-semibold space-x-2">
+            {userState.info.highlight}
+          </div>
+          <DialogFooter className="sm:justify-start">
+            <DialogClose asChild>
+              <Button
+                type="button"
+                variant="secondary"
+                onClick={() => userState.setShowInfo(false)}
+              >
+                Close
+              </Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </SidebarProvider>
   );
 };
