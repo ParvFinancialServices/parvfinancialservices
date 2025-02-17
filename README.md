@@ -3,10 +3,11 @@
 2. account creation by admin
 3. Personal loan application
 4. Email service setup
+5. DSA account creation
 
 # Todo
-1. DSA account creation
-2. Forget Password
+1. Forget Password
+2. Updating table for status
 
 
 ## Password structure
