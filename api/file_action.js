@@ -251,8 +251,8 @@ export async function createDSAAccount(data) {
   await db.collection("creds").add(data);
 
   //need to remove from production
-  cookieStore.set("username", username);
-  cookieStore.set("password", pass);
+  // cookieStore.set("username", username);
+  // cookieStore.set("password", pass);
 
   redirect("/login");
 }
@@ -286,8 +286,8 @@ export async function createAccount(token, data) {
   data.role = role;
 
   await db.collection("creds").add(data);
-  cookieStore.set("username", username);
-  cookieStore.set("password", pass);
+  // cookieStore.set("username", username);
+  // cookieStore.set("password", pass);
 
   let res = sendMail("account_success", {
     username: username,
