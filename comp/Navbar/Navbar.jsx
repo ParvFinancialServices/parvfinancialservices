@@ -1,4 +1,5 @@
 'use client'
+import { useUserState } from "@/app/dashboard/store";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet";
 import { PhoneCall, User } from "lucide-react";
 import Link from "next/link";
@@ -82,6 +83,9 @@ const NavbarNew = () => {
     const pathName = usePathname();
     const paths = pathName.split('/');
     paths.shift();
+    const {profile,user}=useUserState();
+    console.log(profile);
+    
 
     // if (window.screenY > 2) {
     //     setNavColar(true)

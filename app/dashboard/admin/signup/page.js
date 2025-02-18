@@ -13,7 +13,7 @@ export default function Page() {
   let onSubmit = () => {
     console.log(state);
     userState.user.getIdToken().then(function (token) {
-      let data = deepClone(state);
+      // let data = deepClone(state);
       removeProperty(data, "type");
       removeProperty(data, "options");
       createAccount(token, data);
