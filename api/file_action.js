@@ -240,6 +240,7 @@ export async function createDSAAccount(data) {
   let pass =
     get(data, "info.sections[0].fields[0].value").slice(0, 3) +
     get(data, "info.sections[0].fields[5].value").slice(0, 3);
+  let email = get(data, "info.sections[0].fields[7].value");
   let password = crypto
     .pbkdf2Sync(pass, salt, 10, 16, "sha512")
     .toString("hex");
@@ -250,11 +251,23 @@ export async function createDSAAccount(data) {
 
   await db.collection("creds").add(data);
 
+  let res = sendMail("account_success", {
+    username: username,
+    password: pass,
+    email: email,
+  });
+
+  if (res.err) {
+    return {
+      err: "Unexpected error occured",
+    };
+  } else {
+    redirect("/login");
+  }
+
   //need to remove from production
   // cookieStore.set("username", username);
   // cookieStore.set("password", pass);
-
-  redirect("/login");
 }
 
 export async function createAccount(token, data) {
@@ -295,9 +308,9 @@ export async function createAccount(token, data) {
     email: email,
   });
 
-  sendMail("password_reset",{
-    email:email
-  });
+  // sendMail("password_reset",{
+  //   email:email
+  // });
   if (res.err) {
     return {
       err: "Unexpected error occured",

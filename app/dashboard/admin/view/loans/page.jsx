@@ -1,7 +1,7 @@
 "use client";
-import { DataTable } from "@/comp/DataTable";
+
 import { columns } from "./columns";
-import { getLoanData, sendMail } from "@/api/file_action";
+import { getLoanData } from "@/api/file_action";
 import { useEffect } from "react";
 import { useState } from "react";
 import { extractParticularField, extractTableData } from "@/lib/utils";
@@ -18,6 +18,7 @@ export default function Page() {
     "info.sections[0].fields[1].value",
     "info.sections[0].fields[2].value",
     "personal_details.sections[1].fields[0].value",
+    "status"
   ];
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export default function Page() {
           connector_id: extractParticularField(list[0], res.data),
           connector_name: extractParticularField(list[1], res.data),
           type: extractParticularField(list[2], res.data),
+          status: extractParticularField(list[3], res.data)
         };
         console.log(result);
         console.log(d);
@@ -82,24 +84,11 @@ export default function Page() {
     URL.revokeObjectURL(url);
   }
 
-  // Attach the function to the export button's click event
-  // document.getElementById('exportButton').addEventListener('click', function() {
-  //   exportTableToExcel('tableId');
-  // });
-
   return (
     <div className="container mx-auto p-4 flex flex-col gap-2">
       <div className="flex items-center justify-end">
         <Button className="w-fit" onClick={() => exportTableToExcel("myTable")}>
           Download
-        </Button>
-        <Button
-          onClick={async () => {
-            let { msg } = await sendMail();
-            console.log(msg);
-          }}
-        >
-          send mail
         </Button>
       </div>
       {!isLoading ? (
