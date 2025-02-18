@@ -18,6 +18,7 @@ export default function Page() {
     "info.sections[0].fields[1].value",
     "info.sections[0].fields[2].value",
     "personal_details.sections[1].fields[0].value",
+    "status"
   ];
 
   useEffect(() => {
@@ -30,6 +31,7 @@ export default function Page() {
           connector_id: extractParticularField(list[0], res.data),
           connector_name: extractParticularField(list[1], res.data),
           type: extractParticularField(list[2], res.data),
+          status: extractParticularField(list[3], res.data)
         };
         console.log(result);
         console.log(d);

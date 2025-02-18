@@ -37,7 +37,10 @@ function Filter({ column, filter, setFilter }) {
         <div className="peer-checked:flex hidden absolute left-0 items-stretch  bg-white flex-col  border rounded-sm">
           {filter[column.id] &&
             filter[column.id].map((elem, ind) => (
-              <Label key={elem.value} className="flex items-center hover:bg-gray-300 px-4 py-2 gap-2">
+              <Label
+                key={elem.value}
+                className="flex items-center hover:bg-gray-300 px-4 py-2 gap-2"
+              >
                 <input
                   type="checkbox"
                   checked={elem.isChecked}
@@ -70,9 +73,7 @@ function Filter({ column, filter, setFilter }) {
                     }
                   }}
                 />
-                <p className="min-w-max">
-                {elem.value}
-                </p>
+                <p className="min-w-max">{elem.value}</p>
               </Label>
             ))}
         </div>
@@ -83,6 +84,7 @@ function Filter({ column, filter, setFilter }) {
 
 export function DataTable({ columns, data, filter }) {
 
+  // state responsible for column filtering
   const [columnFilters, setColumnFilters] = useState([
     {
       id: "connector_id",
@@ -96,7 +98,14 @@ export function DataTable({ columns, data, filter }) {
       id: "type",
       value: ["all"],
     },
+    {
+      id: "status",
+      value: ["all"],
+    },
   ]);
+
+
+  // state associated with filter elements UI
   const [filterState, setFilterState] = useState([]);
   const table = useReactTable({
     data,

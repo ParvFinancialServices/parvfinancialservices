@@ -4,10 +4,10 @@
 3. Personal loan application
 4. Email service setup
 5. DSA account creation
+6. Updating table for status
 
 # Todo
 1. Forget Password
-2. Updating table for status
 
 
 ## Password structure

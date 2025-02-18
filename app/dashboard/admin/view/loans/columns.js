@@ -1,5 +1,6 @@
 "use client";
 
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -59,11 +60,16 @@ export const columns = [
     filterFn: multiValueFilter,
   },
   {
+    accessorKey: "status",
+    header: "Status",
+    enableColumnFilter: true,
+    filterFn: multiValueFilter,
+    cell: ({ row }) => <Badge>{row.original.status}</Badge>,
+  },
+  {
     id: "edit",
     enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original;
-
+    cell: () => {
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -72,11 +78,7 @@ export const columns = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
-            >
-              View
-            </DropdownMenuItem>
+            <DropdownMenuItem>View</DropdownMenuItem>
             <DropdownMenuItem>Edit</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
