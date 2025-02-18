@@ -1,6 +1,6 @@
 "use client";
 import { getUserData } from "@/api/file_action";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar } from "@/comp/app-sidebar";
 import {
   Breadcrumb,
   BreadcrumbItem,
