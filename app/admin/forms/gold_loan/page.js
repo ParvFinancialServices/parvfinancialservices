@@ -144,11 +144,6 @@ const GoldLoanForm = () => {
     const stepLength = Object.keys(state).length;
 
 
-
-    // const saveToLocalStorage = () => {
-    //     localStorage.setItem('formData', JSON.stringify(formData));
-    // };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         try {

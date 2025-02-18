@@ -17,7 +17,7 @@ const Icons = ({ fill }) => {
 };
 
 export default function File({ field, itemKey, setState, disabled }) {
-  let onChange = (e) => (e) => {
+  let onChange = (e) => {
     console.log(e, itemKey);
     let reader = new FileReader();
     reader.onload = async function (result) {

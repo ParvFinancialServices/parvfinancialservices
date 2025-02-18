@@ -11,12 +11,23 @@ import app from "@/lib/firebaseConfig";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Loader2Icon } from "lucide-react";
 
 export default function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
   const userState = useUserState();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      setIsLoading(false);
+    };
+  }, []);
+
   async function callIt() {
     const auth = getAuth(app);
     const res = await login(username, password);
@@ -26,6 +37,7 @@ export default function LoginPage() {
       alert(res.error);
     } else {
       // userState.setProfile(res.profile);
+      setIsLoading(true);
       signInWithCustomToken(auth, res.token)
         .then(async (userCredentials) => {
           let user = userCredentials.user;
@@ -92,6 +104,13 @@ export default function LoginPage() {
           </form>
         </div>
       </div>
+      <Dialog open={isLoading}>
+        <DialogContent className="sm:max-w-md">
+          <div className="flex items-center justify-center">
+            <Loader2Icon color="black" className="animate-spin" />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -57,7 +57,12 @@ export function NavUser({ user }) {
                 </div>
               </div>
             </DropdownMenuLabel>
-            <DropdownMenuItem onClick={() => logout()}>
+            <DropdownMenuItem
+              onClick={() => {
+                localStorage && localStorage.removeItem("token");
+                logout();
+              }}
+            >
               <LogOut />
               Log out
             </DropdownMenuItem>
