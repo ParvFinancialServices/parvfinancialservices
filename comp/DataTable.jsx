@@ -17,28 +17,9 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-  CommandList,
-} from "@/components/ui/command";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
-import { Checkbox } from "@/components/ui/checkbox";
-import { head } from "lodash";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { makeSelectableState } from "@/lib/utils";
-import { Ellipsis } from "lucide-react";
 import { FilterIcon } from "lucide-react";
 
 function Filter({ column, filter, setFilter }) {

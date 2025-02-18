@@ -79,7 +79,7 @@ const Layout = ({ children }) => {
             <Breadcrumb>
               <BreadcrumbList>
                 {breadcrumList.map((e, ind) => (
-                  <span key={e}>
+                  <span key={e} className="flex items-center justify-center gap-2">
                     <BreadcrumbItem className="hidden md:block">
                       {makeBreadcrumItem(e)}
                     </BreadcrumbItem>

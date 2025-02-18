@@ -19,39 +19,15 @@ import {
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cloneDeep, forOwn, isObject, set, unset } from "lodash";
-import db from "@/lib/firestore";
-import {
-  collection,
-  addDoc,
-  setDoc,
-  doc,
-  getCountFromServer,
-} from "firebase/firestore";
-import { getStorage } from "firebase/storage";
 import { useEffect } from "react";
 import File from "@/comp/File";
 import { useRef } from "react";
 import { removeProperty, updateErrors } from "@/lib/utils";
 import CloseIcon from "@/public/close.png";
 import Image from "next/image";
-import { login, setLoanData, upload_data } from "@/api/file_action";
+import { setLoanData } from "@/api/file_action";
 import { useUserState } from "@/app/dashboard/store";
 import { useRouter } from "next/navigation";
-import { getAuth, signInWithCustomToken } from "firebase/auth";
-import app from "@/lib/firebaseConfig";
-import { Loader2 } from "lucide-react";
-import { LucideLoader2 } from "lucide-react";
-import { Loader2Icon } from "lucide-react";
-
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { AlertDialogHeader } from "@/components/ui/alert-dialog";
 
 const Step = ({
   sectionIndex,
