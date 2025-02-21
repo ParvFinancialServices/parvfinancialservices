@@ -270,6 +270,41 @@ export const DSASidebar = {
 export const TelecallerSidebar = {
   navMain: [
     {
+      title: "Loan Applications",
+      url: "/dashboard",
+      icon: ClipboardType,
+      isActive: true,
+      items: [
+        {
+          title: "Personal Loan",
+          url: "/dashboard/forms/personal_loan",
+          icon: FileUser,
+          isActive: true,
+        },
+        {
+          title: "Business Loan",
+          url: "/admin/forms/business_loan",
+          icon: BriefcaseBusinessIcon,
+          isActive: false,
+        },
+        {
+          title: "Home Loan",
+          url: "/admin/forms/home_loan",
+          icon: HomeIcon,
+        },
+        {
+          title: "Vehicle Loan",
+          url: "/admin/forms/vehicle_loan",
+          icon: CarIcon,
+        },
+        {
+          title: "Gold Loan",
+          url: "/admin/forms/gold_loan",
+          icon: HandCoinsIcon,
+        },
+      ],
+    },
+    {
       title: "Calling List",
       url: "#",
       icon: List,
@@ -305,6 +340,41 @@ export const TelecallerSidebar = {
 };
 export const FieldStaffSidebar = {
   navMain: [
+    {
+      title: "Loan Applications",
+      url: "/dashboard",
+      icon: ClipboardType,
+      isActive: true,
+      items: [
+        {
+          title: "Personal Loan",
+          url: "/dashboard/forms/personal_loan",
+          icon: FileUser,
+          isActive: true,
+        },
+        {
+          title: "Business Loan",
+          url: "/admin/forms/business_loan",
+          icon: BriefcaseBusinessIcon,
+          isActive: false,
+        },
+        {
+          title: "Home Loan",
+          url: "/admin/forms/home_loan",
+          icon: HomeIcon,
+        },
+        {
+          title: "Vehicle Loan",
+          url: "/admin/forms/vehicle_loan",
+          icon: CarIcon,
+        },
+        {
+          title: "Gold Loan",
+          url: "/admin/forms/gold_loan",
+          icon: HandCoinsIcon,
+        },
+      ],
+    },
     {
       title: "Field Report",
       url: "#",
