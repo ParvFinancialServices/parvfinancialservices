@@ -16,6 +16,8 @@ import {
   List,
   Menu,
   LayoutDashboard,
+  Bike,
+  UserPen,
 } from "lucide-react";
 
 export const AdminSidebar = {
@@ -61,19 +63,19 @@ export const AdminSidebar = {
       items: [
         {
           title: "Connectors",
-          url: "/dashboard/connector",
+          url: "/dashboard/admin/view/employees?role=dsa",
         },
         {
           title: "Regional manager",
-          url: "/dashboard/connector",
+          url: "/dashboard/admin/view/employees?role=rm",
         },
         {
           title: "Field Staff",
-          url: "/dashboard/connector",
+          url: "/dashboard/admin/view/employees?role=field-staff",
         },
         {
           title: "Telecaller",
-          url: "/dashboard/connector",
+          url: "/dashboard/admin/view/employees?role=telecaller",
         },
       ],
     },
@@ -375,41 +377,41 @@ export const FieldStaffSidebar = {
         },
       ],
     },
-    {
-      title: "Field Report",
-      url: "#",
-      icon: Users2Icon,
-      items: [
-        {
-          title: "Client Visit",
-          url: "/dashboard/admin/view/loans/category",
-        },
-        {
-          title: "Loan Collection Report",
-          url: "/dashboard/admin/view/loans/member",
-        },
-        {
-          title: "Loan Disbursement Report",
-          url: "/dashboard/admin/view/loans/member",
-        },
-      ],
-    },
+    // {
+    //   title: "Field Report",
+    //   url: "#",
+    //   icon: Users2Icon,
+    //   items: [
+    //     {
+    //       title: "Client Visit",
+    //       url: "/dashboard/field-staff/visit-report",
+    //     },
+    //     // {
+    //     //   title: "Loan Collection Report",
+    //     //   url: "/dashboard/admin/view/loans/member",
+    //     // },
+    //     // {
+    //     //   title: "Loan Disbursement Report",
+    //     //   url: "/dashboard/admin/view/loans/member",
+    //     // },
+    //   ],
+    // },
   ],
   projects: [
     {
-      title: "My Income",
-      url: "/admin/my-income",
-      icon: HandCoinsIcon,
-    },
-    {
       title: "Dashboard",
-      url: "/fieldstaff/dashboard",
+      url: "/dashboard/field-staff",
       icon: LayoutDashboard,
     },
-    // {
-    //   title: "Contact us",
-    //   url: "/admin/contact_data",
-    //   icon: Contact2Icon,
-    // },
+    {
+      title: "Profile",
+      url: "/dashboard/field-staff/profile",
+      icon: UserPen,
+    },
+    {
+      title: "Daily Visit",
+      url: "/dashboard/field-staff/visit-report",
+      icon:Bike,
+    },
   ],
 };

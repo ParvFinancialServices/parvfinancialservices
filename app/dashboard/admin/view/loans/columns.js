@@ -13,6 +13,7 @@ import {
 import { multiValueFilter } from "@/lib/utils";
 import { ArrowUpDown } from "lucide-react";
 import { MoreHorizontal } from "lucide-react";
+import Link from "next/link";
 
 export const columns = [
   {
@@ -69,7 +70,9 @@ export const columns = [
   {
     id: "edit",
     enableHiding: false,
-    cell: () => {
+    cell: ({row}) => {
+      console.log(row?.original);
+      
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -78,7 +81,11 @@ export const columns = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem>View</DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link href={`/dashboard/admin/view/${row?.original?.loanid}?loanId=${row?.original?.loanid}`}>
+                View
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem>Edit</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
