@@ -1,9 +1,9 @@
 "use client";
 
 import { useUserState } from "@/app/dashboard/store";
-import { NavMain } from "@/components/nav-main.jsx";
-import { NavProjects } from "@/components/nav-projects.jsx";
-import { NavUser } from "@/components/nav-user";
+import { NavMain } from "@/comp/nav-main.jsx";
+import { NavProjects } from "@/comp/nav-projects.jsx";
+import { NavUser } from "@/comp/nav-user";
 import {
   Sidebar,
   SidebarContent,

@@ -343,9 +343,129 @@ export async function logout() {
   }
 }
 
+export async function verifyOTP(otp, username) {
+  console.log(otp, username);
+  let data;
+  getApp();
+  const db = admin.firestore();
+  let snapshot = await db
+    .collection("creds")
+    .where("username", "==", username)
+    .get();
+
+  if (snapshot.size > 0) {
+    snapshot.forEach((doc) => {
+      data = doc.data();
+    });
+    let now = new Date();
+    if (data.otp.canReset == "false") {
+      return {
+        type: "UNAUTHORISED",
+        err: `Cannot reset password right now, try again after ${data.otp.timeStamp}`,
+      };
+    } else if (now > data.timeStamp) {
+      return {
+        type: "TIMEOUT",
+        err: "OTP timeout",
+      };
+    } else {
+      console.log("else otp", data);
+      if (data.otp.value == otp) {
+        return {
+          msg: "Verification Successful",
+        };
+      } else {
+        return {
+          type: "INCORRECT",
+          err: "Try again",
+        };
+      }
+    }
+  } else {
+    console.log(err);
+    return {
+      type: "UNEXPECTED",
+      err: "Unexpected Error occured, contact admin",
+    };
+  }
+}
+
+export async function sendOTPMail(username) {
+  console.log(username);
+  let email;
+  let docID;
+  let doc;
+  getApp();
+  const db = admin.firestore();
+  let snapshot = await db
+    .collection("creds")
+    .where("username", "==", username)
+    .get();
+
+  if (snapshot.size > 0) {
+    snapshot.forEach((data) => {
+      docID = data.id;
+      doc = data.data();
+      console.log("doc", doc);
+      email = get(doc, "info.sections[0].fields[7].value");
+      console.log("email", email);
+    });
+
+    console.log(doc);
+    if (doc?.otp?.canReset == false) {
+      let now = new Date();
+      if (now < doc?.otp?.timeStamp.toDate()) {
+        return {
+          type: "UNAUTHORISED",
+          err: `Cannot reset password right now, try again after ${doc.otp.timeStamp.toDate()}`,
+        };
+      }
+    }
+
+    let res = await sendMail("password_reset", {
+      email: email,
+    });
+
+    if (res.err) {
+      console.log(res.err);
+      return {
+        type: "UNEXPECTED",
+        err: "Unexpected Error occured, contact admin",
+      };
+    } else {
+      let now = new Date();
+
+      await db
+        .collection("creds")
+        .doc(docID)
+        .set(
+          {
+            otp: {
+              timeStamp: new Date(now.getTime() + 60 * 1000),
+              value: res.output,
+              canReset: true,
+            },
+          },
+          { merge: true }
+        );
+
+      return {
+        msg: "OTP sent to registered email",
+        value: res.output,
+      };
+    }
+  } else {
+    return {
+      type: "NOT FOUND",
+      err: "Username not found, please enter correct username",
+    };
+  }
+}
+
 export async function sendMail(type, body) {
   let template = "";
   let subject = "";
+  let output = "";
   console.log(body);
   switch (type) {
     case "account_success":
@@ -355,9 +475,12 @@ export async function sendMail(type, body) {
       );
       template = result.template;
       subject = result.subject;
+      output = "Mail Sent";
       break;
     case "password_reset":
-      var result = getOTPTemplate("123456");
+      let otp = Math.floor(100000 + Math.random() * 900000);
+      output = otp;
+      var result = getOTPTemplate(otp);
       template = result.template;
       subject = result.subject;
       break;
@@ -389,10 +512,118 @@ export async function sendMail(type, body) {
     };
   }
   return {
-    msg: "mail sent",
+    output: output,
   };
 }
 
+export async function changePassword(username, password, otp) {
+  getApp();
+  const db = admin.firestore();
+  let docID;
+  let doc;
+  let snapshot = await db
+    .collection("creds")
+    .where("username", "==", username)
+    .get();
+
+  if (snapshot.size > 0) {
+    snapshot.forEach((data) => {
+      docID = data.id;
+      doc = data.data();
+    });
+    if (doc.otp.value == otp) {
+      console.log("otp if");
+      let salt = crypto.randomBytes(16).toString("hex");
+      let pass = crypto
+        .pbkdf2Sync(password, salt, 10, 16, "sha512")
+        .toString("hex");
+
+      //set password
+      //remove otp from db
+      await db.collection("creds").doc(docID).update({
+        salt: salt,
+        password: pass,
+        otp: {},
+      });
+      console.log(docID);
+      return {
+        msg: "Password reset successful",
+      };
+    } else {
+      console.log("otp else");
+      let now = new Date();
+      await db
+        .collection("creds")
+        .doc(docID)
+        .update({
+          otp: {
+            timeStamp: new Date(now.getTime() + 3600 * 1000),
+            canReset: false,
+          },
+        });
+      // prevent user from password reset for sometime
+
+      return {
+        type: "UNAUTHORISED",
+        err: `Cannot reset password right now, try again after ${doc.otp.timeStamp}`,
+      };
+    }
+  } else {
+    // prevent user from password reset for sometime
+    let now = new Date();
+    await db
+      .collection("creds")
+      .doc(docID)
+      .update({
+        otp: {
+          timeStamp: new Date(now.getTime() + 3600 * 1000),
+          canReset: false,
+        },
+      });
+
+    return {
+      type: "UNAUTHORISED",
+      err: `Cannot reset password right now, try again after ${doc.otp.timeStamp}`,
+    };
+  }
+}
+
+export async function setCanReset(username, value) {
+  getApp();
+  const db = admin.firestore();
+  let docID;
+  let snapshot = await db
+    .collection("creds")
+    .where("username", "==", username)
+    .get();
+
+  if (snapshot.size > 0) {
+    snapshot.forEach((data) => {
+      docID = data.id;
+    });
+
+    let now = new Date();
+
+    await db
+      .collection("creds")
+      .doc(docID)
+      .update({
+        otp: {
+          timeStamp: new Date(now.getTime() + 3600 * 1000),
+          canReset: false,
+        },
+      });
+
+    return {
+      msg: "User cannot reset password for next 1 hour",
+    };
+  } else {
+    return {
+      type: "NOTFOUND",
+      err: "User does not exists",
+    };
+  }
+}
 export async function setLoanData(token, data, type) {
   let { decoded } = await checkAuthentication(token);
   console.log("decoded", decoded);

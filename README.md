@@ -9,6 +9,7 @@
 # Todo
 1. Forget Password
 
+after three wrongs we need to set canReset to false using a new function
 
 ## Password structure
 
