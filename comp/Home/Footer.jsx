@@ -60,10 +60,12 @@ const Footer = () => {
                                 <h2 className="inline-block text-2xl pb-2 mb-2 border-b-2 border-blue-600">Connect With Us</h2>
                             </div>
                             <div className="flex items-start lowercase gap-2 text-sm">
-                                <MapPin size={32} /> REGD. OFFICE-HOTEL NEW MAYUR, DUMRAO ROAD, BIKRAMGANJ, ROHTAS BIHAR 802212.
+                                <MapPin size={20} className="mt-1"/>
+                                <span className="flex-1"> REGD. OFFICE-HOTEL NEW MAYUR, DUMRAO ROAD, BIKRAMGANJ, ROHTAS BIHAR 802212.</span>
                             </div>
                             <div className="flex items-start lowercase gap-2 text-sm py-4">
-                                <MapPin size={48} /> Admin office-Maurya Vihar colony, Near Ultra tech cement godown, Landmark- BMP-16, Phulwarishariff Patna 801505.
+                                <MapPin size={20} className="mt-1"/>
+                                <span className="flex-1"> Admin office-Maurya Vihar colony, Near Ultra tech cement godown, Landmark- BMP-16, Phulwarishariff Patna 801505.</span>
                             </div>
                             <a href="#" className="inline-flex items-center justify-center h-8 w-8 border border-gray-100 rounded-full mr-2 hover:text-blue-400 hover:border-blue-400">
                                 <svg className="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">

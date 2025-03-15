@@ -3,13 +3,13 @@ import { BigHeading, Heading } from "./Common";
 
 const ContactUs = () => {
   return (
-    <div className="w-full bg-white py-5 px-6 md:px-16 lg:px-20">
+    <div className="w-full bg-white py-5  md:px-16 px-4 lg:px-20">
       <div className=" mx-auto container bg-white md:p-4 font-[sans-serif]">
         <div className="flex justify-start md:justify-center flex-col w-full">
           <div className="mx-auto my-4">
             <Heading text={'Contact us'} />
           </div>
-          <div className=" mx-auto w-full px-4 md:max-w-[60%]">
+          <div className=" mx-auto w-full md:max-w-[80%]">
             {/* <h2 className="text-gray-800 text-3xl font-bold text-center"></h2> */}
             <BigHeading className="text-center" text={'Get In Touch'} />
             <p className="text-sm text-gray-500 mt-4 leading-relaxed text-start md:text-center">
@@ -19,15 +19,16 @@ const ContactUs = () => {
         </div>
 
         <div
-          className="grid md:grid-cols-2 gap-16 items-center relative overflow-hidden p-8 before:absolute before:right-0 before:w-[300px] before:h-full max-md:before:hidden">
-          <div>
-            <form>
-              <div className="space-y-4 mt-8">
+          // className="grid md:grid-cols-2 gap-16 items-center relative overflow-hidden p-8 before:absolute before:right-0 before:w-[300px] before:h-full max-md:before:hidden">
+          className="grid max-w-[80vw] w-full md:grid-cols-2 gap-16 items-center relative ">
+          <div className="w-full">
+            <form className="max-w-[80vw] w-full">
+              <div className="space-y-4 w-full mt-8">
                 <input type="text" placeholder="Full Name"
                   className="px-2 py-3 bg-white w-full text-gray-800 text-sm border-b border-gray-300 focus:border-blue-600 outline-none" />
                 <input type="text" placeholder="Street"
                   className="px-2 py-3 bg-white w-full text-gray-800 text-sm border-b border-gray-300 focus:border-blue-600 outline-none" />
-                <div className="grid grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <input type="text" placeholder="City"
                     className="px-2 py-3 bg-white w-full text-gray-800 text-sm border-b border-gray-300 focus:border-blue-600 outline-none" />
 
@@ -56,7 +57,7 @@ const ContactUs = () => {
               </button>
             </form>
 
-            <ul className="mt-4 flex flex-wrap justify-center gap-6">
+            <ul className="mt-4 max-w-[80vw] flex flex-wrap justify-center gap-6">
               <li className="flex items-center text-blue-600">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" fill='currentColor'
                   viewBox="0 0 479.058 479.058">
@@ -82,7 +83,14 @@ const ContactUs = () => {
             </ul>
           </div>
           <div className="z-10 relative">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3696018.429574582!2d84.264028!3d25.223685!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398d9f4fafc4cdc3%3A0xde2573891120ae88!2sPARV%20FINANCIAL%20SERVICES!5e0!3m2!1sen!2sin!4v1738207167113!5m2!1sen!2sin" width="600" height="450" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3696018.429574582!2d84.264028!3d25.223685!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x398d9f4fafc4cdc3%3A0xde2573891120ae88!2sPARV%20FINANCIAL%20SERVICES!5e0!3m2!1sen!2sin!4v1738207167113!5m2!1sen!2sin"
+              // width="600"
+              height="450"
+              allowfullscreen=""
+              loading="lazy"
+              className="w-[80vw] md:w-full mx-auto"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
         </div>
       </div>

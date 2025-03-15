@@ -41,7 +41,7 @@ const FaqBox = ({ item }) => {
 
 const FAQ = () => {
     return (
-        <div className=" py-10 font-sans">
+        <div className=" px-4 py-10 font-sans">
             <div className="max-w-6xl mx-auto font-sans">
                 <div className="flex justify-center py-2">
                     <Heading text={"FAQs"} />

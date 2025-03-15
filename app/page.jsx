@@ -9,6 +9,8 @@ import FAQ from "@/comp/Home/FAQ";
 import LoanApplicationProcess from "@/comp/Home/Application";
 import TestimonialSection from "@/comp/Home/TestimonialSection";
 import ContactUs from "@/comp/Home/ContactUs";
+import { FormInstructions } from '@/comp/dsa/FormPage';
+import LoanFormInstructions from '@/comp/form-instructions';
 
 export default function Home() {
   return (
@@ -42,7 +44,7 @@ export default function Home() {
       </Head>
       <div className="w-screen min-h-screen h-fit flex flex-col bg-blue-100/75 relative">
         <NavbarNew />
-        <main className="flex flex-col h-fit">
+        <main className="flex flex-col w-full h-fit">
           <Banner />
           <About />
           <Services />
@@ -51,6 +53,7 @@ export default function Home() {
           <TestimonialSection />
           <FAQ />
           <ContactUs />
+          {/* <LoanFormInstructions/> */}
         </main>
         <Footer />
       </div>
