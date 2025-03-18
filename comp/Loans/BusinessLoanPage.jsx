@@ -4,6 +4,7 @@ import { Select, SelectItem, SelectTrigger, SelectContent } from "@/components/u
 import { documentsData, EligibilityData, FeaturesData, HomeLoanTypesData } from "./LoanData";
 import { ArrowRightCircle } from "lucide-react";
 import { BusinessLoanData } from "./data/BusinessLoanData";
+import Image from "next/image";
 
 // Component: Header
 function Header() {
@@ -34,7 +35,7 @@ const FeatresCard = ({ data }) => {
             <div className="group relative w-full bg-gray-100 rounded-2xl p-4 transition-all duration-500 max-md:max-w-md max-md:mx-auto md:h-64 xl:p-7 hover:bg-indigo-600">
                 <div className="bg-white rounded-full flex justify-center items-center mb-5 w-14 h-14 ">
 
-                    <img src={data?.icon} alt="icons" />
+                    <Image src={data?.icon} alt="icons" width={100} height={100} />
 
                 </div>
                 <h4 className="text-xl font-semibold text-gray-900 mb-3 capitalize transition-all duration-500 group-hover:text-white">{data?.title}</h4>
@@ -108,6 +109,13 @@ function LoanTypes({ items }) {
                     items?.map((item, index) => {
                         return (
                             <div className="p-4 bg-white rounded-lg shadow" key={index}>
+                                <Image
+                                    src={item?.img}
+                                    alt={item?.type}
+                                    width={100}
+                                    height={100}
+                                    className="w-full h-52"
+                                />
                                 <h3 className="font-bold text-gray-800">{item?.type}</h3>
                                 <p className="text-gray-600 mt-2">{item?.description}</p>
                             </div>
