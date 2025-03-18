@@ -5,6 +5,7 @@ import { documentsData, EligibilityData, FeaturesData, HomeLoanTypesData } from 
 import { ArrowRightCircle } from "lucide-react";
 import { BusinessLoanData } from "./data/BusinessLoanData";
 import { VehicleLoanData } from "./data/VehicleLoanData";
+import Image from "next/image";
 
 // Component: Header
 function Header() {
@@ -109,6 +110,13 @@ function LoanTypes({ items }) {
                     items?.map((item, index) => {
                         return (
                             <div className="p-4 bg-white rounded-lg shadow" key={index}>
+                                <Image 
+                                src={item?.img}
+                                alt={item?.type}
+                                width={200}
+                                height={200}
+                                className="w-full h-52"
+                                />
                                 <h3 className="font-bold text-gray-800">{item?.type}</h3>
                                 <p className="text-gray-600 mt-2">{item?.description}</p>
                             </div>
@@ -180,7 +188,7 @@ function Footer() {
 // Main Page Component
 export default function VehicleLoanPage() {
     return (
-        <div className="p-4 md:p-8 container mx-auto w-full ">
+        <div className="p-4 md:p-8 max-w-7xl mx-auto w-full ">
             {/* <Header /> */}
             <div className="">
                 <AboutBusinessLoan item={VehicleLoanData} />

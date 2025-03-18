@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectItem, SelectTrigger, SelectContent } from "@/components/ui/select";
 import { documentsData, EligibilityData, FeaturesData, HomeLoanTypesData } from "./LoanData";
 import { ArrowRightCircle } from "lucide-react";
+import Image from "next/image";
 
 // Component: Header
 function Header() {
@@ -66,12 +67,12 @@ function Features() {
 const ElegibilityCard = ({ item }) => {
     return (
         <div
-            className="bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] p-6 w-full max-w-sm rounded-lg font-[sans-serif] overflow-hidden mx-auto mt-4">
-            <div className="inline-block rounded-full py-2 px-3">
+            className="bg-white shadow-[0_4px_12px_-5px_rgba(0,0,0,0.4)] p-6 w-full max-w-sm rounded-lg font-[sans-serif] overflow-hidden mx-auto">
+            <div className="inline-block rounded-full py-2 sm:px-3">
                 <img src={item?.img} alt="icons" className="w-16 rounded-full" />
             </div>
 
-            <div className="mt-4">
+            <div className="sm:mt-4">
                 <h3 className="text-xl font-bold text-gray-800">{item?.title}</h3>
                 <p className="mt-2 text-sm text-gray-500">{item?.desc}</p>
             </div>
@@ -84,7 +85,7 @@ function Eligibility() {
     return (
         <section className="mb-12">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">Eligibility Criteria</h2>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {
                     EligibilityData?.map((item, index) => {
                         return (
@@ -106,9 +107,17 @@ function LoanTypes() {
                 {
                     HomeLoanTypesData?.map((item, index) => {
                         return (
-                            <div className="p-4 bg-white rounded-lg shadow" key={index}>
-                                <h3 className="font-bold text-gray-800">{item?.type}</h3>
-                                <p className="text-gray-600 mt-2">{item?.description}</p>
+                            <div className="p-4 space-y-1 bg-white rounded-lg shadow" key={index}>
+                                <Image
+                                    src={item?.img}
+                                    alt={item?.type}
+                                    width={500}
+                                    height={500}
+                                    loading="lazy"
+                                    className="max-h-[10rem]"
+                                />
+                                <h3 className="font-bold text-gray-800 pt-4">{item?.type}</h3>
+                                <p className="text-gray-600 ">{item?.description}</p>
                             </div>
                         )
                     })
@@ -122,8 +131,8 @@ function LoanTypes() {
 function AdditionalDetails() {
     return (
         <section className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Additional Details</h2>
-            <ol className="list-decimal list-inside pl-5 text-gray-600 space-y-3">
+            <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4">Additional Details</h2>
+            <ol className="list-decimal list-inside lg:pl-5 text-gray-600 space-y-3">
                 <li> <span className="font-semibold">Loan Amount:</span> Depends on factors like income, property cost, and loan-to-value (LTV) ratio.</li>
                 <li> <span className="font-semibold">Interest Rates: </span>Fixed rates remain constant, while floating rates change based on market conditions.</li>
                 <li> <span className="font-semibold">Loan Tenure: </span>Maximum tenure of up to 30 years, repayable in equated monthly installments (EMIs).</li>
@@ -141,7 +150,7 @@ function DocumentsRequired() {
     return (
         <section className="mb-12">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">Documents Required</h2>
-            <ul className="list-disc grid grid-cols-3 gap-3 list-inside text-gray-600">
+            <ul className="list-disc grid grid-cols-1 lg:grid-cols-3 gap-3 list-inside text-gray-600">
                 {
                     documentsData?.map((item, index) => {
                         return (

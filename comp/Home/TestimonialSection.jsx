@@ -41,7 +41,7 @@ const testimonials = [
 
 export function TestimonialCard({ imgSrc, name, location, rating, description }) {
     return (
-        <div className="break-inside-avoid p-4 rounded-lg bg-gray-100 relative h-72 w-full">
+        <div className="break-inside-avoid p-4 rounded-lg bg-gray-100 relative h-96 w-full">
             <div className="flex flex-wrap items-center gap-4">
                 <img
                     src={imgSrc || '/user.png'}
@@ -153,7 +153,7 @@ export default function TestimonialSection() {
     };
 
     return (
-        <div className="bg-white w-full">
+        <div className="bg-white px-4 w-full">
             <div className="max-w-6xl mx-auto px-4 py-12">
                 <div className="w-full flex justify-center mb-5">
                     <Heading text={"Testimonial"} />

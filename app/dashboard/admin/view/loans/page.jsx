@@ -21,6 +21,9 @@ export default function Page() {
     "status"
   ];
 
+  console.log(data);
+  
+
   useEffect(() => {
     userState.user.getIdToken().then((token) => {
       console.log(token);
@@ -94,7 +97,7 @@ export default function Page() {
       {!isLoading ? (
         <Table columns={columns} data={data} filter={filterData} />
       ) : (
-        <p>loading..</p>
+        <p>loading...</p>
       )}
     </div>
   );

@@ -24,17 +24,17 @@ export const EligibilityData = [
         desc: "Typically, individuals between 18 and 70 years old are eligible for home loans.",
     },
     {
-        img: "/icons/age-group.png",
+        img: "/icons/cash.png",
         title: "Income",
         desc: "Lenders assess the borrower's income, employment stability, and repayment capacity.",
     },
     {
-        img: "/icons/age-group.png",
+        img: "/icons/speedometer.png",
         title: "Credit Score",
         desc: "A good credit score enhances the chances of loan approval.",
     },
     {
-        img: "/icons/age-group.png",
+        img: "/icons/employe-card.png",
         title: "Employment Type",
         desc: "Salaried, self-employed, and government sector employees are eligible.",
     },
@@ -42,26 +42,32 @@ export const EligibilityData = [
 
 export const HomeLoanTypesData = [
     {
+        "img":"/services/puechase_loan.jpg",
         "type": "Purchase Loan",
         "description": "For buying a new or resale property."
     },
     {
+        "img":"/services/construction_loan.jpg",
         "type": "Construction Loan",
         "description": "For constructing a new house."
     },
     {
+        "img":"/services/home_construction.jpg",
         "type": "Home Improvement Loan",
         "description": "For renovating or improving an existing property."
     },
     {
+        "img":"/services/transfer_home_loan.jpg",
         "type": "Balance Transfer",
         "description": "Transferring an existing home loan to another lender for better terms."
     },
     {
+        "img":"/services/land_purchase.jpg",
         "type": "Land Purchase Loan",
         "description": "For buying a plot of land to build a house in the future."
     },
     {
+        "img":"/services/loan_purchase.jpg",
         "type": "Home Extension Loan",
         "description": "For adding more space to an existing property, such as additional rooms or floors."
     }
