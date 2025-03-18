@@ -34,6 +34,11 @@ export const VehicleLoan = {
                             { id: "2", label: "For the growth of existing business" },
                         ]
                     },
+                    {
+                        name: "loan_amount",
+                        label: "Loan Amount",
+                        type: "String",
+                    },
                 ]
             },
             {
