@@ -7,8 +7,8 @@ import { cookies } from "next/headers";
 import * as admin from "firebase-admin";
 import { redirect } from "next/navigation";
 import { error } from "console";
-import { get } from "lodash";
-import { getLoanType, getUsername } from "@/lib/utils";
+import { get, set } from "lodash";
+import { getLoanType, getUsername, removeProperty } from "@/lib/utils";
 import * as nodemailer from "nodemailer";
 import {
   getAccountCreationSuccessTemplate,
@@ -72,10 +72,14 @@ export async function getUserData(token) {
   let snapshot = await query.get();
 
   snapshot.forEach((doc) => {
-    doc = doc.data();
-    profile.username = get(doc, "username");
-    profile.name = get(doc, "info.sections[0].fields[0].value");
-    profile.role = get(doc, "role");
+    profile = doc.data();
+    delete profile.password;
+    delete profile.salt;
+    delete profile.otp;
+    // removeProperty()
+    // profile.username = get(doc, "username");
+    // profile.name = get(doc, "info.sections[0].fields[0].value");
+    // profile.role = get(doc, "role");
   });
 
   return { profile };
@@ -249,7 +253,8 @@ export async function createDSAAccount(data) {
   data.username = username;
   data.role = "DSA";
 
-  await db.collection("creds").add(data);
+  await db.collection("creds").doc(username).set(data);
+  // await db.collection("creds").add(data);
 
   let res = sendMail("account_success", {
     username: username,
@@ -298,7 +303,13 @@ export async function createAccount(token, data) {
   data.username = username;
   data.role = role;
 
-  await db.collection("creds").add(data);
+
+
+  //setting date of joining as disabled so that it can't be edited
+  set(data,"info.sections[1].fields[1].disabled",true);
+
+  // await db.collection("creds").add(data);
+  await db.collection("creds").doc(username).set(data);
   // cookieStore.set("username", username);
   // cookieStore.set("password", pass);
 
@@ -644,4 +655,20 @@ export async function setLoanData(token, data, type) {
   return {
     loanID: loanData.value,
   };
+}
+
+export async function updateAccount(token, data, username) {
+  let { decoded } = await checkAuthentication(token);
+  const db = admin.firestore();
+  if (decoded.username == username) {
+    await db.collection("creds").doc(username).update(data);
+    return {
+      msg: "Account Update Succesfully",
+    };
+  } else {
+    return {
+      type: "UNEXPECTED",
+      err: "unexpected error occured, contact admin",
+    };
+  }
 }

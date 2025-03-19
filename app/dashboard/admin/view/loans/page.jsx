@@ -18,7 +18,7 @@ export default function Page() {
     "info.sections[0].fields[1].value",
     "info.sections[0].fields[2].value",
     "personal_details.sections[1].fields[0].value",
-    "status"
+    "status",
   ];
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export default function Page() {
           connector_id: extractParticularField(list[0], res.data),
           connector_name: extractParticularField(list[1], res.data),
           type: extractParticularField(list[2], res.data),
-          status: extractParticularField(list[3], res.data)
+          status: extractParticularField(list[3], res.data),
         };
         console.log(result);
         console.log(d);
@@ -86,7 +86,8 @@ export default function Page() {
 
   return (
     <div className="container mx-auto p-4 flex flex-col gap-2">
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-end gap-4">
+        <Button>Filter</Button>
         <Button className="w-fit" onClick={() => exportTableToExcel("myTable")}>
           Download
         </Button>

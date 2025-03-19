@@ -252,7 +252,8 @@ const PersonalLoanForm = () => {
   useEffect(() => {
     console.log("userState", userState);
     state.info.sections[0].fields[1].value = userState.profile.username;
-    state.info.sections[0].fields[2].value = userState.profile.name;
+    state.info.sections[0].fields[2].value =
+      userState.profile.info.sections[0].fields[0].value;
   }, [userState]);
 
   let onSubmit = async () => {
@@ -262,8 +263,8 @@ const PersonalLoanForm = () => {
     if (process.env.NEXT_PUBLIC_TEST_MODE == "true") {
       console.log("If statement");
       let newState = cloneDeep(state);
-      removeProperty(newState, "options");
-      removeProperty(newState, "type");
+      // removeProperty(newState, "options");
+      // removeProperty(newState, "type");
       newState.date = new Date().toLocaleString();
       newState.type = "Personal";
       console.log(newState);
@@ -293,8 +294,8 @@ const PersonalLoanForm = () => {
       PersonalLoanSchema.validate(state, { abortEarly: false })
         .then(async () => {
           let newState = cloneDeep(state);
-          removeProperty(newState, "options");
-          removeProperty(newState, "type");
+          // removeProperty(newState, "options");
+          // removeProperty(newState, "type");
           newState.date = new Date().toLocaleString();
           newState.type = "Personal";
           console.log(newState);

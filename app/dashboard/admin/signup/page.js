@@ -21,8 +21,8 @@ export default function Page() {
     if (process.env.NEXT_PUBLIC_TEST_MODE == "true") {
       userState.user.getIdToken().then(function (token) {
         let data = cloneDeep(state);
-        removeProperty(data, "type");
-        removeProperty(data, "options");
+        // removeProperty(data, "type");
+        // removeProperty(data, "options");
         userState.setShowLoader(true);
         createAccount(token, data).then((res) => {
           if (res.msg) {
@@ -39,8 +39,8 @@ export default function Page() {
       AccountCreationSchema.validate(state, { abortEarly: false })
         .then(async () => {
           let data = cloneDeep(state);
-          removeProperty(data, "type");
-          removeProperty(data, "options");
+          // removeProperty(data, "type");
+          // removeProperty(data, "options");
           userState.setShowLoader(true);
           createAccount(token, data).then((res) => {
             if (res.msg) {

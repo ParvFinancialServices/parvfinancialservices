@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/sidebar";
 import { UserRoundCheck } from "lucide-react";
 import { logout } from "@/api/file_action";
+import Link from "next/link";
 
 export function NavUser({ user }) {
   const { isMobile } = useSidebar();
@@ -34,7 +35,9 @@ export function NavUser({ user }) {
                 <UserRoundCheck />
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">{user?.name}</span>
+                <span className="truncate font-semibold">
+                  {user?.info && user?.info.sections[0].fields[0].value}
+                </span>
                 <span className="truncate text-xs">{user?.username}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
@@ -46,16 +49,20 @@ export function NavUser({ user }) {
             align="end"
             sideOffset={4}
           >
-            <DropdownMenuLabel className="p-0 font-normal">
-              <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
-                <Avatar className="h-8 w-8 rounded-lg">
-                  <UserRoundCheck />
-                </Avatar>
-                <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-semibold">{user?.name}</span>
-                  <span className="truncate text-xs">{user?.username}</span>
+            <DropdownMenuLabel className="p-0 font-normal cursor-pointer">
+              <Link href="/dashboard/profile">
+                <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                  <Avatar className="h-8 w-8 rounded-lg">
+                    <UserRoundCheck />
+                  </Avatar>
+                  <div className="grid flex-1 text-left text-sm leading-tight">
+                    <span className="truncate font-semibold">
+                      {user?.info && user?.info.sections[0].fields[0].value}
+                    </span>
+                    <span className="truncate text-xs">{user?.username}</span>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </DropdownMenuLabel>
             <DropdownMenuItem
               onClick={() => {

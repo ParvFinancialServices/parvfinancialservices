@@ -2,12 +2,15 @@ import { Separator } from "@/components/ui/separator";
 import { Step } from "./Step";
 
 export const StepForm = ({ state, setState, step, readonly = false }) => {
+
+  console.log(state);
+
   //current form step property name
   let currentStepName = Object.keys(state)[step];
 
   return (
-    <div className="flex flex-col gap-8">
-      {state[currentStepName].sections.map((section, sectionIndex) => {
+    <div className="flex flex-col gap-8 w-full p-4">
+      {state[currentStepName] && state[currentStepName].sections.map((section, sectionIndex) => {
         return (
           <section
             className="flex flex-col gap-4"
@@ -28,7 +31,7 @@ export const StepForm = ({ state, setState, step, readonly = false }) => {
                   key={`${sectionIndex}-${fieldInd}`}
                   state={state}
                   currentStepName={currentStepName}
-                  readonly={readonly}
+                  readonly={readonly || field.disabled}
                 />
               ))}
             </div>
