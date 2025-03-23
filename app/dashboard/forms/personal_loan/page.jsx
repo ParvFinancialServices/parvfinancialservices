@@ -5,230 +5,31 @@ import {
   PersonalLoanSchema,
 } from "@/config/forms/PersonalLoan.js";
 import Formstepper from "@/components/common/Formstepper";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cloneDeep, forOwn, isObject, set, unset } from "lodash";
 import { useEffect } from "react";
 import File from "@/comp/File";
 import { useRef } from "react";
-import { removeProperty, updateErrors } from "@/lib/utils";
+import { updateErrors } from "@/lib/utils";
 import CloseIcon from "@/public/close.png";
 import Image from "next/image";
 import { setLoanData } from "@/api/file_action";
 import { useUserState } from "@/app/dashboard/store";
-import { useRouter } from "next/navigation";
-
-const Step = ({
-  sectionIndex,
-  fieldInd,
-  toggleFieldInd,
-  field,
-  setState,
-  step,
-  state,
-  currentStepName,
-  readonly = false,
-}) => {
-  // function to change state for form elements
-  let onChange = (key, value) => {
-    setState((state) => {
-      set(state, `${key}.value`, value);
-      return { ...state };
-    });
-  };
-
-  // key of form element used for key and state change
-  let key = !isNaN(Number(toggleFieldInd))
-    ? `${currentStepName}.sections[${sectionIndex}].fields[${fieldInd}].fields[${toggleFieldInd}]`
-    : `${currentStepName}.sections[${sectionIndex}].fields[${fieldInd}]`;
-
-  switch (field.type) {
-    case "String":
-      return (
-        <div className="flex flex-col gap-2" key={key}>
-          <Label htmlFor={field.name}>{field.label}</Label>
-          <Input
-            id={field.name}
-            value={field.value}
-            onChange={(e) => onChange(key, e.target.value)}
-            disabled={readonly || field.disabled}
-          />
-          {field.error ? (
-            <div>
-              <p className="text-xs text-red-500">{field.error}</p>
-            </div>
-          ) : null}
-        </div>
-      );
-    case "Date":
-      return (
-        <div className="flex flex-col gap-2" key={key}>
-          <Label htmlFor={field.name}>{field.label}</Label>
-          <Input
-            type="date"
-            onChange={(e) => onChange(key, e.target.value)}
-            value={field.value}
-            disabled={readonly || field.disabled}
-          />
-          {field.error ? (
-            <div>
-              <p className="text-xs text-red-500">{field.error}</p>
-            </div>
-          ) : null}
-        </div>
-      );
-    case "Option":
-      return (
-        <div className="flex flex-col gap-2 w-full" key={key}>
-          <Label htmlFor={field.name}>{field.label}</Label>
-          <Select
-            id={field.name}
-            onValueChange={(e) => onChange(key, e)}
-            disabled={readonly || field.disabled}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue
-                placeholder={field.value ? field.value : field.options[0].label}
-              />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {field.options.map((option) => (
-                  <SelectItem value={option.label} key={option.label}>
-                    {option.label}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-          {field.error ? (
-            <div>
-              <p className="text-xs text-red-500">{field.error}</p>
-            </div>
-          ) : null}
-        </div>
-      );
-    case "Binary":
-      return (
-        <div className="flex flex-col col-span-3 gap-4" key={key}>
-          <Label htmlFor={field.name}>{field.label}</Label>
-          <RadioGroup
-            disabled={readonly || field.disabled}
-            value={field.value ? field.value : "No"}
-            className="flex flex-row gap-4 items-center"
-            onValueChange={(e) => onChange(key, e)}
-          >
-            <div className="flex items-center space-x-2">
-              <Label>
-                <RadioGroupItem value="Yes" /> Yes
-              </Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Label>
-                <RadioGroupItem value="No" id="r2" /> No
-              </Label>
-            </div>
-          </RadioGroup>
-          <div className="grid grid-cols-3 gap-6">
-            {field.value == "Yes" &&
-              field.fields &&
-              field.fields.map((e, toggleFieldInd) => {
-                return (
-                  <Step
-                    readonly={readonly}
-                    step={Object.keys(state)[step]}
-                    sectionIndex={sectionIndex}
-                    toggleFieldInd={toggleFieldInd}
-                    fieldInd={fieldInd}
-                    field={e}
-                    setState={setState}
-                    key={`${sectionIndex}-${fieldInd}-${toggleFieldInd}`}
-                    currentStepName={currentStepName}
-                    state={state}
-                  />
-                );
-              })}
-          </div>
-          <Separator />
-        </div>
-      );
-    case "File":
-      return (
-        <File
-          itemKey={key}
-          field={field}
-          setState={setState}
-          disabled={readonly || field.disabled}
-        />
-      );
-    default:
-      return (
-        <div className="flex flex-col gap-2" key={key}>
-          <Label htmlFor={field.name}>{field.label}</Label>
-          <Input
-            id={field.name}
-            value={field.value}
-            onChange={(e) => onChange(key, e)}
-            disabled={readonly || field.disabled}
-          />
-        </div>
-      );
-  }
-};
-
-const StepForm = ({ state, setState, step, readonly = false }) => {
-  //current form step property name
-  let currentStepName = Object.keys(state)[step];
-
-  return (
-    <div className="flex flex-col gap-8">
-      {state[currentStepName].sections.map((section, sectionIndex) => {
-        return (
-          <section
-            className="flex flex-col gap-4"
-            key={`${currentStepName}.section[${sectionIndex}]`}
-          >
-            <div className="flex flex-col gap-2">
-              <h2>{section.title}</h2>
-              <Separator className="w-full" />
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {section.fields.map((field, fieldInd) => (
-                <Step
-                  step={Object.keys(state)[step]}
-                  sectionIndex={sectionIndex}
-                  fieldInd={fieldInd}
-                  field={field}
-                  setState={setState}
-                  key={`${sectionIndex}-${fieldInd}`}
-                  state={state}
-                  currentStepName={currentStepName}
-                  readonly={readonly}
-                />
-              ))}
-            </div>
-          </section>
-        );
-      })}
-    </div>
-  );
-
-  // return <Step state={state} setState={setState} step={step}></Step>
-};
+import { StepForm } from "@/comp/StepForm";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogOverlay,
+  DialogPortal,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const PersonalLoanForm = () => {
-  const router = useRouter();
+  //dialog state
+  const [open, setOpen] = useState(false);
 
   // step denoting the current step of the form
   const [step, setStep] = useState(0);
@@ -242,7 +43,7 @@ const PersonalLoanForm = () => {
   // error state
   const [validationErrors, setValidationErrors] = useState([]);
 
-  const previewRef = useRef();
+  // const previewRef = useRef();
   const userState = useUserState();
 
   useEffect(() => {
@@ -270,7 +71,7 @@ const PersonalLoanForm = () => {
       console.log(newState);
 
       userState.user.getIdToken().then((token) => {
-        previewRef.current.close();
+        // previewRef.current.close();
         userState.setShowLoader(true);
         setTimeout(() => {
           setLoanData(token, newState, "Personal").then((res) => {
@@ -301,7 +102,7 @@ const PersonalLoanForm = () => {
           console.log(newState);
 
           userState.user.getIdToken().then((token) => {
-            previewRef.current.close();
+            // previewRef.current.close();
             userState.setShowLoader(true);
             setLoanData(token, newState, "Personal").then((res) => {
               userState.setInfo({
@@ -355,9 +156,10 @@ const PersonalLoanForm = () => {
           <Button
             type="button"
             onClick={() => {
-              previewRef.current.open
-                ? previewRef.current.close()
-                : previewRef.current.showModal();
+              setOpen(true);
+              // previewRef.current.open
+              //   ? previewRef.current.close()
+              //   : previewRef.current.showModal();
             }}
           >
             submit
@@ -365,7 +167,36 @@ const PersonalLoanForm = () => {
         ) : null}
       </div>
 
-      <dialog
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent
+          className={"lg:max-w-screen-lg overflow-y-scroll max-h-[90vh]"}
+        >
+          <DialogHeader>
+            <DialogTitle>Preview</DialogTitle>
+          </DialogHeader>
+
+          <div className="flex flex-col gap-4">
+            {Object.keys(state).map((key, index) => {
+              return (
+                <StepForm
+                  setState={setState}
+                  step={index}
+                  key={key}
+                  state={state}
+                  readonly={true}
+                />
+              );
+            })}
+            <div className="flex justify-end">
+              <Button type="button" onClick={onSubmit}>
+                submit
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* <dialog
         ref={previewRef}
         className="h-screen w-screen p-8 bg-white m-4 relative"
       >
@@ -396,7 +227,7 @@ const PersonalLoanForm = () => {
             </Button>
           </div>
         </div>
-      </dialog>
+      </dialog> */}
     </div>
   );
 };

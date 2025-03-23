@@ -3,11 +3,11 @@ import { Step } from "./Step";
 
 export const StepForm = ({ state, setState, step, readonly = false }) => {
 
-  console.log(state);
-
+  
   //current form step property name
   let currentStepName = Object.keys(state)[step];
-
+  
+  // console.log(state,currentStepName);
   return (
     <div className="flex flex-col gap-8 w-full p-4">
       {state[currentStepName] && state[currentStepName].sections.map((section, sectionIndex) => {

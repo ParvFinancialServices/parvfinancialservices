@@ -17,7 +17,7 @@ export default function Page() {
   let list = [
     "info.sections[0].fields[1].value",
     "info.sections[0].fields[2].value",
-    "personal_details.sections[1].fields[0].value",
+    "type",
     "status",
   ];
 

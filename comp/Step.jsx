@@ -28,8 +28,9 @@ export const Step = ({
   let onChange = (key, value) => {
     console.log(key, value);
     setState((state) => {
-      set(state, `${key}.value`, value);
-      return { ...state };
+      let newState = { ...state };
+      set(newState, `${key}.value`, value);
+      return newState;
     });
   };
 
@@ -38,8 +39,7 @@ export const Step = ({
     ? `${currentStepName}.sections[${sectionIndex}].fields[${fieldInd}].fields[${toggleFieldInd}]`
     : `${currentStepName}.sections[${sectionIndex}].fields[${fieldInd}]`;
 
-
-    console.log(field);
+  // console.log(field);
   switch (field.type) {
     case "String":
       return (
@@ -76,6 +76,7 @@ export const Step = ({
         </div>
       );
     case "Option":
+      console.log(field.type);
       return (
         <div className="flex flex-col gap-2 w-full" key={key}>
           <Label htmlFor={field.name}>{field.label}</Label>

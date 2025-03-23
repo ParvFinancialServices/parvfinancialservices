@@ -30,9 +30,9 @@ export default function Page() {
         userState.setShowLoader(false);
         userState.setShowInfo(true);
         if (res.type) {
-          userState.setInfo(res.err);
+          userState.setInfo({ desc: res.err });
         } else {
-          userState.setInfo(res.msg);
+          userState.setInfo({ desc: res.msg });
         }
       });
     });

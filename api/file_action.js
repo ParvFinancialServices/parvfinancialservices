@@ -64,6 +64,14 @@ async function checkAuthentication(token) {
   }
 }
 
+function checkAdmin(decodedToken) {
+  if (decodedToken.role == "Admin") {
+    return true;
+  }
+
+  return false;
+}
+
 export async function getUserData(token) {
   let { decoded } = await checkAuthentication(token);
   const db = admin.firestore();
@@ -303,10 +311,8 @@ export async function createAccount(token, data) {
   data.username = username;
   data.role = role;
 
-
-
   //setting date of joining as disabled so that it can't be edited
-  set(data,"info.sections[1].fields[1].disabled",true);
+  set(data, "info.sections[1].fields[1].disabled", true);
 
   // await db.collection("creds").add(data);
   await db.collection("creds").doc(username).set(data);
@@ -670,5 +676,40 @@ export async function updateAccount(token, data, username) {
       type: "UNEXPECTED",
       err: "unexpected error occured, contact admin",
     };
+  }
+}
+
+export async function getLoanByID(token, type, id) {
+  let decodedToken = await checkAuthentication(token);
+  const db = admin.firestore();
+  console.log(decodedToken);
+  switch (type) {
+    case "Personal":
+      let query = db.collection("personal_loans").doc(id);
+      let snapshot = await query.get();
+
+      return { id: snapshot.id, data: snapshot.data() };
+    default:
+      return {};
+  }
+}
+
+export async function setLoanByID(token, type, id, data) {
+  let decodedToken = await checkAuthentication(token);
+
+  console.log(decodedToken);
+  if (!checkAdmin(decodedToken.decoded)) {
+    redirect("/login");
+  }
+  const db = admin.firestore();
+
+  switch (type) {
+    case "Personal":
+      console.log(id, type);
+      await db.collection("personal_loans").doc(id).set(data);
+
+      return { msg: "Data Updation successful" };
+    default:
+      return {};
   }
 }
