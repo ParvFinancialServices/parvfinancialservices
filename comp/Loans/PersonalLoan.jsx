@@ -5,6 +5,7 @@ import {
     PersonalLoanTypesData,
     DocumentsData
 } from "./data/PersonalLoanData";
+import Image from "next/image";
 
 // Component: Header
 function Header() {
@@ -74,7 +75,7 @@ function Eligibility() {
         <section className="mb-12">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">Eligibility Criteria</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-3">
-                {EligibilityData.map((item, index) => (
+                {EligibilityData?.map((item, index) => (
                     <EligibilityCard item={item} key={index} />
                 ))}
             </div>
@@ -88,8 +89,15 @@ function LoanTypes() {
         <section className="mb-12">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">Types of Personal Loans</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {PersonalLoanTypesData.map((item, index) => (
+                {PersonalLoanTypesData?.map((item, index) => (
                     <div className="p-6 bg-white rounded-lg shadow" key={index}>
+                        <Image
+                            src={item?.img}
+                            alt={item?.type}
+                            width={200}
+                            height={100}
+                            className="w-full h-40 mb-2"
+                        />
                         <h3 className="font-bold text-gray-800">{item.type}</h3>
                         <p className="text-gray-600 mt-2">{item.description}</p>
                     </div>
@@ -140,7 +148,7 @@ function DocumentsRequired() {
     return (
         <section className="mb-12">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">Documents Required</h2>
-            <ul className="list-disc grid grid-cols-3 gap-3 list-inside text-gray-600">
+            <ul className="list-disc grid grid-cols-1 space-y-4 md:grid-cols-3 gap-3 list-inside text-gray-600">
                 {DocumentsData.map((item, index) => (
                     <li key={index} className="border p-4 rounded-lg">
                         <span className="font-semibold">{item.type}</span>

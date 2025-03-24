@@ -153,7 +153,7 @@ function DocumentsRequired({ items }) {
     return (
         <section className="mb-12">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">Documents Required</h2>
-            <ul className="list-disc grid grid-cols-3 gap-3 list-inside text-gray-600">
+            <ul className="list-disc space-y-4  grid-cols-1 md:grid-cols-3 gap-3 list-inside text-gray-600">
                 {
                     items?.map((item, index) => {
                         return (

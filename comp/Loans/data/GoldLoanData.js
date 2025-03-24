@@ -8,61 +8,64 @@ export const GoldLoanData = {
         {
             title: "Instant Loan Disbursal",
             desc: "Receive funds within hours of applying, ensuring no delay in meeting your needs.",
-            icon: "icons/instant-disbursal.png"
+            icon: "/icons/cash.png"
         },
         {
             title: "High Loan-to-Value Ratio",
             desc: "Get up to 75-90% of the gold’s market value as a loan.",
-            icon: "icons/lvr.png"
+            icon: "/icons/rupee.png"
         },
         {
             title: "Low Interest Rates",
             desc: "Enjoy highly competitive interest rates compared to other loans.",
-            icon: "icons/low-interest.png"
+            icon: "/icons/offer.png"
         },
         {
             title: "Flexible Repayment Options",
             desc: "Choose from bullet payments, EMI, or regular interest payment options.",
-            icon: "icons/flexible-repayment.png"
+            icon: "/icons/re-payment.png"
         },
         {
             title: "Secure and Hassle-Free Process",
             desc: "Your gold is safely stored with 100% transparency during the loan tenure.",
-            icon: "icons/secure-process.png"
+            icon: "/icons/unsecured-shield.png"
         },
         {
             title: "No Income Proof Required",
             desc: "No need to provide income documents or a high credit score.",
-            icon: "icons/no-income-proof.png"
+            icon: "/icons/no-income-proof.png"
         }
     ],
     eligibility: [
         {
             title: "Age Criteria",
             desc: "Applicants must be between 18 and 70 years old.",
-            img: "icons/age.png"
+            img: "/icons/age-group.png"
         },
         {
             title: "Gold Purity",
             desc: "Only gold ornaments with a purity of 18-24 karats are eligible.",
-            img: "icons/gold-purity.png"
+            img: "/icons/gold-bars.png"
         },
         {
             title: "Ownership of Gold",
             desc: "The gold must be owned by the applicant and free from any encumbrances.",
-            img: "icons/ownership.png"
+            img: "/icons/assets.png"
         }
     ],
     loanTypes: [
         {
+            img:"/services/deal.jpg",
             type: "Bullet Repayment Gold Loan",
             description: "Pay the principal and interest together at the end of the loan tenure."
         },
         {
+            img:"/services/credit.jpg",
             type: "EMI Gold Loan",
             description: "Repay the loan in equated monthly installments (EMIs)."
         },
         {
+            img:"/services/over-draft.jpg",
             type: "Overdraft Gold Loan",
             description: "Withdraw funds as needed within the sanctioned limit, paying interest only on the amount used."
         }

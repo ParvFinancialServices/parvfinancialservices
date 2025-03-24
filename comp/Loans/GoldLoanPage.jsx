@@ -5,6 +5,7 @@ import { documentsData, EligibilityData, FeaturesData, HomeLoanTypesData } from 
 import { ArrowRightCircle } from "lucide-react";
 import { BusinessLoanData } from "./data/BusinessLoanData";
 import { GoldLoanData } from "./data/GoldLoanData";
+import Image from "next/image";
 
 // Component: Header
 function Header() {
@@ -109,6 +110,13 @@ function LoanTypes({ items }) {
                     items?.map((item, index) => {
                         return (
                             <div className="p-4 bg-white rounded-lg shadow" key={index}>
+                                <Image
+                                src={item?.img}
+                                alt={item?.type}
+                                width={200}
+                                height={200}
+                                className="w-full h-40 mb-2"
+                                />
                                 <h3 className="font-bold text-gray-800">{item?.type}</h3>
                                 <p className="text-gray-600 mt-2">{item?.description}</p>
                             </div>
@@ -145,7 +153,7 @@ function DocumentsRequired({ items }) {
     return (
         <section className="mb-12">
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">Documents Required</h2>
-            <ul className="list-disc grid grid-cols-3 gap-3 list-inside text-gray-600">
+            <ul className="list-disc grid grid-cols-1 space-y-4 md:grid-cols-3 gap-3 list-inside text-gray-600">
                 {
                     items?.map((item, index) => {
                         return (
