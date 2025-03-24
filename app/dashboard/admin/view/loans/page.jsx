@@ -12,13 +12,32 @@ import { Button } from "@/components/ui/button";
 export default function Page() {
   const userState = useUserState();
   let [data, setData] = useState([]);
-  let [filterData, setFilterData] = useState({});
+  let [filter, setFilter] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   let list = [
     "info.sections[0].fields[1].value",
     "info.sections[0].fields[2].value",
     "type",
     "status",
+  ];
+
+  let filterData = [
+    {
+      id: "connector_id",
+      value: ["all"],
+    },
+    {
+      id: "connector_name",
+      value: ["all"],
+    },
+    {
+      id: "type",
+      value: ["all"],
+    },
+    {
+      id: "status",
+      value: ["all"],
+    },
   ];
 
   useEffect(() => {
@@ -36,7 +55,7 @@ export default function Page() {
         console.log(result);
         console.log(d);
         setData(result);
-        setFilterData(d);
+        setFilter(d);
         setIsLoading(false);
       });
     });
@@ -93,7 +112,12 @@ export default function Page() {
         </Button>
       </div>
       {!isLoading ? (
-        <Table columns={columns} data={data} filter={filterData} />
+        <Table
+          columns={columns}
+          data={data}
+          filter={filter}
+          filterData={filterData}
+        />
       ) : (
         <p>loading..</p>
       )}

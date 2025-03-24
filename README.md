@@ -13,6 +13,9 @@
 3. otp 
 4. UI improvement(final)
 5. update filter ui in table
+6. Showing Assignments to Telecaller
+7. Commission to DSA
+8. Updating set telecaller logic
 
 
 ## Password structure

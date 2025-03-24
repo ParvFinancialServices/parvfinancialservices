@@ -83,26 +83,9 @@ import Filter from "@/components/common/Filter";
 //   );
 // }
 
-export function DataTable({ columns, data, filter }) {
+export function DataTable({ columns, data, filter, filterData }) {
   // state responsible for column filtering
-  const [columnFilters, setColumnFilters] = useState([
-    {
-      id: "connector_id",
-      value: ["all"],
-    },
-    {
-      id: "connector_name",
-      value: ["all"],
-    },
-    {
-      id: "type",
-      value: ["all"],
-    },
-    {
-      id: "status",
-      value: ["all"],
-    },
-  ]);
+  const [columnFilters, setColumnFilters] = useState(filterData);
 
   // state associated with filter elements UI
   const [filterState, setFilterState] = useState([]);

@@ -61,19 +61,19 @@ export const AdminSidebar = {
       items: [
         {
           title: "Connectors",
-          url: "/dashboard/connector",
+          url: "/dashboard/admin/view/connectors",
         },
         {
           title: "Regional manager",
-          url: "/dashboard/connector",
+          url: "/dashboard/admin/view/rm",
         },
         {
           title: "Field Staff",
-          url: "/dashboard/connector",
+          url: "/dashboard/admin/view/fieldstaff",
         },
         {
           title: "Telecaller",
-          url: "/dashboard/connector",
+          url: "/dashboard/admin/view/telecaller",
         },
       ],
     },

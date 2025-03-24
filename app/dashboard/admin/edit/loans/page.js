@@ -2,7 +2,6 @@
 
 import { getLoanByID, setLoanByID } from "@/api/file_action";
 import { useUserState } from "@/app/dashboard/store";
-import { Step } from "@/comp/Step";
 import { StepForm } from "@/comp/StepForm";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -14,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Separator } from "@/components/ui/separator";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -30,8 +30,8 @@ export default function Page() {
     userState.user.getIdToken().then((token) => {
       let data = { ...loanData };
       userState.setShowLoader(true);
-      data.date = metaData.date;
-      data.type = metaData.type;
+      // data.date = metaData.date;
+      // data.type = metaData.type;
       data.status = metaData.status;
       setLoanByID(token, type, id, data).then((res) => {
         userState.setShowLoader(false);
@@ -51,9 +51,7 @@ export default function Page() {
       getLoanByID(token, type, id).then((res) => {
         userState.setShowLoader(false);
         setMetaData({
-          date: res.data.date,
           status: res.data.status,
-          type: res.data.type,
         });
         delete res.data.date;
         delete res.data.status;
@@ -70,8 +68,8 @@ export default function Page() {
 
   return (
     <div className="p-8">
-      <div className="w-full flex justify-end">
-        <div className="flex flex-col gap-2 w-full">
+      <div className="w-full flex justify-start p-4">
+        <div className="w-fit">
           <Label htmlFor="status">Status</Label>
           <Select
             id="status"
@@ -96,13 +94,14 @@ export default function Page() {
               </SelectGroup>
             </SelectContent>
           </Select>
-          {/* {field.error ? (
+        </div>
+        {/* {field.error ? (
             <div>
               <p className="text-xs text-red-500">{field.error}</p>
             </div>
           ) : null} */}
-        </div>
       </div>
+      <Separator />
       {loanData &&
         Object.keys(loanData).map((key, index) => {
           return (
