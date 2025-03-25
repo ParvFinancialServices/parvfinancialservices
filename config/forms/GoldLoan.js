@@ -24,6 +24,11 @@ export const GoldLoan = {
                         type: "String",
                     },
                     {
+                        name: "loan_amount",
+                        label: "Loan Amount",
+                        type: "String",
+                    },
+                    {
                         name: "purpose_of_loan",
                         label: "Purpose of Loan",
                         type: "Option",
@@ -164,64 +169,6 @@ export const GoldLoan = {
     employment: {
         title: "Employment & Loans",
         sections: [
-            // {
-            //     title: "Income Details",
-            //     fields: [
-            //         {
-            //             name: "current_company_name",
-            //             label: "Current Company Name",
-            //             type: "String",
-            //         },
-            //         {
-            //             name: "salary_account_bank",
-            //             label: "Salary Account Bank Name",
-            //             type: "String",
-            //         },
-            //         {
-            //             name: "savings_account_bank",
-            //             label: "Savings Account Bank Name",
-            //             type: "String",
-            //         },
-            //         {
-            //             name: "job_tenure",
-            //             label: "Job tenure in current company",
-            //             type: "Option",
-            //             options: [
-            //                 { id: "1", label: "0-12 months" },
-            //                 { id: "2", label: "12-24 months" },
-            //                 { id: "3", label: "24-60 months" },
-            //                 { id: "4", label: "more than 60 months" },
-            //             ]
-            //         },
-            //         {
-            //             name: "job_experience",
-            //             label: "Experience",
-            //             type: "Option",
-            //             options: [
-            //                 { id: "1", label: "less than 1 year" },
-            //                 { id: "2", label: "1-2 years" },
-            //                 { id: "3", label: "2-3 years" },
-            //                 { id: "4", label: "3-5 years" },
-            //                 { id: "5", label: "more than 5 years" },
-            //             ]
-            //         },
-            //         {
-            //             name: "monthly_income",
-            //             label: "Your Monthly Income",
-            //             type: "Option",
-            //             options: [
-            //                 { id: "1", label: "less than 12,000" },
-            //                 { id: "2", label: "15,000 - 20,000" },
-            //                 { id: "3", label: "20,000 - 25,000" },
-            //                 { id: "4", label: "25-000 - 30,000" },
-            //                 { id: "5", label: "30,000 - 35,000" },
-            //                 { id: "5", label: "35,000 - 45,000" },
-            //                 { id: "5", label: "above 45,000" },
-            //             ],
-            //         },
-
-            //     ]
-            // },
             {
                 title: "Saving account",
                 fields: [
@@ -290,5 +237,41 @@ export const GoldLoan = {
                 ]
             }
         ]
-    }
+
+    },
+    documents: {
+        title: "Documents",
+        sections: [
+            {
+                title: "Personal Documents",
+                fields: [
+                    {
+                        name: "aadhar_front",
+                        label: "Uplaod aadhar front image",
+                        type: "File",
+                    },
+                    {
+                        name: "aadhar_back",
+                        label: "Uplaod aadhar back image",
+                        type: "File",
+                    },
+                    {
+                        name: "Personal_pan",
+                        label: "Uplaod Personal PAN image",
+                        type: "File",
+                    },
+                    {
+                        name: "",
+                        label: "Uplaod Personal PAN image",
+                        type: "File",
+                    },
+                    {
+                        name: "house_electricity",
+                        label: "Present address proof (electricity bill)",
+                        type: "File",
+                    },
+                ],
+            },
+        ],
+    },
 }

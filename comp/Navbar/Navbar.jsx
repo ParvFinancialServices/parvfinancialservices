@@ -58,7 +58,7 @@ const Mobilenavbar = ({ openNav, toggleNav, paths }) => {
                                             <li key={index}>
                                                 <Link href={item?.url}
                                                     className={`block py-2 px-3 rounded
-                                                         ${paths.includes(pathname) ? "md:text-blue-700 bg-blue-700 text-white" : ""}  md:p-0 md:dark:text-blue-500`}
+                                                         ${paths.includes(pathname) ? "xl:text-blue-700 bg-blue-700 text-white" : ""}  lg:p-0 lg:dark:text-blue-500`}
                                                     aria-current="page"
                                                 >
                                                     {item?.name}

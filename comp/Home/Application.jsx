@@ -59,7 +59,7 @@ export function StepCard({ stepNumber, title, description, icon }) {
 
 export default function LoanApplicationProcess() {
     return (
-        <div className="max-w-6xl mx-auto py-14 space-y-4">
+        <div className="max-w-6xl mx-auto py-14 w-full px-4 space-y-4">
             <div className="flex justify-center">
                 <Heading text={'Application Process'} />
             </div>

@@ -35,17 +35,17 @@ export default function EMINote() {
                         <p>
                             📞 <span className="font-semibold">Need Assistance?</span> If you have any doubts or need help understanding the EMI results, don't hesitate to contact us at{" "}
                             <a
-                                href="tel:+123456789"
+                                href="tel:+917292800809"
                                 className="text-green-600 underline hover:text-green-800"
                             >
-                                [Phone Number]
+                                +917292800809
                             </a>{" "}
                             or{" "}
                             <a
-                                href="mailto:support@example.com"
+                                href="mailto:parvmultiservices@gmail.com"
                                 className="text-green-600 underline hover:text-green-800"
                             >
-                                [Email Address]
+                                parvmultiservices@gmail.com
                             </a>
                             .
                         </p>

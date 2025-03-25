@@ -23,17 +23,17 @@ export const EligibilityData = [
         desc: "Applicants must be between 21 and 60 years of age."
     },
     {
-        img: "/icons/age-group.png",
+        img: "/icons/cash.png",
         title: "Income",
         desc: "A stable income source is mandatory to qualify for a personal loan."
     },
     {
-        img: "/icons/age-group.png",
+        img: "/icons/employe-card.png",
         title: "Employment",
         desc: "Both salaried and self-employed individuals can apply with proper income proof."
     },
     {
-        img: "/icons/age-group.png",
+        img: "/icons/speedometer.png",
         title: "Credit Score",
         desc: "A good credit score (usually 750+) improves your chances of approval."
     }
@@ -41,14 +41,17 @@ export const EligibilityData = [
 
 export const PersonalLoanTypesData = [
     {
+        img:"/services/wedding.jpg",
         type: "Wedding Loan",
         description: "Finance your dream wedding with a personal loan for all expenses."
     },
     {
+        img:"/services/travel.jpg",
         type: "Travel Loan",
         description: "Plan your dream vacation with the funds you need for tickets, stay, and more."
     },
     {
+        img:"/services/medical.jpg",
         type: "Medical Loan",
         description: "Cover emergency medical expenses with quick and hassle-free financing."
     }

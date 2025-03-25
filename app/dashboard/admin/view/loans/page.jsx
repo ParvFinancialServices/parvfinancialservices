@@ -40,6 +40,9 @@ export default function Page() {
     },
   ];
 
+  console.log(data);
+  
+
   useEffect(() => {
     userState.user.getIdToken().then((token) => {
       console.log(token);
@@ -119,7 +122,7 @@ export default function Page() {
           filterData={filterData}
         />
       ) : (
-        <p>loading..</p>
+        <p>loading...</p>
       )}
     </div>
   );

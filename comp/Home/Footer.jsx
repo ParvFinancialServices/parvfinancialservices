@@ -32,7 +32,7 @@ const Footer = () => {
 
                         <div className="px-4 my-4 w-full sm:w-auto">
                             <div>
-                                <h2 className="inline-block text-2xl pb-4 mb-4 border-b-4 border-blue-600">Company</h2>
+                                <h2 className="inline-block text-2xl pb-2 mb-2 border-b-2 border-blue-600">Company</h2>
                             </div>
                             <ul className="leading-8">
                                 <li><a href="#" className="hover:text-blue-400">About Us</a></li>
@@ -45,7 +45,7 @@ const Footer = () => {
                         </div>
                         <div className="px-4 my-4 w-full sm:w-auto">
                             <div>
-                                <h2 className="inline-block text-2xl pb-4 mb-4 border-b-4 border-blue-600">Loans</h2>
+                                <h2 className="inline-block text-2xl pb-2 mb-2 border-b-2 border-blue-600">Loans</h2>
                             </div>
                             <ul className="leading-8">
                                 <li><a href="#" className="hover:text-blue-400">Home Loan</a></li>
@@ -57,13 +57,15 @@ const Footer = () => {
                         </div>
                         <div className="px-4 my-4 w-full sm:w-auto xl:w-1/4">
                             <div>
-                                <h2 className="inline-block text-2xl pb-4 mb-4 border-b-4 border-blue-600">Connect With Us</h2>
+                                <h2 className="inline-block text-2xl pb-2 mb-2 border-b-2 border-blue-600">Connect With Us</h2>
                             </div>
-                            <div className="flex items-start gap-2 text-sm">
-                                <MapPin size={35} /> REGD. OFFICE-HOTEL NEW MAYUR, DUMRAO ROAD, BIKRAMGANJ, ROHTAS BIHAR 802212.
+                            <div className="flex items-start lowercase gap-2 text-sm">
+                                <MapPin size={20} className="mt-1"/>
+                                <span className="flex-1"> REGD. OFFICE-HOTEL NEW MAYUR, DUMRAO ROAD, BIKRAMGANJ, ROHTAS BIHAR 802212.</span>
                             </div>
-                            <div className="flex items-start gap-2 text-sm py-4">
-                                <MapPin size={40} /> Admin office-Maurya Vihar colony, Near Ultra tech cement godown, Landmark- BMP-16, Phulwarishariff Patna 801505.
+                            <div className="flex items-start lowercase gap-2 text-sm py-4">
+                                <MapPin size={20} className="mt-1"/>
+                                <span className="flex-1"> Admin office-Maurya Vihar colony, Near Ultra tech cement godown, Landmark- BMP-16, Phulwarishariff Patna 801505.</span>
                             </div>
                             <a href="#" className="inline-flex items-center justify-center h-8 w-8 border border-gray-100 rounded-full mr-2 hover:text-blue-400 hover:border-blue-400">
                                 <svg className="w-4 h-4 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512">

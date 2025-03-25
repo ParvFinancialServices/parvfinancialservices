@@ -16,6 +16,8 @@ import {
   List,
   Menu,
   LayoutDashboard,
+  Bike,
+  UserPen,
 } from "lucide-react";
 
 export const AdminSidebar = {
@@ -270,6 +272,41 @@ export const DSASidebar = {
 export const TelecallerSidebar = {
   navMain: [
     {
+      title: "Loan Applications",
+      url: "/dashboard",
+      icon: ClipboardType,
+      isActive: true,
+      items: [
+        {
+          title: "Personal Loan",
+          url: "/dashboard/forms/personal_loan",
+          icon: FileUser,
+          isActive: true,
+        },
+        {
+          title: "Business Loan",
+          url: "/admin/forms/business_loan",
+          icon: BriefcaseBusinessIcon,
+          isActive: false,
+        },
+        {
+          title: "Home Loan",
+          url: "/admin/forms/home_loan",
+          icon: HomeIcon,
+        },
+        {
+          title: "Vehicle Loan",
+          url: "/admin/forms/vehicle_loan",
+          icon: CarIcon,
+        },
+        {
+          title: "Gold Loan",
+          url: "/admin/forms/gold_loan",
+          icon: HandCoinsIcon,
+        },
+      ],
+    },
+    {
       title: "Calling List",
       url: "#",
       icon: List,
@@ -306,40 +343,75 @@ export const TelecallerSidebar = {
 export const FieldStaffSidebar = {
   navMain: [
     {
-      title: "Field Report",
-      url: "#",
-      icon: Users2Icon,
+      title: "Loan Applications",
+      url: "/dashboard",
+      icon: ClipboardType,
+      isActive: true,
       items: [
         {
-          title: "Client Visit",
-          url: "/dashboard/admin/view/loans/category",
+          title: "Personal Loan",
+          url: "/dashboard/forms/personal_loan",
+          icon: FileUser,
+          isActive: true,
         },
         {
-          title: "Loan Collection Report",
-          url: "/dashboard/admin/view/loans/member",
+          title: "Business Loan",
+          url: "/admin/forms/business_loan",
+          icon: BriefcaseBusinessIcon,
+          isActive: false,
         },
         {
-          title: "Loan Disbursement Report",
-          url: "/dashboard/admin/view/loans/member",
+          title: "Home Loan",
+          url: "/admin/forms/home_loan",
+          icon: HomeIcon,
+        },
+        {
+          title: "Vehicle Loan",
+          url: "/admin/forms/vehicle_loan",
+          icon: CarIcon,
+        },
+        {
+          title: "Gold Loan",
+          url: "/admin/forms/gold_loan",
+          icon: HandCoinsIcon,
         },
       ],
     },
+    // {
+    //   title: "Field Report",
+    //   url: "#",
+    //   icon: Users2Icon,
+    //   items: [
+    //     {
+    //       title: "Client Visit",
+    //       url: "/dashboard/field-staff/visit-report",
+    //     },
+    //     // {
+    //     //   title: "Loan Collection Report",
+    //     //   url: "/dashboard/admin/view/loans/member",
+    //     // },
+    //     // {
+    //     //   title: "Loan Disbursement Report",
+    //     //   url: "/dashboard/admin/view/loans/member",
+    //     // },
+    //   ],
+    // },
   ],
   projects: [
     {
-      title: "My Income",
-      url: "/admin/my-income",
-      icon: HandCoinsIcon,
-    },
-    {
       title: "Dashboard",
-      url: "/fieldstaff/dashboard",
+      url: "/dashboard/field-staff",
       icon: LayoutDashboard,
     },
-    // {
-    //   title: "Contact us",
-    //   url: "/admin/contact_data",
-    //   icon: Contact2Icon,
-    // },
+    {
+      title: "Profile",
+      url: "/dashboard/field-staff/profile",
+      icon: UserPen,
+    },
+    {
+      title: "Daily Visit",
+      url: "/dashboard/field-staff/visit-report",
+      icon:Bike,
+    },
   ],
 };

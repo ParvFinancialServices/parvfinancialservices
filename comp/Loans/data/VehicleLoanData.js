@@ -8,74 +8,79 @@ export const VehicleLoanData = {
         {
             title: "Flexible Loan Amount",
             desc: "Finance up to 100% of the vehicle’s on-road price based on your eligibility.",
-            icon: "icons/flexible-loan.png"
+            icon: "/icons/cash.png"
         },
         {
             title: "Quick Approvals",
             desc: "Get instant loan approvals to ensure you drive your new vehicle without delay.",
-            icon: "icons/quick-approval.png"
+            icon: "/icons/quick_payment.png"
         },
         {
             title: "Affordable Interest Rates",
             desc: "Enjoy low-interest rates for both new and used vehicles.",
-            icon: "icons/interest-rate.png"
+            icon: "/icons/interest-rate.png"
         },
         {
             title: "Flexible Tenure",
             desc: "Choose repayment terms ranging from 1 to 7 years as per your convenience.",
-            icon: "icons/tenure.png"
+            icon: "/icons/tenure.png"
         },
         {
             title: "Minimal Documentation",
             desc: "Simplified process with basic documentation requirements.",
-            icon: "icons/documentation.png"
+            icon: "/icons/term-loan.png"
         },
         {
             title: "Special Offers",
             desc: "Exclusive discounts and offers for specific vehicle brands or festive seasons.",
-            icon: "icons/offers.png"
+            icon: "/icons/offer.png"
         }
     ],
     eligibility: [
         {
             title: "Age Criteria",
             desc: "The applicant must be between 18 and 65 years old.",
-            img: "icons/age.png"
+            img: "/icons/age-group.png"
         },
         {
             title: "Income Requirement",
             desc: "Minimum income criteria to ensure affordability of EMIs.",
-            img: "icons/income.png"
+            img: "/icons/rupee.png"
         },
         {
             title: "Credit Score",
             desc: "A good credit score enhances the chances of approval and better interest rates.",
-            img: "icons/credit-score.png"
+            img: "/icons/speedometer.png"
         },
         {
             title: "Employment Status",
             desc: "Both salaried and self-employed individuals are eligible.",
-            img: "icons/employment.png"
+            img: "/icons/employe-card.png"
         }
     ],
     loanTypes: [
         {
+            img:"/services/new-car-loan.jpg",
             type: "New Vehicle Loan",
             description: "Loans specifically for purchasing brand-new cars or two-wheelers."
         },
         {
+            img:"/services/new-car-loan.jpg",
             type: "Used Vehicle Loan",
             description: "Financing options for buying pre-owned vehicles."
         },
         {
+            img:"/services/new-car-loan.jpg",
             type: "Two-Wheeler Loan",
             description: "Affordable loans to help you own a motorcycle or scooter."
         },
         {
+            img:"/services/new-car-loan.jpg",
             type: "Commercial Vehicle Loan",
             description: "Loans to purchase trucks, buses, or other commercial vehicles."
         },
         {
+            img:"/services/new-car-loan.jpg",
             type: "Top-Up Loan",
             description: "Additional funding on your existing vehicle loan for emergencies."
         }

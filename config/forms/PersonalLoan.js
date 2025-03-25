@@ -76,8 +76,8 @@ export const PersonalLoan = {
         title: "something",
         fields: [
           {
-            name: "name_of_referer",
-            label: "Name of referer",
+            name: "loan_amount",
+            label: "Loan Amount",
             type: "String",
             value:""
           },
