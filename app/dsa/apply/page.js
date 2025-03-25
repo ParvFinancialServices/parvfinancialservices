@@ -31,8 +31,8 @@ const ApplyForDSA = () => {
     if (process.env.NEXT_PUBLIC_TEST_MODE == "true") {
       setIsLoading(true);
       let data = cloneDeep(state);
-      removeProperty(data, "type");
-      removeProperty(data, "options");
+      // removeProperty(data, "type");
+      // removeProperty(data, "options");
       setTimeout(() => {
         createDSAAccount(state);
       }, 4000);
@@ -40,8 +40,8 @@ const ApplyForDSA = () => {
       AccountCreationSchema.validate(state, { abortEarly: false })
         .then(async () => {
           let data = cloneDeep(state);
-          removeProperty(data, "type");
-          removeProperty(data, "options");
+          // removeProperty(data, "type");
+          // removeProperty(data, "options");
           createDSAAccount(state);
         })
         .catch((e) => {

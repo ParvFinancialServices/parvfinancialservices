@@ -5,11 +5,18 @@
 4. Email service setup
 5. DSA account creation
 6. Updating table for status
+7. Forget Password
 
 # Todo
-1. Forget Password
+1. improve data structure of db specially creds
+2. file upload
+3. otp 
+4. UI improvement(final)
+5. update filter ui in table
+6. Showing Assignments to Telecaller
+7. Commission to DSA
+8. Updating set telecaller logic
 
-after three wrongs we need to set canReset to false using a new function
 
 ## Password structure
 

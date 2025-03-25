@@ -12,13 +12,32 @@ import { Button } from "@/components/ui/button";
 export default function Page() {
   const userState = useUserState();
   let [data, setData] = useState([]);
-  let [filterData, setFilterData] = useState({});
+  let [filter, setFilter] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   let list = [
     "info.sections[0].fields[1].value",
     "info.sections[0].fields[2].value",
-    "personal_details.sections[1].fields[0].value",
-    "status"
+    "type",
+    "status",
+  ];
+
+  let filterData = [
+    {
+      id: "connector_id",
+      value: ["all"],
+    },
+    {
+      id: "connector_name",
+      value: ["all"],
+    },
+    {
+      id: "type",
+      value: ["all"],
+    },
+    {
+      id: "status",
+      value: ["all"],
+    },
   ];
 
   console.log(data);
@@ -34,12 +53,12 @@ export default function Page() {
           connector_id: extractParticularField(list[0], res.data),
           connector_name: extractParticularField(list[1], res.data),
           type: extractParticularField(list[2], res.data),
-          status: extractParticularField(list[3], res.data)
+          status: extractParticularField(list[3], res.data),
         };
         console.log(result);
         console.log(d);
         setData(result);
-        setFilterData(d);
+        setFilter(d);
         setIsLoading(false);
       });
     });
@@ -89,13 +108,19 @@ export default function Page() {
 
   return (
     <div className="container mx-auto p-4 flex flex-col gap-2">
-      <div className="flex items-center justify-end">
+      <div className="flex items-center justify-end gap-4">
+        <Button>Filter</Button>
         <Button className="w-fit" onClick={() => exportTableToExcel("myTable")}>
           Download
         </Button>
       </div>
       {!isLoading ? (
-        <Table columns={columns} data={data} filter={filterData} />
+        <Table
+          columns={columns}
+          data={data}
+          filter={filter}
+          filterData={filterData}
+        />
       ) : (
         <p>loading...</p>
       )}

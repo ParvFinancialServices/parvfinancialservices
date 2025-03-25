@@ -15,3 +15,4 @@ export const useUserState = create((set) => ({
   setProfile: (value) => set((state) => ({ ...state, profile: value })),
   setUser: (value) => set((state) => ({ ...state, user: value })),
 }));
+

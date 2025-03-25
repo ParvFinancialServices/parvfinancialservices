@@ -12,7 +12,7 @@ html {
 }
 
 body {
-  fontFamily: "Inter", serif;
+  fontfamily: "Inter", serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
@@ -125,8 +125,6 @@ h5 {
   font-weight: 300;
 }
 
-
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -134,4 +132,48 @@ h5 {
   body {
     @apply bg-background text-foreground;
   }
+}
+/* 
+.DialogOverlay {
+  background: rgba(0 0 0 / 0.5);
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: grid;
+  place-items: center;
+  overflow-y: auto;
+  pointer-events: all !important;
+}
+
+.DialogContent {
+  pointer-events: all !important;
+  min-width: 300px;
+  height:80vh;
+  background: white;
+  padding: 30px;
+  border-radius: 4px;
+  overflow-y: auto;
+} */
+
+
+/* styles.css */
+.DialogOverlay {
+	background: rgba(0 0 0 / 0.5);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: grid;
+	place-items: center;
+	overflow-y: auto;
+}
+
+.DialogContent {
+	min-width: 300px;
+	background: white;
+	padding: 30px;
+	border-radius: 4px;
 }

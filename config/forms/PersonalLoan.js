@@ -79,18 +79,21 @@ export const PersonalLoan = {
             name: "loan_amount",
             label: "Loan Amount",
             type: "String",
+            value:""
           },
           {
             name: "id_of_connector",
             label: "ID of Connector",
             type: "String",
             disabled: true,
+            value:""
           },
           {
             name: "name_of_connector",
             label: "Name of Connector",
             type: "String",
             disabled: true,
+            value:""
           },
         ],
       },
@@ -106,6 +109,7 @@ export const PersonalLoan = {
             name: "name_of_referer",
             label: "Name of referer",
             type: "String",
+            value:""
           },
           {
             name: "purpose_of_loan",
@@ -131,36 +135,43 @@ export const PersonalLoan = {
             name: "Name",
             label: "Name",
             type: "String",
+            value:""
           },
           {
-            label: "fathers_name",
+            name: "fathers_name",
             label: "Father's Name",
             type: "String",
+            value:""
           },
           {
             name: "mothers_name",
             label: "Mother's Name",
             type: "String",
+            value:""
           },
           {
             name: "phone_no",
             label: "Phone Number",
             type: "String",
+            value:""
           },
           {
             name: "alt_phone_no",
             label: "Alternate Phone Number",
             type: "String",
+            value:""
           },
           {
             name: "pan",
             label: "PAN Number",
             type: "String",
+            value:""
           },
           {
             name: "dob",
             label: "Date of Birth",
             type: "Date",
+            value:""
           },
         ],
       },
@@ -171,36 +182,43 @@ export const PersonalLoan = {
             name: "building_name",
             label: "Building/House Name",
             type: "String",
+            value:""
           },
           {
             name: "street_name",
             label: "Street/Road Name",
             type: "String",
+            value:""
           },
           {
             name: "landmark",
             label: "Landmark",
             type: "String",
+            value:""
           },
           {
             name: "city",
             label: "City",
             type: "String",
+            value:""
           },
           {
             name: "district",
             label: "District",
             type: "String",
+            value:""
           },
           {
             name: "state",
             label: "State",
             type: "String",
+            value:""
           },
           {
             name: "pincode",
             label: "Pincode",
             type: "String",
+            value:""
           },
         ],
       },
@@ -211,36 +229,43 @@ export const PersonalLoan = {
             name: "building_name",
             label: "Building/House Name",
             type: "String",
+            value:""
           },
           {
             name: "street_name",
             label: "Street/Road Name",
             type: "String",
+            value:""
           },
           {
             name: "landmark",
             label: "Landmark",
             type: "String",
+            value:""
           },
           {
             name: "city",
             label: "City",
             type: "String",
+            value:""
           },
           {
             name: "district",
             label: "District",
             type: "String",
+            value:""
           },
           {
             name: "state",
             label: "State",
             type: "String",
+            value:""
           },
           {
             name: "pincode",
             label: "Pincode",
             type: "String",
+            value:""
           },
         ],
       },
@@ -256,16 +281,19 @@ export const PersonalLoan = {
             name: "current_company_name",
             label: "Current Company Name",
             type: "String",
+            value:""
           },
           {
             name: "salary_account_bank",
             label: "Salary Account Bank Name",
             type: "String",
+            value:""
           },
           {
             name: "savings_account_bank",
             label: "Savings Account Bank Name",
             type: "String",
+            value:""
           },
           {
             name: "job_tenure",
@@ -316,36 +344,43 @@ export const PersonalLoan = {
             name: "office_building_name",
             label: "Building/House Name",
             type: "String",
+            value:""
           },
           {
             name: "office_street_name",
             label: "Street/Road Name",
             type: "String",
+            value:""
           },
           {
             name: "office_landmark",
             label: "Landmark",
             type: "String",
+            value:""
           },
           {
             name: "office_city",
             label: "City",
             type: "String",
+            value:""
           },
           {
             name: "office_district",
             label: "District",
             type: "String",
+            value:""
           },
           {
             name: "office_state",
             label: "State",
             type: "String",
+            value:""
           },
           {
             name: "office_pincode",
             label: "Pincode",
             type: "String",
+            value:""
           },
         ],
       },
@@ -416,7 +451,7 @@ export const PersonalLoan = {
         ],
       },
       {
-        title: "Current Loans",
+        title: "Past Loans",
         fields: [
           {
             name: "total_loan_amount",
@@ -453,12 +488,25 @@ export const PersonalLoan = {
             label: "Name the bank which provides loan to you. ",
             placeholder: "Bank name which provides loan",
             type: "String",
+            value:""
           },
           {
             name: "monthly_emi",
             label: "what is monthly EMI currently you are paying",
             placeholder: "Monthly EMI",
             type: "String",
+            value:""
+          },
+        ],
+      },
+      {
+        title: "Current Loans",
+        fields: [
+          {
+            name: "expected_loan_amount",
+            label: "Expected loan amount",
+            type: "String",
+            value:""
           },
         ],
       },

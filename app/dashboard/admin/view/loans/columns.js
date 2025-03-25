@@ -6,12 +6,11 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { multiValueFilter } from "@/lib/utils";
 import { ArrowUpDown } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
@@ -70,25 +69,27 @@ export const columns = [
   {
     id: "edit",
     enableHiding: false,
-    cell: ({row}) => {
-      console.log(row?.original);
-      
+    cell: ({ row }) => {
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>
-              <Link href={`/dashboard/admin/view/${row?.original?.loanid}?loanId=${row?.original?.loanid}`}>
-                View
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>Edit</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Link
+          href={`/dashboard/admin/edit/loans?type=${row.original.type}&id=${row.original.loanid}`}
+        >
+          <Pencil height="16px"/>
+        </Link>
+        // <DropdownMenu>
+        //   <DropdownMenuTrigger asChild>
+        //     <Button variant="ghost" className="h-8 w-8 p-0">
+        //       <MoreHorizontal />
+        //     </Button>
+        //   </DropdownMenuTrigger>
+        //   <DropdownMenuContent align="end">
+        //     <Link
+        //       href={`/dashboard/admin/edit/loans?type=${row.original.type}&id=${row.original.loanid}`}
+        //     >
+        //       <DropdownMenuItem>Edit</DropdownMenuItem>
+        //     </Link>
+        //   </DropdownMenuContent>
+        // </DropdownMenu>
       );
     },
     enableColumnFilter: false,

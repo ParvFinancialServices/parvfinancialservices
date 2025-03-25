@@ -7,8 +7,8 @@ import { cookies } from "next/headers";
 import * as admin from "firebase-admin";
 import { redirect } from "next/navigation";
 import { error } from "console";
-import { get } from "lodash";
-import { getLoanType, getUsername } from "@/lib/utils";
+import { get, set } from "lodash";
+import { getLoanType, getUsername, removeProperty } from "@/lib/utils";
 import * as nodemailer from "nodemailer";
 import {
   getAccountCreationSuccessTemplate,
@@ -64,7 +64,15 @@ export async function checkAuthentication(token) {
   }
 }
 
-export async function getUserData(token) {
+function checkAdmin(decodedToken) {
+  if (decodedToken.role == "Admin") {
+    return true;
+  }
+
+  return false;
+}
+
+export async function getUserDataByToken(token) {
   let { decoded } = await checkAuthentication(token);
   const db = admin.firestore();
   let profile = {};
@@ -72,50 +80,34 @@ export async function getUserData(token) {
   let snapshot = await query.get();
 
   snapshot.forEach((doc) => {
-    doc = doc.data();
-    profile.username = get(doc, "username");
-    profile.name = get(doc, "info.sections[0].fields[0].value");
-    profile.role = get(doc, "role");
+    profile = doc.data();
+    delete profile.password;
+    delete profile.salt;
+    delete profile.otp;
   });
 
   return { profile };
+}
 
-  // const cookieStore = cookies();
-  // let role = cookieStore.get("role");
-  // let jwtToken = cookieStore.get("jwt");
+export async function getUserData(token, username) {
+  let decodedToken = await checkAuthentication(token);
+  if (!checkAdmin(decodedToken.decoded)) {
+    console.log(decodedToken);
+    redirect("/login");
+  }
+  const db = admin.firestore();
+  let profile = {};
+  let query = db.collection("creds").where("username", "==", username);
+  let snapshot = await query.get();
 
-  // if (token && jwtToken.value) {
-  //   let profile;
-  //   let app = getApp();
-  //   let auth = app.auth();
-  //   let res = await auth.verifyIdToken(token);
-  //   let decoded = jwt.verify(jwtToken.value, process.env.SALT);
+  snapshot.forEach((doc) => {
+    profile = doc.data();
+    delete profile.password;
+    delete profile.salt;
+    delete profile.otp;
+  });
 
-  //   // console.log("decoded", decoded);
-  //   // console.log(role);
-  //   // console.log(res);
-  //   if (res.role == role.value && res.role == decoded.role) {
-  //     // console.log(res);
-  //     // console.log(role);
-  //     const db = app.firestore();
-
-  //     // getting profile details
-  //     let query = db
-  //       .collection("creds")
-  //       .where("username", "==", decoded.username);
-  //     let snapshot = await query.select("username", "name", "role").get();
-
-  //     snapshot.forEach((doc) => {
-  //       profile = doc.data();
-  //     });
-
-  //     return { profile };
-  //   } else {
-  //     redirect("/login");
-  //   }
-  // } else {
-  //   redirect("/login");
-  // }
+  return { profile };
 }
 
 export async function getLoanData(token, type) {
@@ -249,7 +241,8 @@ export async function createDSAAccount(data) {
   data.username = username;
   data.role = "DSA";
 
-  await db.collection("creds").add(data);
+  await db.collection("creds").doc(username).set(data);
+  // await db.collection("creds").add(data);
 
   let res = sendMail("account_success", {
     username: username,
@@ -298,7 +291,11 @@ export async function createAccount(token, data) {
   data.username = username;
   data.role = role;
 
-  await db.collection("creds").add(data);
+  //setting date of joining as disabled so that it can't be edited
+  set(data, "info.sections[1].fields[1].disabled", true);
+
+  // await db.collection("creds").add(data);
+  await db.collection("creds").doc(username).set(data);
   // cookieStore.set("username", username);
   // cookieStore.set("password", pass);
 
@@ -714,4 +711,153 @@ export async function getDailyVisitReports(token) {
     console.error("Error fetching reports:", error);
     return { success: false, error: error.message };
   }
+}
+
+export async function updateAccount(token, data, username) {
+  let { decoded } = await checkAuthentication(token);
+  const db = admin.firestore();
+  if (decoded.username == username || decoded.role == "Admin") {
+    await db.collection("creds").doc(username).update(data);
+    return {
+      msg: "Account Update Succesfully",
+    };
+  } else {
+    return {
+      type: "UNEXPECTED",
+      err: "unexpected error occured, contact admin",
+    };
+  }
+}
+
+export async function addAssignmentToTC(token, url) {}
+
+export async function getLoanByID(token, type, id) {
+  let decodedToken = await checkAuthentication(token);
+  const db = admin.firestore();
+  console.log(decodedToken);
+  switch (type) {
+    case "Personal":
+      let query = db.collection("personal_loans").doc(id);
+      let snapshot = await query.get();
+
+      return { id: snapshot.id, data: snapshot.data() };
+    default:
+      return {};
+  }
+}
+
+export async function setLoanByID(token, type, id, data) {
+  let decodedToken = await checkAuthentication(token);
+
+  console.log(decodedToken);
+  if (!checkAdmin(decodedToken.decoded)) {
+    redirect("/login");
+  }
+  const db = admin.firestore();
+
+  switch (type) {
+    case "Personal":
+      console.log(id, type);
+      await db.collection("personal_loans").doc(id).update(data);
+
+      return { msg: "Data Updation successful" };
+    default:
+      return {};
+  }
+}
+
+export async function getConnectorsData(token) {
+  let decodedToken = await checkAuthentication(token);
+
+  if (!checkAdmin(decodedToken.decoded)) {
+    redirect("/login");
+  }
+
+  const db = admin.firestore();
+  let data = await db.collection("creds").where("role", "==", "DSA").get();
+  let result = [];
+  data.forEach((e) => {
+    result.push(e.data());
+  });
+
+  return { data: result };
+}
+
+export async function getTelecallersData(token) {
+  let decodedToken = await checkAuthentication(token);
+
+  if (!checkAdmin(decodedToken.decoded)) {
+    redirect("/login");
+  }
+
+  const db = admin.firestore();
+  let data = await db
+    .collection("creds")
+    .where("role", "==", "Telecaller")
+    .get();
+  let result = [];
+  data.forEach((e) => {
+    result.push(e.data());
+  });
+
+  return { data: result };
+}
+
+export async function setTelecallersData(token, username, url) {
+  let decodedToken = await checkAuthentication(token);
+
+  if (!checkAdmin(decodedToken.decoded)) {
+    redirect("/login");
+  }
+
+  const db = admin.firestore();
+  await db
+    .collection("creds")
+    .doc(username)
+    .update({
+      assignments: [url],
+    });
+
+  return { msg: "Assignment Added" };
+}
+
+export async function getFieldStaffsData(token) {
+  let decodedToken = await checkAuthentication(token);
+
+  if (!checkAdmin(decodedToken.decoded)) {
+    redirect("/login");
+  }
+
+  const db = admin.firestore();
+  let data = await db
+    .collection("creds")
+    .where("role", "==", "Field Staff")
+    .get();
+  let result = [];
+  data.forEach((e) => {
+    result.push(e.data());
+  });
+
+  return { data: result };
+}
+
+
+export async function getRMsData(token) {
+  let decodedToken = await checkAuthentication(token);
+
+  if (!checkAdmin(decodedToken.decoded)) {
+    redirect("/login");
+  }
+
+  const db = admin.firestore();
+  let data = await db
+    .collection("creds")
+    .where("role", "==", "RM")
+    .get();
+  let result = [];
+  data.forEach((e) => {
+    result.push(e.data());
+  });
+
+  return { data: result };
 }

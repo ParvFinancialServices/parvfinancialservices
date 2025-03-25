@@ -241,8 +241,8 @@ const PersonalLoanForm = () => {
     if (process.env.NEXT_PUBLIC_TEST_MODE) {
       console.log("If statement");
       let newState = cloneDeep(state);
-      removeProperty(newState, "options");
-      removeProperty(newState, "type");
+      // removeProperty(newState, "options");
+      // removeProperty(newState, "type");
       console.log(newState);
 
       addDoc(collection(db, "personal_loans"), newState).then((result) => {
@@ -261,8 +261,8 @@ const PersonalLoanForm = () => {
       PersonalLoanSchema.validate(state, { abortEarly: false })
         .then(() => {
           let newState = cloneDeep(state);
-          removeProperty(newState, "options");
-          removeProperty(newState, "type");
+          // removeProperty(newState, "options");
+          // removeProperty(newState, "type");
           console.log(newState);
 
           addDoc(collection(db, "items"), newState).then((result) => {

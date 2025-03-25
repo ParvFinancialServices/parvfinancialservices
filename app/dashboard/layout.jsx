@@ -1,5 +1,5 @@
 "use client";
-import { getUserData } from "@/api/file_action";
+import { getUserDataByToken } from "@/api/file_action";
 import { AppSidebar } from "@/comp/app-sidebar";
 import {
   Breadcrumb,
@@ -31,9 +31,11 @@ import {
 } from "@/components/ui/dialog";
 import { AlertDialogHeader } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 import { Toaster } from "react-hot-toast";
 
 const Layout = ({ children }) => {
+  const router = useRouter();
   const pathname = usePathname();
   const breadcrumList = pathname.split("/").slice(3);
   let userState = useUserState();
@@ -44,7 +46,7 @@ const Layout = ({ children }) => {
       let token;
       if (userState.user.hasOwnProperty("uid")) {
         userState.user.getIdToken().then((token) => {
-          getUserData(token).then((res) => {
+          getUserDataByToken(token).then((res) => {
             console.log(res);
             userState.setProfile(res.profile);
             setIsLoading(false);
@@ -54,17 +56,21 @@ const Layout = ({ children }) => {
         const auth = getAuth(app);
         localStorage && (token = localStorage.getItem("token"));
         // console.log("token", token);
-        signInWithCustomToken(auth, token).then(async (userCredentials) => {
-          let user = userCredentials.user;
-          let token = await user.getIdToken();
-          // localStorage && localStorage.setItem("token", token);
-          userState.setUser(user);
-          getUserData(token).then((res) => {
-            console.log(res);
-            userState.setProfile(res.profile);
-            setIsLoading(false);
+        signInWithCustomToken(auth, token)
+          .then(async (userCredentials) => {
+            let user = userCredentials.user;
+            let token = await user.getIdToken();
+            // localStorage && localStorage.setItem("token", token);
+            userState.setUser(user);
+            getUserDataByToken(token).then((res) => {
+              console.log(res);
+              userState.setProfile(res.profile);
+              setIsLoading(false);
+            });
+          })
+          .catch((err) => {
+            router.push("/login");
           });
-        });
       }
     }
   }, []);
@@ -81,7 +87,10 @@ const Layout = ({ children }) => {
             <Breadcrumb>
               <BreadcrumbList>
                 {breadcrumList.map((e, ind) => (
-                  <span key={e} className="flex items-center justify-center gap-2">
+                  <span
+                    key={e}
+                    className="flex items-center justify-center gap-2"
+                  >
                     <BreadcrumbItem className="hidden md:block">
                       {makeBreadcrumItem(e)}
                     </BreadcrumbItem>

@@ -31,13 +31,13 @@ export default function LoginPage() {
   async function callIt() {
     const auth = getAuth(app);
     const res = await login(username, password);
+    setIsLoading(true);
     console.log(res);
     if (res.error) {
       // throw error;
       alert(res.error);
     } else {
       // userState.setProfile(res.profile);
-      setIsLoading(true);
       signInWithCustomToken(auth, res.token)
         .then(async (userCredentials) => {
           let user = userCredentials.user;
@@ -79,7 +79,7 @@ export default function LoginPage() {
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex flex-1 items-center justify-center">
           <form
-            className="flex flex-col gap-4 w-full max-w-xs"
+            className="flex flex-col gap-4 w-full max-w-xs items-start"
             onSubmit={async (e) => {
               e.preventDefault();
               await callIt();
@@ -99,8 +99,8 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <Link href="/forget-password">forget password?</Link>
-            <Button type="submit">submit</Button>
+            <Link href="/forget-password" className="text-blue-900 underline">forget password?</Link>
+            <Button type="submit" className="w-full">submit</Button>
           </form>
         </div>
       </div>
