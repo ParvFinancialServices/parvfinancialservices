@@ -52,9 +52,8 @@ const PersonalLoanForm = () => {
 
   useEffect(() => {
     console.log("userState", userState);
-    state.info.sections[0].fields[1].value = userState.profile.username;
-    state.info.sections[0].fields[2].value =
-      userState.profile.info.sections[0].fields[0].value;
+    state.info.sections[0].fields[0].value = userState.profile.username;
+    state.info.sections[0].fields[1].value = userState.profile.info.sections[0].fields[0].value;
   }, [userState]);
 
   let onSubmit = async () => {
@@ -68,6 +67,7 @@ const PersonalLoanForm = () => {
       // removeProperty(newState, "type");
       newState.date = new Date().toLocaleString();
       newState.type = "Personal";
+      newState.connectorID = userState.profile.username;
       console.log(newState);
 
       userState.user.getIdToken().then((token) => {

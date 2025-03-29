@@ -56,6 +56,7 @@ export default function Page() {
         delete res.data.date;
         delete res.data.status;
         delete res.data.type;
+        delete res.data.connectorID;
         console.log(res);
         setLoanData(res.data);
       });

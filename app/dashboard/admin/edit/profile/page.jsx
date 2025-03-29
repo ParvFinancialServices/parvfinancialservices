@@ -7,6 +7,9 @@ import { AccountCreationSchema } from "@/config/forms/AccountCreation";
 import { getUserData, updateAccount } from "@/api/file_action";
 import { useSearchParams } from "next/navigation";
 import { useUserState } from "@/app/dashboard/store";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ConnectorData } from "./ConnectorData";
+import TelecallerData from "./TelecallerData";
 
 export default function Page() {
   const userState = useUserState();
@@ -75,15 +78,34 @@ export default function Page() {
 
   return (
     <div className="flex p-4 items-start justify-center flex-col">
-      <header className="font-semibold text-2xl p-4">Profile</header>
-      {state?.info ? (
-        <StepForm setState={setState} state={state} step={0} />
-      ) : (
-        <p>Loading...</p>
-      )}
-      <div className="flex items-center justify-end w-full">
-        <Button onClick={() => updateProfile()}>Submit</Button>
-      </div>
+      {/* <header className="font-semibold text-2xl p-4">Profile</header> */}
+
+      <Tabs defaultValue="profile" className="w-full">
+        <TabsList>
+          <TabsTrigger value="profile">Profile</TabsTrigger>
+          <TabsTrigger value="data">Data</TabsTrigger>
+        </TabsList>
+        <TabsContent value="profile">
+          {state?.info ? (
+            <StepForm setState={setState} state={state} step={0} />
+          ) : (
+            <p>Loading...</p>
+          )}
+          <div className="flex items-center justify-end w-full">
+            <Button onClick={() => updateProfile()}>Submit</Button>
+          </div>
+        </TabsContent>
+        <TabsContent value="data">
+          {params.get("role") == "DSA" ? (
+            <ConnectorData username={username} user={userState.user} />
+          ) : null}
+          {params.get("role") == "Telecaller" ? (
+            <TelecallerData
+              assignments={state.assignments ? state.assignments : []}
+            />
+          ) : null}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }

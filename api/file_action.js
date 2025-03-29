@@ -8,12 +8,18 @@ import * as admin from "firebase-admin";
 import { redirect } from "next/navigation";
 import { error } from "console";
 import { get, set } from "lodash";
-import { getLoanType, getUsername, removeProperty } from "@/lib/utils";
+import {
+  formatDate,
+  getLoanType,
+  getUsername,
+  removeProperty,
+} from "@/lib/utils";
 import * as nodemailer from "nodemailer";
 import {
   getAccountCreationSuccessTemplate,
   getOTPTemplate,
 } from "@/config/mailTemplate";
+import { arrayUnion } from "@firebase/firestore";
 
 sdk.config({
   cloud_name: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
@@ -641,10 +647,9 @@ export async function setLoanData(token, data, type) {
   return {
     loanID: loanData.value,
   };
-};
+}
 
-
-export async function getLoanDataById(token,loanId) {
+export async function getLoanDataById(token, loanId) {
   try {
     // Optional: Authenticate using cookies (Replace with your auth logic)
     // const token = cookies().get("authToken")?.value;
@@ -704,7 +709,6 @@ export async function getDailyVisitReports(token) {
       // .push({ id: doc.id, ...doc.data() });
     });
     console.log(reports);
-
 
     return { success: true, reports: JSON.stringify(reports) };
   } catch (error) {
@@ -811,12 +815,22 @@ export async function setTelecallersData(token, username, url) {
   }
 
   const db = admin.firestore();
-  await db
-    .collection("creds")
-    .doc(username)
-    .update({
-      assignments: [url],
-    });
+  let snap = await db.collection("creds").doc(username).get();
+
+  let data = snap.data();
+  console.log(data);
+  let assignments = data?.assignments ? data.assignments : [];
+  assignments = [
+    ...assignments,
+    {
+      date: formatDate(new Date()),
+      assignment: url,
+    },
+  ];
+  console.log(assignments);
+  await db.collection("creds").doc(username).update({
+    assignments: assignments,
+  });
 
   return { msg: "Assignment Added" };
 }
@@ -841,7 +855,6 @@ export async function getFieldStaffsData(token) {
   return { data: result };
 }
 
-
 export async function getRMsData(token) {
   let decodedToken = await checkAuthentication(token);
 
@@ -850,13 +863,39 @@ export async function getRMsData(token) {
   }
 
   const db = admin.firestore();
-  let data = await db
-    .collection("creds")
-    .where("role", "==", "RM")
-    .get();
+  let data = await db.collection("creds").where("role", "==", "RM").get();
   let result = [];
   data.forEach((e) => {
     result.push(e.data());
+  });
+
+  return { data: result };
+}
+
+export async function getConnectorsLoanData(token, username) {
+  let decodedToken = await checkAuthentication(token);
+
+  if (!checkAdmin(decodedToken.decoded)) {
+    redirect("/login");
+  }
+
+  const db = admin.firestore();
+  let personal_loan_data = db
+    .collection("personal_loans")
+    .where("connectorID", "==", username)
+    .get();
+
+  console.log(username);
+  // add for other loans as well
+  let result = [];
+
+  await Promise.all([personal_loan_data]).then((res) => {
+    res.forEach((snap) => {
+      snap.forEach((e) => {
+        console.log(e.data());
+        result.push({ id: e.id, data: e.data() });
+      });
+    });
   });
 
   return { data: result };

@@ -9,8 +9,13 @@ export default function Table({ data, columns, filter, filterData }) {
   console.log(filter);
 
   return (
-    <div className="flex flex-col gap-4">
-      <DataTable columns={columns} data={data} filter={filter} filterData={filterData} />
+    <div className="flex flex-col gap-4 w-full">
+      <DataTable
+        columns={columns}
+        data={data}
+        filter={filter}
+        filterData={filterData}
+      />
     </div>
   );
 }

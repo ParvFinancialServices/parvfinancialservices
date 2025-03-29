@@ -1,30 +1,12 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
+
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { multiValueFilter } from "@/lib/utils";
 import { ArrowUpDown } from "lucide-react";
 import { Pencil } from "lucide-react";
-import { MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 
 export const columns = [
   {
@@ -65,7 +47,7 @@ export const columns = [
     cell: ({ row }) => {
       return (
         <Link
-          href={`/dashboard/admin/edit/profile?username=${row.original.username}`}
+          href={`/dashboard/admin/edit/profile?username=${row.original.username}&role=DSA`}
         >
           <Pencil height="16px" />
         </Link>

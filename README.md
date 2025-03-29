@@ -16,6 +16,8 @@
 6. Showing Assignments to Telecaller
 7. Commission to DSA
 8. Updating set telecaller logic
+9. redefine loan DS - add commission paid field 
+10. add condition when user or pass is not correct to show error
 
 
 ## Password structure

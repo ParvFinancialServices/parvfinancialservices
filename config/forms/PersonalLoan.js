@@ -73,14 +73,14 @@ export const PersonalLoan = {
     title: "Prerequisits",
     sections: [
       {
-        title: "something",
+        title: "Prerequisits",
         fields: [
-          {
-            name: "loan_amount",
-            label: "Loan Amount",
-            type: "String",
-            value:""
-          },
+          // {
+          //   name: "loan_amount",
+          //   label: "Loan Amount",
+          //   type: "String",
+          //   value:""
+          // },
           {
             name: "id_of_connector",
             label: "ID of Connector",
