@@ -16,6 +16,7 @@ import { removeProperty } from "@/lib/utils";
 import CloseIcon from "@/public/close.png";
 import Image from "next/image";
 import { StepForm } from "@/comp/StepForm";
+import { HomeLoan } from "@/config/forms/HomeLoan";
 
 // const Step = ({
 //   sectionIndex,
@@ -220,7 +221,7 @@ const PersonalLoanForm = () => {
   const [step, setStep] = useState(0);
 
   // state representing the formData
-  const [state, setState] = useState(PersonalLoan);
+  const [state, setState] = useState(HomeLoan);
 
   // number of steps in form
   const stepLength = Object.keys(state).length;

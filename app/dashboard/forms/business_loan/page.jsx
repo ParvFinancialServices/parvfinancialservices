@@ -9,25 +9,20 @@ import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import { cloneDeep, forOwn, isObject, set, unset } from "lodash";
 import { useEffect } from "react";
-import File from "@/comp/File";
-import { useRef } from "react";
 import { updateErrors } from "@/lib/utils";
-import CloseIcon from "@/public/close.png";
-import Image from "next/image";
-import { setLoanData, updateDocumentID } from "@/api/file_action";
+import { setLoanData } from "@/api/file_action";
 import { useUserState } from "@/app/dashboard/store";
 import { StepForm } from "@/comp/StepForm";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogOverlay,
-  DialogPortal,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { BusinessLoan } from "@/config/forms/BusinessLoan";
 
-const PersonalLoanForm = () => {
+const BusinessLoanForm = () => {
   //dialog state
   const [open, setOpen] = useState(false);
 
@@ -35,7 +30,7 @@ const PersonalLoanForm = () => {
   const [step, setStep] = useState(0);
 
   // state representing the formData
-  const [state, setState] = useState(PersonalLoan);
+  const [state, setState] = useState(BusinessLoan);
 
   // number of steps in form
   const stepLength = Object.keys(state).length;
@@ -232,4 +227,4 @@ const PersonalLoanForm = () => {
   );
 };
 
-export default PersonalLoanForm;
+export default BusinessLoanForm;

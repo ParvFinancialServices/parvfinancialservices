@@ -160,6 +160,12 @@ export const Step = ({
           disabled={readonly}
         />
       );
+    case "Text":
+      return (
+        <div className="col-start-1 col-end-4 ">
+          <div className="flex gap-4 flex-col text-gray-600" dangerouslySetInnerHTML={{__html: field?.data}}/>
+        </div>
+      );
     default:
       return (
         <div className="flex flex-col gap-2" key={key}>

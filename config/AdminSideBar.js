@@ -26,6 +26,7 @@ export const AdminSidebar = {
       title: "Loan Applications",
       url: "/dashboard",
       icon: ClipboardType,
+      isActive:true,
       items: [
         {
           title: "Personal Loan",
@@ -35,23 +36,23 @@ export const AdminSidebar = {
         },
         {
           title: "Business Loan",
-          url: "/admin/forms/business_loan",
+          url: "/dashboard/forms/business_loan",
           icon: BriefcaseBusinessIcon,
           isActive: false,
         },
         {
           title: "Home Loan",
-          url: "/admin/forms/home_loan",
+          url: "/dashboard/forms/home_loan",
           icon: HomeIcon,
         },
         {
           title: "Vehicle Loan",
-          url: "/admin/forms/vehicle_loan",
+          url: "/dashboard/forms/vehicle_loan",
           icon: CarIcon,
         },
         {
           title: "Gold Loan",
-          url: "/admin/forms/gold_loan",
+          url: "/dashboard/forms/gold_loan",
           icon: HandCoinsIcon,
         },
       ],

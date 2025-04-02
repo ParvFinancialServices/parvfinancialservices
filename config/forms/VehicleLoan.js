@@ -1,46 +1,88 @@
 
 export const VehicleLoan = {
-    info: {
-        title: "Prerequisits",
-        sections: [{
-            title: "something",
-            fields: [
-                {
-                    name: "name_of_referer",
-                    label: "Name of referer",
-                    type: "String",
-                },
-
-            ]
-        }]
+    instructions: {
+        title: "Instruction",
+        // title: "Personal Details",
+        sections: [
+            {
+                title: "Instruction",
+                fields: [
+                    {
+                        name: "instructions",
+                        label: "",
+                        type: "Text",
+                        data: `<h3>Instructions for Filling Out the Loan Application Form</h3>
+    
+    <ul class="list-disc ml-4 text-sm">
+        <li><strong>Read Carefully:</strong> Please go through all the sections of the form before filling it out.</li>
+        <li><strong>Use Clear and Correct Information:</strong> Ensure that all details provided are accurate and match your official documents. Any false information may lead to rejection.</li>
+        <li><strong>Required Documents:</strong> Keep necessary documents (ID proof, income proof, address proof, and bank statements) ready before starting.</li>
+        <li><strong>Use Capital Letters:</strong> If filling out a physical form, write in <strong>clear BLOCK LETTERS</strong> to avoid confusion.</li>
+        <li><strong>Mandatory Fields:</strong> Fields marked with <strong>(*) are mandatory</strong> and must be filled in to avoid processing delays.</li>
+        <li><strong>Signature & Date:</strong> Ensure that you sign the form at the designated places before submission. Unsigned forms will not be processed.</li>
+        <li><strong>Verification & Consent:</strong> By submitting the form, you agree to allow Parv Financial Services to verify your details as required.</li>
+        <li><strong>Submission Guidelines:</strong> Submit the form along with required documents <strong>in person or via email</strong> as instructed by the financial service provider.</li>
+        <li><strong>Processing Time:</strong> Loan application review and approval may take a few business days. You will be notified via email/SMS.</li>
+        <li><strong>For Assistance:</strong> If you have any questions while filling out the form, contact our support team at <a href="mailto:support@parvfinancial.com">support@parvfinancial.com</a>.</li>
+    </ul>
+    `,
+                    }
+                ],
+            },
+        ],
     },
     personal_details: {
         title: "Personal Details",
         sections: [
+            // {
+            //     title: "Referer",
+            //     fields: [
+            //         {
+            //             name: "name_of_referer",
+            //             label: "Name of referer",
+            //             type: "String",
+            //         },
+            //         {
+            //             name: "purpose_of_loan",
+            //             label: "Purpose of Loan",
+            //             type: "Option",
+            //             options: [
+            //                 { id: "1", label: "To start a new business" },
+            //                 { id: "2", label: "For the growth of existing business" },
+            //             ]
+            //         },
+            //         {
+            //             name: "loan_amount",
+            //             label: "Loan Amount",
+            //             type: "String",
+            //         },
+            //     ]
+            // },
             {
-                title: "Referer",
+                title: "Prerequisits",
                 fields: [
-                    {
-                        name: "name_of_referer",
-                        label: "Name of referer",
-                        type: "String",
-                    },
-                    {
-                        name: "purpose_of_loan",
-                        label: "Purpose of Loan",
-                        type: "Option",
-                        options: [
-                            { id: "1", label: "To start a new business" },
-                            { id: "2", label: "For the growth of existing business" },
-                        ]
-                    },
-                    {
-                        name: "loan_amount",
-                        label: "Loan Amount",
-                        type: "String",
-                    },
-                ]
-            },
+                  {
+                    name: "loan_amount",
+                    label: "Loan Amount",
+                    type: "String",
+                    value: ""
+                  },
+                  {
+                    name: "id_of_connector",
+                    label: "ID of Connector",
+                    type: "String",
+                    disabled: true,
+                    value: ""
+                  },
+                  {
+                    name: "name_of_connector",
+                    label: "Name of Connector",
+                    type: "String",
+                    disabled: true,
+                    value: ""
+                  },
+                ],
+              },
             {
                 title: "Personal Information",
                 fields: [
