@@ -78,7 +78,7 @@ const Layout = ({ children }) => {
   return (
     <SidebarProvider>
       <AppSidebar state={userState} />
-      <Toaster/>
+      <Toaster />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 transition-[width,height] ease-linear group-has-[[data-collapsible=icon]]/sidebar-wrapper:h-12">
           <div className="flex items-center gap-2 px-4">
@@ -103,7 +103,17 @@ const Layout = ({ children }) => {
             </Breadcrumb>
           </div>
         </header>
-        {isLoading ? <h1>Loading...</h1> : children}
+        {
+          isLoading ? <Dialog open={isLoading}>
+            <DialogContent className="sm:max-w-md">
+              <div className="flex items-center justify-center">
+                <Loader2Icon color="black" className="animate-spin" />
+              </div>
+            </DialogContent>
+          </Dialog>
+            :
+            children
+        }
       </SidebarInset>
       <Dialog open={userState.showLoader}>
         <DialogContent className="sm:max-w-md">

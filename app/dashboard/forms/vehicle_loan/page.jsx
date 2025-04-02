@@ -26,8 +26,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { VehicleLoan } from "@/config/forms/VehicleLoan";
 
-const PersonalLoanForm = () => {
+const VehicleLoanForm = () => {
   //dialog state
   const [open, setOpen] = useState(false);
 
@@ -35,7 +36,7 @@ const PersonalLoanForm = () => {
   const [step, setStep] = useState(0);
 
   // state representing the formData
-  const [state, setState] = useState(PersonalLoan);
+  const [state, setState] = useState(VehicleLoan);
 
   // number of steps in form
   const stepLength = Object.keys(state).length;
@@ -232,4 +233,4 @@ const PersonalLoanForm = () => {
   );
 };
 
-export default PersonalLoanForm;
+export default VehicleLoanForm;

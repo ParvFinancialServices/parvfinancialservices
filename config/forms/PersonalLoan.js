@@ -61,7 +61,7 @@ const PersonalLoanStepSchema = object().shape({
 
 export const PersonalLoanSchema = object()
   .shape({
-    info: PersonalLoanStepSchema,
+    // info: PersonalLoanStepSchema,
     personal_details: PersonalLoanStepSchema,
     employment: PersonalLoanStepSchema,
     documents: PersonalLoanStepSchema,
@@ -69,39 +69,95 @@ export const PersonalLoanSchema = object()
   .required();
 
 export const PersonalLoan = {
-  info: {
-    title: "Prerequisits",
+  instructions: {
+    title: "Instruction",
+    // title: "Personal Details",
     sections: [
       {
-        title: "something",
+        title: "Instruction",
+        fields: [
+          {
+            name: "instructions",
+            label: "",
+            type: "Text",
+            data: `<h3>Instructions for Filling Out the Loan Application Form</h3>
+
+<ul class="list-disc ml-4 text-sm">
+    <li><strong>Read Carefully:</strong> Please go through all the sections of the form before filling it out.</li>
+    <li><strong>Use Clear and Correct Information:</strong> Ensure that all details provided are accurate and match your official documents. Any false information may lead to rejection.</li>
+    <li><strong>Required Documents:</strong> Keep necessary documents (ID proof, income proof, address proof, and bank statements) ready before starting.</li>
+    <li><strong>Use Capital Letters:</strong> If filling out a physical form, write in <strong>clear BLOCK LETTERS</strong> to avoid confusion.</li>
+    <li><strong>Mandatory Fields:</strong> Fields marked with <strong>(*) are mandatory</strong> and must be filled in to avoid processing delays.</li>
+    <li><strong>Signature & Date:</strong> Ensure that you sign the form at the designated places before submission. Unsigned forms will not be processed.</li>
+    <li><strong>Verification & Consent:</strong> By submitting the form, you agree to allow Parv Financial Services to verify your details as required.</li>
+    <li><strong>Submission Guidelines:</strong> Submit the form along with required documents <strong>in person or via email</strong> as instructed by the financial service provider.</li>
+    <li><strong>Processing Time:</strong> Loan application review and approval may take a few business days. You will be notified via email/SMS.</li>
+    <li><strong>For Assistance:</strong> If you have any questions while filling out the form, contact our support team at <a href="mailto:support@parvfinancial.com">support@parvfinancial.com</a>.</li>
+</ul>
+`,
+          }
+        ],
+      },
+    ],
+  },
+  // info: {
+  //   title: "Prerequisits",
+  //   sections: [
+  //     {
+  //       title: "Prerequisits",
+  //       fields: [
+  //         {
+  //           name: "loan_amount",
+  //           label: "Loan Amount",
+  //           type: "String",
+  //           value: ""
+  //         },
+  //         {
+  //           name: "id_of_connector",
+  //           label: "ID of Connector",
+  //           type: "String",
+  //           disabled: true,
+  //           value: ""
+  //         },
+  //         {
+  //           name: "name_of_connector",
+  //           label: "Name of Connector",
+  //           type: "String",
+  //           disabled: true,
+  //           value: ""
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
+  personal_details: {
+    title: "Personal Details",
+    sections: [
+      {
+        title: "Prerequisits",
         fields: [
           {
             name: "loan_amount",
             label: "Loan Amount",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "id_of_connector",
             label: "ID of Connector",
             type: "String",
             disabled: true,
-            value:""
+            value: ""
           },
           {
             name: "name_of_connector",
             label: "Name of Connector",
             type: "String",
             disabled: true,
-            value:""
+            value: ""
           },
         ],
       },
-    ],
-  },
-  personal_details: {
-    title: "Personal Details",
-    sections: [
       {
         title: "Referer",
         fields: [
@@ -109,7 +165,7 @@ export const PersonalLoan = {
             name: "name_of_referer",
             label: "Name of referer",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "purpose_of_loan",
@@ -135,43 +191,43 @@ export const PersonalLoan = {
             name: "Name",
             label: "Name",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "fathers_name",
             label: "Father's Name",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "mothers_name",
             label: "Mother's Name",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "phone_no",
             label: "Phone Number",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "alt_phone_no",
             label: "Alternate Phone Number",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "pan",
             label: "PAN Number",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "dob",
             label: "Date of Birth",
             type: "Date",
-            value:""
+            value: ""
           },
         ],
       },
@@ -182,43 +238,43 @@ export const PersonalLoan = {
             name: "building_name",
             label: "Building/House Name",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "street_name",
             label: "Street/Road Name",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "landmark",
             label: "Landmark",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "city",
             label: "City",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "district",
             label: "District",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "state",
             label: "State",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "pincode",
             label: "Pincode",
             type: "String",
-            value:""
+            value: ""
           },
         ],
       },
@@ -229,43 +285,43 @@ export const PersonalLoan = {
             name: "building_name",
             label: "Building/House Name",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "street_name",
             label: "Street/Road Name",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "landmark",
             label: "Landmark",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "city",
             label: "City",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "district",
             label: "District",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "state",
             label: "State",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "pincode",
             label: "Pincode",
             type: "String",
-            value:""
+            value: ""
           },
         ],
       },
@@ -274,6 +330,31 @@ export const PersonalLoan = {
   employment: {
     title: "Employment & Loans",
     sections: [
+      // {
+      //   title: "Prerequisits",
+      //   fields: [
+      //     {
+      //       name: "loan_amount",
+      //       label: "Loan Amount",
+      //       type: "String",
+      //       value: ""
+      //     },
+      //     {
+      //       name: "id_of_connector",
+      //       label: "ID of Connector",
+      //       type: "String",
+      //       disabled: true,
+      //       value: ""
+      //     },
+      //     {
+      //       name: "name_of_connector",
+      //       label: "Name of Connector",
+      //       type: "String",
+      //       disabled: true,
+      //       value: ""
+      //     },
+      //   ],
+      // },
       {
         title: "Income Details",
         fields: [
@@ -281,19 +362,19 @@ export const PersonalLoan = {
             name: "current_company_name",
             label: "Current Company Name",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "salary_account_bank",
             label: "Salary Account Bank Name",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "savings_account_bank",
             label: "Savings Account Bank Name",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "job_tenure",
@@ -344,43 +425,43 @@ export const PersonalLoan = {
             name: "office_building_name",
             label: "Building/House Name",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "office_street_name",
             label: "Street/Road Name",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "office_landmark",
             label: "Landmark",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "office_city",
             label: "City",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "office_district",
             label: "District",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "office_state",
             label: "State",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "office_pincode",
             label: "Pincode",
             type: "String",
-            value:""
+            value: ""
           },
         ],
       },
@@ -488,14 +569,14 @@ export const PersonalLoan = {
             label: "Name the bank which provides loan to you. ",
             placeholder: "Bank name which provides loan",
             type: "String",
-            value:""
+            value: ""
           },
           {
             name: "monthly_emi",
             label: "what is monthly EMI currently you are paying",
             placeholder: "Monthly EMI",
             type: "String",
-            value:""
+            value: ""
           },
         ],
       },
@@ -506,7 +587,7 @@ export const PersonalLoan = {
             name: "expected_loan_amount",
             label: "Expected loan amount",
             type: "String",
-            value:""
+            value: ""
           },
         ],
       },
@@ -536,55 +617,23 @@ export const PersonalLoan = {
         ],
       },
       {
-        title: "Business Documents",
+        title: "Employment Documents",
         fields: [
           {
-            name: "comapny_image",
-            label: "Upload company / firm image?",
+            name: "salary_slip_1",
+            label: "Salary slip-1 ",
             type: "File",
           },
           {
-            name: "gst_certificate",
-            label: "Upload GST certificate (if available)",
+            name: "salary_slip_2",
+            label: "Salary slip-2",
             type: "File",
           },
           {
-            name: "udyam_registration",
-            label: "Upload UDYAM registration (if available)",
+            name: "salary_slip_3",
+            label: "Salary slip-3",
             type: "File",
           },
-          {
-            name: "form_3",
-            label: "Upload Form-3 (if available)",
-            type: "File",
-          },
-          {
-            name: "itr_22_23",
-            label: "Upload ITR 2022-23 (if available)",
-            type: "File",
-          },
-          {
-            name: "itr_23_23",
-            label: "Upload ITR 2023-24 (if available)",
-            type: "File",
-          },
-          {
-            name: "bank_statement",
-            label:
-              "Upload bank statement of last 12 months in net banking formate",
-            type: "File",
-          },
-          {
-            name: "shop_front",
-            label: "Upload Shop front picture",
-            type: "File",
-          },
-          {
-            name: "house_electricity",
-            label: "Upload house electricity bill",
-            type: "File",
-          },
-
           {
             name: "other_doc",
             label: "Upload any other documents",
