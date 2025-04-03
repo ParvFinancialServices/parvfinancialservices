@@ -6,4 +6,5 @@ export const pageAccess = {
     "/dashboard/admin/edit/loans",
   ],
   DSA: ["/dashboard/connector", "/dashboard/forms"],
+  Telecaller: ["/dashboard/telecaller", "/dashboard/forms"],
 };

@@ -34,15 +34,15 @@ export function AppSidebar({ ...props }) {
     case "DSA":
       roleData = DSASidebar;
       break;
-    case "telecaller":
+    case "Telecaller":
       roleData = TelecallerSidebar;
       break;
     case "fieldstaff":
       roleData = FieldStaffSidebar;
       break;
-    default:
-      roleData = FieldStaffSidebar;
-      break;
+    // default:
+    //   roleData = FieldStaffSidebar;
+    //   break;
   }
 
   return (

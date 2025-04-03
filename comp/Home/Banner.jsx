@@ -23,8 +23,8 @@ const Content = {
 
 const Banner = () => {
     return (
-        <div className="mt-10 container px-6 md:px-16 lg:px-20">
-            <div class="items-center w-full grid-cols-2 mx-auto overflow-x-hidden lg:grid md:py-14 lg:py-24 xl:py-14 lg:mt-3 xl:mt-5" data-aos="fade-right" data-aos-duration="800">
+        <div className="mt-10 mx-auto px-6 md:px-16 lg:px-20">
+            <div class="items-center max-w-7xl w-full grid-cols-2 mx-auto overflow-x-hidden lg:grid md:py-14 lg:py-24 xl:py-14 lg:mt-3 xl:mt-5" data-aos="fade-right" data-aos-duration="800">
                 <div class="pr-2 md:mb-14 py-14 md:py-0">
                     <h1 class="text-3xl font-semibold text-blue-900 xl:text-4xl leading-10 lg:text-3xl">{Content?.title}</h1>
                     <p class=" py-2 text-lg text-gray-500 2xl:pr-5">

@@ -314,11 +314,11 @@ export const TelecallerSidebar = {
       items: [
         {
           title: "Daily Calling List",
-          url: "/dashboard/admin/view/loans/category",
+          url: "/dashboard/telecaller/daily-task",
         },
         {
           title: "Member Wise",
-          url: "/dashboard/admin/view/loans/member",
+          url: "/dashboard/telecaller/",
         },
       ],
     },
@@ -331,7 +331,7 @@ export const TelecallerSidebar = {
     },
     {
       title: "Dashboard",
-      url: "/telecaller/dashboard",
+      url: "/dashboard/telecaller/",
       icon: LayoutDashboard,
     },
     // {

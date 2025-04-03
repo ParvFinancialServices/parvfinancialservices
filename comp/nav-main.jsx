@@ -26,7 +26,7 @@ export function NavMain({ items, pathname }) {
         Dashboard
       </SidebarGroupLabel>
       <SidebarMenu>
-        {items.map((item) => (
+        {items?.map((item) => (
           <Collapsible key={item.title} asChild className="group/collapsible" open={true}>
             <SidebarMenuItem >
               <CollapsibleTrigger asChild>
@@ -43,7 +43,7 @@ export function NavMain({ items, pathname }) {
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <SidebarMenuSub>
-                  {item.items?.map((subItem) => (
+                  {item?.items?.map((subItem) => (
                     <SidebarMenuSubItem
                       key={subItem.title}
                       className="flex gap-1 items-center "

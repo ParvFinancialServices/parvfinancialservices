@@ -6,6 +6,8 @@ export function middleware(request) {
   let role = request.cookies.get("role");
   let jwtToken = request.cookies.get("jwt");
   let isAuthorised = false;
+  console.log(role?.value);
+  
   if (role && jwtToken) {
     pageAccess[role.value].forEach((path) => {
       console.log(path);
