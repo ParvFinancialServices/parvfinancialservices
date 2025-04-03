@@ -64,7 +64,7 @@ export const columns = [
     cell: ({ row }) => {
       return (
         <Link
-          href={`/dashboard/admin/edit/profile?username=${row.original.username}`}
+          href={`/dashboard/admin/edit/profile?username=${row.original.username}&role=Telecaller`}
         >
           <Pencil height="16px" />
         </Link>

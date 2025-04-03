@@ -84,6 +84,8 @@ import Filter from "@/components/common/Filter";
 // }
 
 export function DataTable({ columns, data, filter, filterData }) {
+
+  console.log(data);
   // state responsible for column filtering
   const [columnFilters, setColumnFilters] = useState(filterData);
 
