@@ -15,8 +15,8 @@ export default function Page() {
   let [filter, setFilter] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   let list = [
+    "info.sections[0].fields[0].value",
     "info.sections[0].fields[1].value",
-    "info.sections[0].fields[2].value",
     "type",
     "status",
   ];
