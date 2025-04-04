@@ -34,7 +34,7 @@ export function NavProjects({
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>For user side website</SidebarGroupLabel>
       <SidebarMenu>
-        {projects.map((item) => (
+        {projects?.map((item) => (
           <SidebarMenuItem key={item.title}>
             <SidebarMenuButton asChild>
               <a href={item.url}>

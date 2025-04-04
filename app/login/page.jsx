@@ -43,15 +43,24 @@ export default function LoginPage() {
           let user = userCredentials.user;
           localStorage && localStorage.setItem("token", res.token);
           userState.setUser(user);
+          console.log(res?.role);
+          
           switch (res.role) {
             case "Admin":
               router.push("/dashboard/forms/personal_loan");
               break;
             case "DSA":
               router.push("/dashboard/connector");
-            default:
-              router.push("/dashboard/connector");
               break;
+            case "Telecaller":
+              router.push("/dashboard/telecaller");
+              break;
+            case "DSA":
+              router.push("/dashboard/field-staff");
+              break;
+            // default:
+            //   router.push("/dashboard/connector");
+            //   break;
           }
         })
         .catch((error) => {
