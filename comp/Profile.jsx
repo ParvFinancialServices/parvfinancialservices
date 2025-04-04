@@ -155,6 +155,7 @@ const Profile = () => {
     return (
         <div className='p-5 grid grid-cols-10 gap-5'>
             <section className='col-span-10 space-y-5 bg-gray-50 p-5 rounded-lg'>
+                <ImageSection profile={profile} />
                 {
                     profile?.info?.sections?.map((item, index) => {
                         console.log(item?.fields);
@@ -177,20 +178,7 @@ const Profile = () => {
                         )
                     })
                 }
-                <ImageSection profile={profile} />
-                <AboutSection />
-                {/* <hr /> */}
-                <hr />
-                <AddressSection />
-                <hr />
-                <EmployementSection />
             </section>
-            {/* <section className='col-span-7 space-y-4 bg-gray-50 rounded-lg p-5'>
-                <h3>Documents</h3>
-                <div className=''>
-                    <DocumentsList />
-                </div>
-            </section> */}
         </div>
     )
 }

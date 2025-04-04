@@ -900,3 +900,21 @@ export async function getConnectorsLoanData(token, username) {
 
   return { data: result };
 }
+
+export async function submitTelecallerSummary(token, formData) {
+  await checkAuthentication(token); // Ensure the user is authenticated
+
+  const db = admin.firestore();
+
+  try {
+    const docRef = await db.collection('telecaller_summaries').add({
+      ...formData,
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+    });
+
+    return { success: true, id: docRef.id };
+  } catch (error) {
+    console.error('Error submitting telecaller summary:', error);
+    return { success: false, error: error.message };
+  }
+}
