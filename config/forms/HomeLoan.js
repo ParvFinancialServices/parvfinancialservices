@@ -47,14 +47,14 @@ export const HomeLoan = {
                         name: "id_of_connector",
                         label: "ID of Connector",
                         type: "String",
-                        disabled: true,
+                        // disabled: true,
                         value: ""
                     },
                     {
                         name: "name_of_connector",
                         label: "Name of Connector",
                         type: "String",
-                        disabled: true,
+                        // disabled: true,
                         value: ""
                     },
                     {
@@ -69,6 +69,18 @@ export const HomeLoan = {
                             { id: "5", label: "To repay other loan" },
                             { id: "6", label: "To construct home" },
                             { id: "7", label: "For other Persoanl reason" },
+                        ]
+                    },
+                    {
+                        name: "loan_type",
+                        label: "Loan type",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "Home loan construction" },
+                            { id: "2", label: "Loan against property" },
+                            { id: "3", label: "Plot / Flat/ Property Purchase loan" },
+                            { id: "4", label: "Vacant plot LAP" },
+                            { id: "5", label: "Home loan renovation" },
                         ]
                     },
                 ],
@@ -97,6 +109,11 @@ export const HomeLoan = {
                         type: "String",
                     },
                     {
+                        name: "email",
+                        label: "Email",
+                        type: "String",
+                    },
+                    {
                         name: "alt_phone_no",
                         label: "Alternate Phone Number",
                         type: "String",
@@ -110,7 +127,21 @@ export const HomeLoan = {
                         name: "dob",
                         label: "Date of Birth",
                         type: "Date",
-                    }
+                    },
+                    {
+                        name: "marital_status",
+                        label: "Marital Status",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "Married" },
+                            { id: "2", label: "Unmarried" },
+                        ],
+                    },
+                    {
+                        name: "spouse_name",
+                        label: "Spouse Name",
+                        type: "String",
+                    },
                 ]
             },
             {
@@ -206,10 +237,21 @@ export const HomeLoan = {
                         label: "Current Company Name",
                         type: "String",
                     },
+                    // {
+                    //     name: "salary_account_bank",
+                    //     label: "Salary Account Bank Name",
+                    //     type: "String",
+                    // },
                     {
                         name: "salary_account_bank",
                         label: "Salary Account Bank Name",
-                        type: "String",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "0-12 months" },
+                            { id: "2", label: "12-24 months" },
+                            { id: "3", label: "24-60 months" },
+                            { id: "4", label: "more than 60 months" },
+                        ]
                     },
                     {
                         name: "savings_account_bank",

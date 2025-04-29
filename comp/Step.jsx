@@ -13,7 +13,10 @@ import { Separator } from "@/components/ui/separator";
 import { set } from "lodash";
 import File from "./File";
 
-export const Step = ({
+export const 
+
+
+Step = ({
   sectionIndex,
   fieldInd,
   toggleFieldInd,
@@ -39,7 +42,6 @@ export const Step = ({
     ? `${currentStepName}.sections[${sectionIndex}].fields[${fieldInd}].fields[${toggleFieldInd}]`
     : `${currentStepName}.sections[${sectionIndex}].fields[${fieldInd}]`;
 
-  // console.log(field);
   switch (field.type) {
     case "String":
       return (
@@ -76,7 +78,6 @@ export const Step = ({
         </div>
       );
     case "Option":
-      console.log(field.type);
       return (
         <div className="flex flex-col gap-2 w-full" key={key}>
           <Label htmlFor={field.name}>{field.label}</Label>
@@ -105,6 +106,26 @@ export const Step = ({
               <p className="text-xs text-red-500">{field.error}</p>
             </div>
           ) : null}
+          {/* <div className="grid grid-cols-3 gap-6">
+            {field.value !== "" &&
+              field.fields &&
+              field.fields.map((e, toggleFieldInd) => {
+                return (
+                  <Step
+                    readonly={readonly}
+                    step={Object.keys(state)[step]}
+                    sectionIndex={sectionIndex}
+                    toggleFieldInd={toggleFieldInd}
+                    fieldInd={fieldInd}
+                    field={e}
+                    setState={setState}
+                    key={`${sectionIndex}-${fieldInd}-${toggleFieldInd}`}
+                    currentStepName={currentStepName}
+                    state={state}
+                  />
+                );
+              })}
+          </div> */}
         </div>
       );
     case "Binary":

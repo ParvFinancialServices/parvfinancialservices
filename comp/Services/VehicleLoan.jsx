@@ -7,7 +7,7 @@ import Link from "next/link";
 export default function VehicleLoanSection() {
     return (
         <section className="bg-gray-50 py-16">
-            <div className="container mx-auto px-6 max-w-6xl flex flex-col md:flex-row items-center gap-8">
+            <div className="container mx-auto px-6 max-w-7xl flex flex-col md:flex-row items-center gap-8">
                 {/* Text Section */}
                 <div className="md:w-1/2 space-y-2">
                     <div className="mb-3">

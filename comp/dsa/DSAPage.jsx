@@ -255,7 +255,7 @@ export function EligibilitySection() {
 export default function AboutDSAPage() {
     return (
         <div className="bg-gradient-to-r w-full mx-auto from-blue-50 to-purple-50 min-h-screen py-12">
-            <div className="container mx-auto px-4">
+            <div className="container max-w-7xl mx-auto px-4">
                 {/* Hero Section */}
                 <HeroSection />
 
