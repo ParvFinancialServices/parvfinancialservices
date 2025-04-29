@@ -1,9 +1,8 @@
 'use client'
 import React from 'react';
-import { useUserState } from '../../store';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-import Link from 'next/link';
+import { useUserState } from '@/app/dashboard/store';
 
 const TelecallerDailyReport = () => {
   // Assuming 'profile' includes daily call reports
