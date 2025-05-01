@@ -36,6 +36,7 @@ export default function LoginPage() {
     if (res.error) {
       // throw error;
       alert(res.error);
+      setIsLoading(false);
     } else {
       // userState.setProfile(res.profile);
       signInWithCustomToken(auth, res.token)
@@ -44,7 +45,6 @@ export default function LoginPage() {
           localStorage && localStorage.setItem("token", res.token);
           userState.setUser(user);
           console.log(res?.role);
-          
           switch (res.role) {
             case "Admin":
               router.push("/dashboard/forms/personal_loan");
@@ -108,8 +108,12 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <Link href="/forget-password" className="text-blue-900 underline">forget password?</Link>
-            <Button type="submit" className="w-full">submit</Button>
+            <Link href="/forget-password" className="text-blue-900 underline">
+              forget password?
+            </Link>
+            <Button type="submit" className="w-full">
+              submit
+            </Button>
           </form>
         </div>
       </div>

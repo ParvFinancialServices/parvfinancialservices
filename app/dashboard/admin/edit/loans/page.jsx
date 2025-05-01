@@ -14,6 +14,11 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Separator } from "@/components/ui/separator";
+import {
+  PersonalLoan,
+  PersonalLoanInitialState,
+} from "@/config/forms/PersonalLoan";
+import { populateFlatDataFromSchema, populateSchemaFromFlatData } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -28,7 +33,7 @@ export default function Page() {
 
   function updateData() {
     userState.user.getIdToken().then((token) => {
-      let data = { ...loanData };
+      let data = { formData: populateFlatDataFromSchema(loanData) };
       userState.setShowLoader(true);
       // data.date = metaData.date;
       // data.type = metaData.type;
@@ -59,6 +64,9 @@ export default function Page() {
         delete res.data.connectorID;
         console.log(res);
         setLoanData(res.data);
+        res = populateSchemaFromFlatData(PersonalLoan, res.data.formData);
+        console.log(res);
+        setLoanData(res);
       });
     });
   }, []);
