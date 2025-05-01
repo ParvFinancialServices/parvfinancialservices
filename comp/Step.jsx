@@ -45,6 +45,9 @@ export const Step = ({
     case "String":
       return (
         <div className="flex flex-col gap-2" key={key}>
+          <Label className="font-light" htmlFor={field.name}>
+            {field.label}
+          </Label>
           <Input
             id={field.name}
             value={field.value}
