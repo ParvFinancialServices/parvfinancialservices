@@ -40,6 +40,4 @@ export const StepForm = ({ state, setState, step, readonly = false }) => {
       })}
     </div>
   );
-
-  // return <Step state={state} setState={setState} step={step}></Step>
 };

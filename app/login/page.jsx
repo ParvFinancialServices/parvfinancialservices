@@ -88,6 +88,45 @@ export default function LoginPage() {
 
   async function callIt() {
     const auth = getAuth(app);
+    const res = await login(username, password);
+    setIsLoading(true);
+    console.log(res);
+    if (res.error) {
+      // throw error;
+      alert(res.error);
+      setIsLoading(false);
+    } else {
+      // userState.setProfile(res.profile);
+      signInWithCustomToken(auth, res.token)
+        .then(async (userCredentials) => {
+          let user = userCredentials.user;
+          localStorage && localStorage.setItem("token", res.token);
+          userState.setUser(user);
+          console.log(res?.role);
+          switch (res.role) {
+            case "Admin":
+              router.push("/dashboard/forms/personal_loan");
+              break;
+            case "DSA":
+              router.push("/dashboard/connector");
+              break;
+            case "Telecaller":
+              router.push("/dashboard/telecaller");
+              break;
+            case "DSA":
+              router.push("/dashboard/field-staff");
+              break;
+            // default:
+            //   router.push("/dashboard/connector");
+            //   break;
+          }
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.log(error);
+          // ...
+        });
     setIsLoading(true); // Start loading
   
     try {
@@ -171,8 +210,12 @@ export default function LoginPage() {
               onChange={(e) => setPassword(e.target.value)}
               required
             />
-            <Link href="/forget-password" className="text-blue-900 underline">forget password?</Link>
-            <Button type="submit" className="w-full">submit</Button>
+            <Link href="/forget-password" className="text-blue-900 underline">
+              forget password?
+            </Link>
+            <Button type="submit" className="w-full">
+              submit
+            </Button>
           </form>
         </div>
       </div>

@@ -15,8 +15,8 @@ export default function Page() {
   let [filter, setFilter] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   let list = [
-    "info.sections[0].fields[0].value",
-    "info.sections[0].fields[1].value",
+    "formData.connectorID",
+    "formData.name_of_connector",
     "type",
     "status",
   ];
@@ -48,7 +48,7 @@ export default function Page() {
       console.log(token);
       getLoanData(token, "Personal").then((res) => {
         console.log(res);
-        const result = extractTableData(res.data, list, "Personal");
+        const result = extractTableData(res.data, "Personal");
         let d = {
           connector_id: extractParticularField(list[0], res.data),
           connector_name: extractParticularField(list[1], res.data),

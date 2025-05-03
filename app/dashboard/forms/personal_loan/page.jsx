@@ -5,26 +5,18 @@ import {
   PersonalLoanSchema,
 } from "@/config/forms/PersonalLoan.js";
 import Formstepper from "@/components/common/Formstepper";
-import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { cloneDeep, forOwn, isObject, set, unset } from "lodash";
+import { cloneDeep  } from "lodash";
 import { useEffect } from "react";
-import File from "@/comp/File";
-import { useRef } from "react";
-import { updateErrors } from "@/lib/utils";
-import CloseIcon from "@/public/close.png";
-import Image from "next/image";
-import { setLoanData, updateDocumentID } from "@/api/file_action";
+import { populateFlatDataFromSchema, updateErrors } from "@/lib/utils";
+import { setLoanData } from "@/api/file_action";
 import { useUserState } from "@/app/dashboard/store";
 import { StepForm } from "@/comp/StepForm";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogOverlay,
-  DialogPortal,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 
 const PersonalLoanForm = () => {
@@ -52,11 +44,13 @@ const PersonalLoanForm = () => {
 
   useEffect(() => {
     console.log("userState", userState);
-   // state.info.sections[0].fields[0].value = userState.profile.username;
+    // state.info.sections[0].fields[0].value = userState.profile.username;
     //state.info.sections[0].fields[1].value = userState.profile.info.sections[0].fields[0].value;
     // temporary
-    state.personal_details.sections[0].fields[1].value = userState.profile.username;
-    state.personal_details.sections[0].fields[2].value = userState.profile.info.sections[0].fields[0].value;
+    state.personal_details.sections[0].fields[1].value =
+      userState.profile.username;
+    state.personal_details.sections[0].fields[2].value =
+      userState.profile.info.sections[0].fields[0].value;
   }, [userState]);
 
   let onSubmit = async () => {
@@ -65,11 +59,13 @@ const PersonalLoanForm = () => {
     // 2. then push the data to the db
     if (process.env.NEXT_PUBLIC_TEST_MODE == "true") {
       console.log("If statement");
-      let newState = cloneDeep(state);
+      // let newState = cloneDeep(state);
+      let newState = { formData: populateFlatDataFromSchema(state) };
       // removeProperty(newState, "options");
       // removeProperty(newState, "type");
       newState.date = new Date().toLocaleString();
       newState.type = "Personal";
+      newState.status = "VERIFICATION";
       newState.connectorID = userState.profile.username;
       console.log(newState);
 
@@ -102,6 +98,8 @@ const PersonalLoanForm = () => {
           // removeProperty(newState, "type");
           newState.date = new Date().toLocaleString();
           newState.type = "Personal";
+          newState.status = "VERIFICATION";
+          newState.connectorID = userState.profile.username;
           console.log(newState);
 
           userState.user.getIdToken().then((token) => {

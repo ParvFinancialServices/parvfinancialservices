@@ -21,11 +21,14 @@ export default function File({ field, itemKey, setState, disabled }) {
     console.log(e, itemKey);
     let reader = new FileReader();
     reader.onload = async function (result) {
-      // let res = await upload_doc({ file: result.target.result, folder: field.name });
-      let res = { public_id: "12345asd" };
+      let res = await upload_doc({
+        file: result.target.result,
+        folder: field.name,
+      });
+      // let res = { public_id: "12345asd" };
       console.log("file upload successful! ", res);
       setState((state) => {
-        set(state, `${itemKey}.value`, res.public_id);
+        set(state, `${itemKey}.value`, res.secure_url);
         return { ...state };
       });
     };
@@ -35,6 +38,7 @@ export default function File({ field, itemKey, setState, disabled }) {
   return (
     <div className="flex flex-col gap-2 w-full" key={itemKey}>
       <Label htmlFor={field.name}>{field.label}</Label>
+      {field.value ? <img src={field.value} className="h-auto w-full" /> : null}
       <div className="flex w-full items-center gap-2">
         <Input
           id={field.name}
