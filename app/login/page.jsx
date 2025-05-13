@@ -172,6 +172,7 @@ export default function LoginPage() {
       setIsLoading(false); 
     }
   }
+}
   
 
   useEffect(() => {

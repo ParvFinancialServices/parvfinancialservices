@@ -1,4 +1,5 @@
 import { title } from "process";
+import toast from "react-hot-toast";
 
 export const HomeLoan = {
     instructions: {
@@ -127,20 +128,32 @@ export const HomeLoan = {
                         name: "dob",
                         label: "Date of Birth",
                         type: "Date",
+                        value: "",
+                        onChange: (e) => {
+                            let age =
+                                new Date().getFullYear() -
+                                new Date(e.nativeEvent.srcElement.value).getFullYear();
+                            if (age < 21) {
+                                // alert("Applicant's age must be more than 21 years");
+                                toast("Applicant's age must be more than 21 years");
+                                return false;
+                            }
+                            return true;
+                        },
                     },
                     {
                         name: "marital_status",
                         label: "Marital Status",
-                        type: "Option",
-                        options: [
-                            { id: "1", label: "Married" },
-                            { id: "2", label: "Unmarried" },
+                        type: "Binary",
+                        options: ["Married", "Unmarried"],
+                        value: "Unmarried",
+                        fields: [
+                            {
+                                name: "spouse_name",
+                                label: "Enter your spouse name",
+                                type: "String",
+                            },
                         ],
-                    },
-                    {
-                        name: "spouse_name",
-                        label: "Spouse Name",
-                        type: "String",
                     },
                 ]
             },

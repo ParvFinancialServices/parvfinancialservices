@@ -248,78 +248,7 @@ export const PersonalLoan = {
         ],
       },
       {
-        title: "Present Address",
-        fields: [
-          {
-            name: "present_building_name",
-            label: "Building/House Name",
-            type: "String",
-            value: "",
-          },
-          {
-            name: "present_street_name",
-            label: "Street/Road Name",
-            type: "String",
-            value: "",
-          },
-          {
-            name: "present_landmark",
-            label: "Landmark",
-            type: "String",
-            value: "",
-          },
-          {
-            name: "present_city",
-            label: "City",
-            type: "String",
-            value: "",
-          },
-          {
-            name: "present_district",
-            label: "District",
-            type: "String",
-            value: "",
-          },
-          {
-            name: "present_state",
-            label: "State",
-            type: "String",
-            value: "",
-          },
-          {
-            name: "present_pincode",
-            label: "Pincode",
-            type: "String",
-            value: "",
-          },
-          {
-            name: "same_as_permanent_address",
-            label: "Same as Permanent Address",
-            type: "Check",
-            value: false,
-            onChange: (isChecked, state) => {
-              state.personal_details.sections[2].fields[7].value = isChecked;
-              if (isChecked) {
-                state.personal_details.sections[3].fields.forEach(
-                  (_, index) => {
-                    state.personal_details.sections[3].fields[index].value =
-                      state.personal_details.sections[2].fields[index].value;
-                  }
-                );
-              } else {
-                state.personal_details.sections[3].fields.forEach(
-                  (_, index) => {
-                    state.personal_details.sections[3].fields[index].value = "";
-                  }
-                );
-              }
-              return { ...state };
-            },
-          },
-        ],
-      },
-      {
-        title: "Permanent Address",
+        title: "Permanent Address (Permanent address should be addressed as mentioned on your aadhar card)",
         fields: [
           {
             name: "permanent_building_name",
@@ -363,8 +292,81 @@ export const PersonalLoan = {
             type: "String",
             value: "",
           },
+          {
+            name: "same_as_permanent_address",
+            label: "Same as Permanent Address",
+            type: "Check",
+            value: false,
+            onChange: (isChecked, state) => {
+              state.personal_details.sections[2].fields[7].value = isChecked;
+              if (isChecked) {
+                state.personal_details.sections[3].fields.forEach(
+                  (_, index) => {
+                    state.personal_details.sections[3].fields[index].value =
+                      state.personal_details.sections[2].fields[index].value;
+                  }
+                );
+              } else {
+                state.personal_details.sections[3].fields.forEach(
+                  (_, index) => {
+                    state.personal_details.sections[3].fields[index].value = "";
+                  }
+                );
+              }
+              return { ...state };
+            },
+          },
         ],
       },
+      {
+        title: "Present Address (Fill the address where you are staying currently)",
+        fields: [
+          {
+            name: "present_building_name",
+            label: "Building/House Name",
+            type: "String",
+            value: "",
+          },
+          {
+            name: "present_street_name",
+            label: "Street/Road Name",
+            type: "String",
+            value: "",
+          },
+          {
+            name: "present_landmark",
+            label: "Landmark",
+            type: "String",
+            value: "",
+          },
+          {
+            name: "present_city",
+            label: "City",
+            type: "String",
+            value: "",
+          },
+          {
+            name: "present_district",
+            label: "District",
+            type: "String",
+            value: "",
+          },
+          {
+            name: "present_state",
+            label: "State",
+            type: "String",
+            value: "",
+          },
+          {
+            name: "present_pincode",
+            label: "Pincode",
+            type: "String",
+            value: "",
+          },
+          
+        ],
+      },
+      
     ],
   },
   employment: {
