@@ -250,11 +250,6 @@ export const HomeLoan = {
                         label: "Current Company Name",
                         type: "String",
                     },
-                    // {
-                    //     name: "salary_account_bank",
-                    //     label: "Salary Account Bank Name",
-                    //     type: "String",
-                    // },
                     {
                         name: "salary_account_bank",
                         label: "Salary Account Bank Name",
@@ -528,30 +523,32 @@ export const HomeLoan = {
                         name: "have_property_for_mortage",
                         label: "Do you have any property which you can give for moratge?",
                         type: "Binary",
-                    },
-                    {
-                        name: "saving_account_turnover",
-                        label: "Your property is located in :-",
-                        type: "Option",
-                        options: [
-                            { id: "1", label: "Gram panchayat" },
-                            { id: "2", label: "Nagar panchayat" },
-                            { id: "3", label: "Nagar Parishad" },
-                            { id: "4", label: "Nagar Nigam" },
-                        ]
-                    },
-                    {
-                        name: "who_own_property",
-                        label: "Who is the owner of property?",
-                        type: "Option",
-                        options: [
-                            { id: "1", label: "Myself" },
-                            { id: "2", label: "Father" },
-                            { id: "3", label: "Mother" },
-                            { id: "4", label: "Spouse" },
-                            { id: "5", label: "Grand father" },
-                            { id: "6", label: "Grand mother" },
-                            { id: "7", label: "Other" },
+                        fields: [
+                            {
+                                name: "property_location",
+                                label: "Your property is located in :-",
+                                type: "Option",
+                                options: [
+                                    { id: "1", label: "Gram panchayat" },
+                                    { id: "2", label: "Nagar panchayat" },
+                                    { id: "3", label: "Nagar Parishad" },
+                                    { id: "4", label: "Nagar Nigam" },
+                                ]
+                            },
+                            {
+                                name: "who_own_property",
+                                label: "Who is the owner of property?",
+                                type: "Option",
+                                options: [
+                                    { id: "1", label: "Myself" },
+                                    { id: "2", label: "Father" },
+                                    { id: "3", label: "Mother" },
+                                    { id: "4", label: "Spouse" },
+                                    { id: "5", label: "Grand father" },
+                                    { id: "6", label: "Grand mother" },
+                                    { id: "7", label: "Other" },
+                                ]
+                            },
                         ]
                     },
                     {
@@ -580,6 +577,11 @@ export const HomeLoan = {
             {
                 title: "Persoanl Documents",
                 fields: [
+                    {
+                        name: "applicant_selfie",
+                        label: "Uplaod Selfie",
+                        type: "File",
+                    },
                     {
                         name: "aadhar_front",
                         label: "Uplaod aadhar front image",
@@ -621,13 +623,13 @@ export const HomeLoan = {
                         type: "File",
                     },
                     {
-                        name: "itr_22_23",
-                        label: "Upload ITR 2022-23 (if available)",
+                        name: "itr_1",
+                        label: "Upload ITR 2023-24 (if available)",
                         type: "File",
                     },
                     {
-                        name: "itr_23_23",
-                        label: "Upload ITR 2023-24 (if available)",
+                        name: "itr_2",
+                        label: "Upload ITR 2024-25 (if available)",
                         type: "File",
                     },
                     {
@@ -654,6 +656,16 @@ export const HomeLoan = {
 
                 ]
             },
+            {
+                title:"Property Documents",
+                fields:[
+                    {
+                        name: "rashid",
+                        label: "Upload Rashid",
+                        type: "File",
+                    },
+                ]
+            }
         ]
     },
 }
