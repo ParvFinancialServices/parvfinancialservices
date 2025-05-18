@@ -4,7 +4,7 @@ import { BigHeading, Heading } from "./Common";
 const ContactUs = () => {
   return (
     <div className="w-full bg-white py-5  md:px-16 px-4 lg:px-20">
-      <div className=" mx-auto container bg-white md:p-4 font-[sans-serif]">
+      <div className=" mx-auto max-w-7xl bg-white md:p-4 font-[sans-serif]">
         <div className="flex justify-start md:justify-center flex-col w-full">
           <div className="mx-auto my-4">
             <Heading text={'Contact us'} />
@@ -19,7 +19,6 @@ const ContactUs = () => {
         </div>
 
         <div
-          // className="grid md:grid-cols-2 gap-16 items-center relative overflow-hidden p-8 before:absolute before:right-0 before:w-[300px] before:h-full max-md:before:hidden">
           className="grid max-w-[80vw] w-full md:grid-cols-2 gap-16 items-center relative ">
           <div className="w-full">
             <form className="max-w-[80vw] w-full">

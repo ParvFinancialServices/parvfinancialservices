@@ -1,3 +1,4 @@
+import toast from "react-hot-toast";
 import { object, string, array, lazy, mixed, date, boolean } from "yup";
 
 const PersonalLoanFieldSchema = object().shape({
@@ -84,7 +85,6 @@ export const PersonalLoan = {
             type: "Text",
             data: `
             <h3>Instructions for Filling Out the Loan Application Form</h3>
->>>>>>> v1.5
 <ul class="list-disc ml-4 text-sm">
     <li><strong>Read Carefully:</strong> Please go through all the sections of the form before filling it out.</li>
     <li><strong>Use Clear and Correct Information:</strong> Ensure that all details provided are accurate and match your official documents. Any false information may lead to rejection.</li>
@@ -103,36 +103,7 @@ export const PersonalLoan = {
       },
     ],
   },
-  // info: {
-  //   title: "Prerequisits",
-  //   sections: [
-  //     {
-  //       title: "Prerequisits",
-  //       fields: [
-  //         {
-  //           name: "loan_amount",
-  //           label: "Loan Amount",
-  //           type: "String",
-  //           value: ""
-  //         },
-  //         {
-  //           name: "id_of_connector",
-  //           label: "ID of Connector",
-  //           type: "String",
-  //           disabled: true,
-  //           value: ""
-  //         },
-  //         {
-  //           name: "name_of_connector",
-  //           label: "Name of Connector",
-  //           type: "String",
-  //           disabled: true,
-  //           value: ""
-  //         },
-  //       ],
-  //     },
-  //   ],
-  // },
+  
   personal_details: {
     title: "Personal Details",
     sections: [
@@ -149,14 +120,14 @@ export const PersonalLoan = {
             name: "id_of_connector",
             label: "ID of Connector",
             type: "String",
-            disabled: true,
+            // disabled: true,
             value: "",
           },
           {
             name: "name_of_connector",
             label: "Name of Connector",
             type: "String",
-            disabled: true,
+            // disabled: true,
             value: "",
           },
           {
@@ -225,7 +196,7 @@ export const PersonalLoan = {
                 new Date().getFullYear() -
                 new Date(e.nativeEvent.srcElement.value).getFullYear();
               if (age < 21) {
-                alert("Applicant's age must be more than 21 years");
+                toast("Applicant's age must be more than 21 years");
                 return false;
               }
               return true;
@@ -248,78 +219,7 @@ export const PersonalLoan = {
         ],
       },
       {
-        title: "Present Address",
-        fields: [
-          {
-            name: "present_building_name",
-            label: "Building/House Name",
-            type: "String",
-            value: "",
-          },
-          {
-            name: "present_street_name",
-            label: "Street/Road Name",
-            type: "String",
-            value: "",
-          },
-          {
-            name: "present_landmark",
-            label: "Landmark",
-            type: "String",
-            value: "",
-          },
-          {
-            name: "present_city",
-            label: "City",
-            type: "String",
-            value: "",
-          },
-          {
-            name: "present_district",
-            label: "District",
-            type: "String",
-            value: "",
-          },
-          {
-            name: "present_state",
-            label: "State",
-            type: "String",
-            value: "",
-          },
-          {
-            name: "present_pincode",
-            label: "Pincode",
-            type: "String",
-            value: "",
-          },
-          {
-            name: "same_as_permanent_address",
-            label: "Same as Permanent Address",
-            type: "Check",
-            value: false,
-            onChange: (isChecked, state) => {
-              state.personal_details.sections[2].fields[7].value = isChecked;
-              if (isChecked) {
-                state.personal_details.sections[3].fields.forEach(
-                  (_, index) => {
-                    state.personal_details.sections[3].fields[index].value =
-                      state.personal_details.sections[2].fields[index].value;
-                  }
-                );
-              } else {
-                state.personal_details.sections[3].fields.forEach(
-                  (_, index) => {
-                    state.personal_details.sections[3].fields[index].value = "";
-                  }
-                );
-              }
-              return { ...state };
-            },
-          },
-        ],
-      },
-      {
-        title: "Permanent Address",
+        title: "Permanent Address (Permanent address should be addressed as mentioned on your aadhar card)",
         fields: [
           {
             name: "permanent_building_name",
@@ -363,8 +263,80 @@ export const PersonalLoan = {
             type: "String",
             value: "",
           },
+          {
+            name: "same_as_permanent_address",
+            label: "Same as Permanent Address",
+            type: "Check",
+            value: false,
+            onChange: (isChecked, state) => {
+              state.personal_details.sections[2].fields[7].value = isChecked;
+              if (isChecked) {
+                state.personal_details.sections[3].fields.forEach(
+                  (_, index) => {
+                    state.personal_details.sections[3].fields[index].value =
+                      state.personal_details.sections[2].fields[index].value;
+                  }
+                );
+              } else {
+                state.personal_details.sections[3].fields.forEach(
+                  (_, index) => {
+                    state.personal_details.sections[3].fields[index].value = "";
+                  }
+                );
+              }
+              return { ...state };
+            },
+          },
         ],
       },
+      {
+        title: "Present Address (Fill the address where you are staying currently)",
+        fields: [
+          {
+            name: "present_building_name",
+            label: "Building/House Name",
+            type: "String",
+            value: "",
+          },
+          {
+            name: "present_street_name",
+            label: "Street/Road Name",
+            type: "String",
+            value: "",
+          },
+          {
+            name: "present_landmark",
+            label: "Landmark",
+            type: "String",
+            value: "",
+          },
+          {
+            name: "present_city",
+            label: "City",
+            type: "String",
+            value: "",
+          },
+          {
+            name: "present_district",
+            label: "District",
+            type: "String",
+            value: "",
+          },
+          {
+            name: "present_state",
+            label: "State",
+            type: "String",
+            value: "",
+          },
+          {
+            name: "present_pincode",
+            label: "Pincode",
+            type: "String",
+            value: "",
+          },
+        ],
+      },
+      
     ],
   },
   employment: {
@@ -382,22 +354,22 @@ export const PersonalLoan = {
           {
             name: "salary_account_bank",
             label: "Salary Account Bank Name",
-            type: "Option",
-            options: [
-              { id: "1", label: "PNB" },
-              { id: "2", label: "SBI" },
-              { id: "3", label: "HDFC" },
-            ],
+            type: "String",
+            // options: [
+            //   { id: "1", label: "PNB" },
+            //   { id: "2", label: "SBI" },
+            //   { id: "3", label: "HDFC" },
+            // ],
           },
           {
             name: "savings_account_bank",
             label: "Savings Account Bank Name",
-            type: "Option",
-            options: [
-              { id: "1", label: "PNB" },
-              { id: "2", label: "SBI" },
-              { id: "3", label: "HDFC" },
-            ],
+            type: "String",
+            // options: [
+            //   { id: "1", label: "PNB" },
+            //   { id: "2", label: "SBI" },
+            //   { id: "3", label: "HDFC" },
+            // ],
           },
           {
             name: "job_tenure",

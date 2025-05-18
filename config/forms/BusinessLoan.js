@@ -48,14 +48,14 @@ export const BusinessLoan = {
                         name: "id_of_connector",
                         label: "ID of Connector",
                         type: "String",
-                        disabled: true,
+                        // disabled: true,
                         value: ""
                     },
                     {
                         name: "name_of_connector",
                         label: "Name of Connector",
                         type: "String",
-                        disabled: true,
+                        // disabled: true,
                         value: ""
                     },
                     {
@@ -111,11 +111,100 @@ export const BusinessLoan = {
                         name: "dob",
                         label: "Date of Birth",
                         type: "Date",
-                    }
+                        value: "",
+                        onChange: (e) => {
+                            let age =
+                                new Date().getFullYear() -
+                                new Date(e.nativeEvent.srcElement.value).getFullYear();
+                            if (age < 21) {
+                                toast("Applicant's age must be more than 21 years");
+                                return false;
+                            }
+                            return true;
+                        },
+                    },
+                    {
+                        name: "marital_status",
+                        label: "Marital Status",
+                        type: "Binary",
+                        options: ["Married", "Unmarried"],
+                        value: "Unmarried",
+                        fields: [
+                            {
+                                name: "spouse_name",
+                                label: "Enter your spouse name",
+                                type: "String",
+                            },
+                        ],
+                    },
                 ]
             },
             {
-                title: "Present Address",
+                title: "Permanent Address (Permanent address should be addressed as mentioned on your aadhar card)",
+                fields: [
+                    {
+                        name: "building_name",
+                        label: "Building/House Name",
+                        type: "String"
+                    },
+                    {
+                        name: "street_name",
+                        label: "Street/Road Name",
+                        type: "String"
+                    },
+                    {
+                        name: "landmark",
+                        label: "Landmark",
+                        type: "String"
+                    },
+                    {
+                        name: "city",
+                        label: "City",
+                        type: "String"
+                    },
+                    {
+                        name: "district",
+                        label: "District",
+                        type: "String"
+                    },
+                    {
+                        name: "state",
+                        label: "State",
+                        type: "String"
+                    },
+                    {
+                        name: "pincode",
+                        label: "Pincode",
+                        type: "String"
+                    },
+                    {
+                        name: "same_as_permanent_address",
+                        label: "Same as Permanent Address",
+                        type: "Check",
+                        value: false,
+                        onChange: (isChecked, state) => {
+                            state.personal_details.sections[2].fields[7].value = isChecked;
+                            if (isChecked) {
+                                state.personal_details.sections[3].fields.forEach(
+                                    (_, index) => {
+                                        state.personal_details.sections[3].fields[index].value =
+                                            state.personal_details.sections[2].fields[index].value;
+                                    }
+                                );
+                            } else {
+                                state.personal_details.sections[3].fields.forEach(
+                                    (_, index) => {
+                                        state.personal_details.sections[3].fields[index].value = "";
+                                    }
+                                );
+                            }
+                            return { ...state };
+                        },
+                    },
+                ]
+            },
+            {
+                title: "Present Address (Fill the address where you are staying currently)",
                 fields: [
                     {
                         name: "building_name",
@@ -154,46 +243,7 @@ export const BusinessLoan = {
                     },
                 ]
             },
-            {
-                title: "Permanent Address",
-                fields: [
-                    {
-                        name: "building_name",
-                        label: "Building/House Name",
-                        type: "String"
-                    },
-                    {
-                        name: "street_name",
-                        label: "Street/Road Name",
-                        type: "String"
-                    },
-                    {
-                        name: "landmark",
-                        label: "Landmark",
-                        type: "String"
-                    },
-                    {
-                        name: "city",
-                        label: "City",
-                        type: "String"
-                    },
-                    {
-                        name: "district",
-                        label: "District",
-                        type: "String"
-                    },
-                    {
-                        name: "state",
-                        label: "State",
-                        type: "String"
-                    },
-                    {
-                        name: "pincode",
-                        label: "Pincode",
-                        type: "String"
-                    },
-                ]
-            }
+
         ]
     },
     employment: {
@@ -237,12 +287,12 @@ export const BusinessLoan = {
                 fields: [
                     {
                         name: "have_current_account",
-                        label: "Do you have current account?",
+                        label: "Do you have current account? (if you have current account then fill below details)",
                         type: "Binary",
                     },
                     {
                         name: "current_account_bank_name",
-                        label: "Bank name in which your current account.",
+                        label: "Which bank your current account with",
                         type: "String",
                     },
                     {
@@ -304,7 +354,7 @@ export const BusinessLoan = {
                 ]
             },
             {
-                title: "Previous Loan History",
+                title: "Previous Loan History (Please provide details of any past loans, if applicable.)",
                 fields: [
                     {
                         name: "loan_provider_bank",
@@ -335,28 +385,40 @@ export const BusinessLoan = {
                         name: "file_income_tax",
                         label: "Do you file income tax?",
                         type: "Binary",
+                        fields: [
+                            {
+                                name: "ITR-1",
+                                label: "Upload ITR-1 ",
+                                type: "File",
+                            },
+                            {
+                                name: "ITR-2",
+                                label: "Upload ITR-2 ",
+                                type: "File",
+                            },
+                        ],
                     },
-                    {
-                        name: "have_income_tax_return",
-                        label: "Do you have income tax return of last 2 years?",
-                        type: "Binary",
-                    },
+                    // {
+                    //     name: "have_income_tax_return",
+                    //     label: "Do you have income tax return of last 2 years?",
+                    //     type: "Binary",
+                    // },
                     {
                         name: "is_family_files_income_tax",
                         label: "Anyone else files income tax in your family?",
                         type: "Binary",
                     },
-                    {
-                        name: "itr_amount_22_23",
-                        label: "Amount of ITR you filled for 2022-23?",
-                        type: "String",
+                    // {
+                    //     name: "itr_amount_22_23",
+                    //     label: "Amount of ITR you filled for 2022-23?",
+                    //     type: "String",
 
-                    },
-                    {
-                        name: "itr_amount_23_24",
-                        label: "Amount of ITR you filled for 2023-24?",
-                        type: "String",
-                    },
+                    // },
+                    // {
+                    //     name: "itr_amount_23_24",
+                    //     label: "Amount of ITR you filled for 2023-24?",
+                    //     type: "String",
+                    // },
                 ]
             },
             {
@@ -366,30 +428,32 @@ export const BusinessLoan = {
                         name: "have_property_for_mortage",
                         label: "Do you have any property which you can give for moratge?",
                         type: "Binary",
-                    },
-                    {
-                        name: "saving_account_turnover",
-                        label: "Your property is located in :-",
-                        type: "Option",
-                        options: [
-                            { id: "1", label: "Gram panchayat" },
-                            { id: "2", label: "Nagar panchayat" },
-                            { id: "3", label: "Nagar Parishad" },
-                            { id: "4", label: "Nagar Nigam" },
-                        ]
-                    },
-                    {
-                        name: "who_own_property",
-                        label: "Who is the owner of property?",
-                        type: "Option",
-                        options: [
-                            { id: "1", label: "Myself" },
-                            { id: "2", label: "Father" },
-                            { id: "3", label: "Mother" },
-                            { id: "4", label: "Spouse" },
-                            { id: "5", label: "Grand father" },
-                            { id: "6", label: "Grand mother" },
-                            { id: "7", label: "Other" },
+                        fields: [
+                            {
+                                name: "property_location",
+                                label: "Your property is located in :-",
+                                type: "Option",
+                                options: [
+                                    { id: "1", label: "Gram panchayat" },
+                                    { id: "2", label: "Nagar panchayat" },
+                                    { id: "3", label: "Nagar Parishad" },
+                                    { id: "4", label: "Nagar Nigam" },
+                                ]
+                            },
+                            {
+                                name: "who_own_property",
+                                label: "Who is the owner of property?",
+                                type: "Option",
+                                options: [
+                                    { id: "1", label: "Myself" },
+                                    { id: "2", label: "Father" },
+                                    { id: "3", label: "Mother" },
+                                    { id: "4", label: "Spouse" },
+                                    { id: "5", label: "Grand father" },
+                                    { id: "6", label: "Grand mother" },
+                                    { id: "7", label: "Other" },
+                                ]
+                            },
                         ]
                     },
                     {
@@ -460,13 +524,13 @@ export const BusinessLoan = {
                         type: "File",
                     },
                     {
-                        name: "itr_22_23",
-                        label: "Upload ITR 2022-23 (if available)",
+                        name: "itr_1",
+                        label: "Upload ITR 2023-24 (if available)",
                         type: "File",
                     },
                     {
-                        name: "itr_23_23",
-                        label: "Upload ITR 2023-24 (if available)",
+                        name: "itr_2",
+                        label: "Upload ITR 2024-25 (if available)",
                         type: "File",
                     },
                     {

@@ -1,4 +1,5 @@
 import { title } from "process";
+import toast from "react-hot-toast";
 
 export const HomeLoan = {
     instructions: {
@@ -47,14 +48,14 @@ export const HomeLoan = {
                         name: "id_of_connector",
                         label: "ID of Connector",
                         type: "String",
-                        disabled: true,
+                        // disabled: true,
                         value: ""
                     },
                     {
                         name: "name_of_connector",
                         label: "Name of Connector",
                         type: "String",
-                        disabled: true,
+                        // disabled: true,
                         value: ""
                     },
                     {
@@ -69,6 +70,18 @@ export const HomeLoan = {
                             { id: "5", label: "To repay other loan" },
                             { id: "6", label: "To construct home" },
                             { id: "7", label: "For other Persoanl reason" },
+                        ]
+                    },
+                    {
+                        name: "loan_type",
+                        label: "Loan type",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "Home loan construction" },
+                            { id: "2", label: "Loan against property" },
+                            { id: "3", label: "Plot / Flat/ Property Purchase loan" },
+                            { id: "4", label: "Vacant plot LAP" },
+                            { id: "5", label: "Home loan renovation" },
                         ]
                     },
                 ],
@@ -97,6 +110,11 @@ export const HomeLoan = {
                         type: "String",
                     },
                     {
+                        name: "email",
+                        label: "Email",
+                        type: "String",
+                    },
+                    {
                         name: "alt_phone_no",
                         label: "Alternate Phone Number",
                         type: "String",
@@ -110,7 +128,33 @@ export const HomeLoan = {
                         name: "dob",
                         label: "Date of Birth",
                         type: "Date",
-                    }
+                        value: "",
+                        onChange: (e) => {
+                            let age =
+                                new Date().getFullYear() -
+                                new Date(e.nativeEvent.srcElement.value).getFullYear();
+                            if (age < 21) {
+                                // alert("Applicant's age must be more than 21 years");
+                                toast("Applicant's age must be more than 21 years");
+                                return false;
+                            }
+                            return true;
+                        },
+                    },
+                    {
+                        name: "marital_status",
+                        label: "Marital Status",
+                        type: "Binary",
+                        options: ["Married", "Unmarried"],
+                        value: "Unmarried",
+                        fields: [
+                            {
+                                name: "spouse_name",
+                                label: "Enter your spouse name",
+                                type: "String",
+                            },
+                        ],
+                    },
                 ]
             },
             {
@@ -209,7 +253,13 @@ export const HomeLoan = {
                     {
                         name: "salary_account_bank",
                         label: "Salary Account Bank Name",
-                        type: "String",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "0-12 months" },
+                            { id: "2", label: "12-24 months" },
+                            { id: "3", label: "24-60 months" },
+                            { id: "4", label: "more than 60 months" },
+                        ]
                     },
                     {
                         name: "savings_account_bank",
@@ -473,30 +523,32 @@ export const HomeLoan = {
                         name: "have_property_for_mortage",
                         label: "Do you have any property which you can give for moratge?",
                         type: "Binary",
-                    },
-                    {
-                        name: "saving_account_turnover",
-                        label: "Your property is located in :-",
-                        type: "Option",
-                        options: [
-                            { id: "1", label: "Gram panchayat" },
-                            { id: "2", label: "Nagar panchayat" },
-                            { id: "3", label: "Nagar Parishad" },
-                            { id: "4", label: "Nagar Nigam" },
-                        ]
-                    },
-                    {
-                        name: "who_own_property",
-                        label: "Who is the owner of property?",
-                        type: "Option",
-                        options: [
-                            { id: "1", label: "Myself" },
-                            { id: "2", label: "Father" },
-                            { id: "3", label: "Mother" },
-                            { id: "4", label: "Spouse" },
-                            { id: "5", label: "Grand father" },
-                            { id: "6", label: "Grand mother" },
-                            { id: "7", label: "Other" },
+                        fields: [
+                            {
+                                name: "property_location",
+                                label: "Your property is located in :-",
+                                type: "Option",
+                                options: [
+                                    { id: "1", label: "Gram panchayat" },
+                                    { id: "2", label: "Nagar panchayat" },
+                                    { id: "3", label: "Nagar Parishad" },
+                                    { id: "4", label: "Nagar Nigam" },
+                                ]
+                            },
+                            {
+                                name: "who_own_property",
+                                label: "Who is the owner of property?",
+                                type: "Option",
+                                options: [
+                                    { id: "1", label: "Myself" },
+                                    { id: "2", label: "Father" },
+                                    { id: "3", label: "Mother" },
+                                    { id: "4", label: "Spouse" },
+                                    { id: "5", label: "Grand father" },
+                                    { id: "6", label: "Grand mother" },
+                                    { id: "7", label: "Other" },
+                                ]
+                            },
                         ]
                     },
                     {
@@ -525,6 +577,11 @@ export const HomeLoan = {
             {
                 title: "Persoanl Documents",
                 fields: [
+                    {
+                        name: "applicant_selfie",
+                        label: "Uplaod Selfie",
+                        type: "File",
+                    },
                     {
                         name: "aadhar_front",
                         label: "Uplaod aadhar front image",
@@ -566,13 +623,13 @@ export const HomeLoan = {
                         type: "File",
                     },
                     {
-                        name: "itr_22_23",
-                        label: "Upload ITR 2022-23 (if available)",
+                        name: "itr_1",
+                        label: "Upload ITR 2023-24 (if available)",
                         type: "File",
                     },
                     {
-                        name: "itr_23_23",
-                        label: "Upload ITR 2023-24 (if available)",
+                        name: "itr_2",
+                        label: "Upload ITR 2024-25 (if available)",
                         type: "File",
                     },
                     {
@@ -599,6 +656,16 @@ export const HomeLoan = {
 
                 ]
             },
+            {
+                title:"Property Documents",
+                fields:[
+                    {
+                        name: "rashid",
+                        label: "Upload Rashid",
+                        type: "File",
+                    },
+                ]
+            }
         ]
     },
 }

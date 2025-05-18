@@ -48,8 +48,8 @@ const BusinessLoanForm = () => {
   useEffect(() => {
     console.log("userState", userState);
     // temporary
-    state.personal_details.sections[0].fields[1].value = userState.profile.username;
-    state.personal_details.sections[0].fields[2].value = userState.profile.info.sections[0].fields[0].value;
+    // state.personal_details.sections[0].fields[1].value = userState.profile.username;
+    // state.personal_details.sections[0].fields[2].value = userState.profile.info.sections[0].fields[0].value;
   }, [userState]);
 
   let onSubmit = async () => {
@@ -139,12 +139,12 @@ const BusinessLoanForm = () => {
             variant="outline"
             onClick={() => setStep((state) => state - 1)}
           >
-            previous
+            Previous
           </Button>
         ) : null}
         {step <= stepLength - 2 ? (
           <Button type="button" onClick={() => setStep((state) => state + 1)}>
-            next
+            Next
           </Button>
         ) : null}
         {step == stepLength - 1 ? (

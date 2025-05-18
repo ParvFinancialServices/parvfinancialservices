@@ -733,7 +733,7 @@ export async function updateAccount(token, data, username) {
   }
 }
 
-export async function addAssignmentToTC(token, url) {}
+export async function addAssignmentToTC(token, url) { }
 
 export async function getLoanByID(token, type, id) {
   let decodedToken = await checkAuthentication(token);
@@ -915,6 +915,37 @@ export async function submitTelecallerSummary(token, formData) {
     return { success: true, id: docRef.id };
   } catch (error) {
     console.error('Error submitting telecaller summary:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+export async function fetchTelleCallerDailyReport(token,selectedDate=null) {
+  await checkAuthentication(token);
+
+  const db = admin.firestore();
+
+  const date = selectedDate ? new Date(selectedDate) : new Date();
+
+  const startOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
+  const endOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59);
+  try {
+    const querySnapshot = await db
+      .collection('telecaller_summaries')
+      .where('createdAt', '>=', admin.firestore.Timestamp.fromDate(startOfDay))
+      .where('createdAt', '<=', admin.firestore.Timestamp.fromDate(endOfDay))
+      .orderBy('createdAt', 'desc')
+      .get();
+
+      console.log("Abhishgek jaisiwh",querySnapshot);
+      
+    const reports = [];
+    querySnapshot.forEach((doc) => {
+      reports.push({ id: doc.id, ...doc.data() });
+    });
+
+    return { success: true, reports };
+  } catch (error) {
+    console.error('Error fetching telecaller reports:', error);
     return { success: false, error: error.message };
   }
 }

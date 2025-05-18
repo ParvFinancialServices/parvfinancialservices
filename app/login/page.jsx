@@ -28,6 +28,64 @@ export default function LoginPage() {
     };
   }, []);
 
+  // async function callIt() {
+  //   const auth = getAuth(app);
+  //   // const res = await login(username, password);
+  //   // setIsLoading(true);
+  //   // console.log(res);
+  //   // if (res.error) {
+  //   //   // throw error;
+  //   //   alert(res.error);
+
+  //   setIsLoading(true); // Start loading before the async operation
+
+  //   try {
+  //     const res = await login(username, password);
+  //     console.log(res);
+
+  //     if (res.error) {
+  //       alert(res.error);
+  //     } else {
+  //       // userState.setProfile(res.profile);
+  //       signInWithCustomToken(auth, res.token)
+  //         .then(async (userCredentials) => {
+  //           let user = userCredentials.user;
+  //           localStorage && localStorage.setItem("token", res.token);
+  //           userState.setUser(user);
+
+  //           switch (res.role) {
+  //             case "Admin":
+  //               router.push("/dashboard/forms/personal_loan");
+  //               break;
+  //             case "DSA":
+  //               router.push("/dashboard/connector");
+  //               break;
+  //             case "Telecaller":
+  //               router.push("/dashboard/telecaller");
+  //               break;
+  //             case "Field Staff":
+  //               router.push("/dashboard/field-staff");
+  //               break;
+  //             // default:
+  //             //   router.push("/dashboard/connector");
+  //             //   break;
+  //           }
+  //         })
+  //         .catch((error) => {
+  //           const errorCode = error.code;
+  //           const errorMessage = error.message;
+  //           console.log(error);
+  //         });
+  //     }
+  //   }
+  //   catch (error) {
+  //     console.error('Unexpected error:', error);
+  //     alert('Something went wrong');
+  //   } finally {
+  //     setIsLoading(false); 
+  //   }
+  // }
+
   async function callIt() {
     const auth = getAuth(app);
     const res = await login(username, password);
@@ -69,8 +127,53 @@ export default function LoginPage() {
           console.log(error);
           // ...
         });
+    setIsLoading(true); // Start loading
+  
+    try {
+      const res = await login(username, password);
+      console.log(res);
+  
+      if (res.error) {
+        alert(res.error);
+      } else {
+        // Await Firebase sign-in before continuing
+        const userCredentials = await signInWithCustomToken(auth, res.token);
+        const user = userCredentials.user;
+  
+        if (localStorage) {
+          localStorage.setItem("token", res.token);
+        }
+  
+        userState.setUser(user);
+        // userState.setProfile(res.profile); // Uncomment if needed
+  
+        switch (res.role) {
+          case "Admin":
+            router.push("/dashboard/forms/personal_loan");
+            break;
+          case "DSA":
+            router.push("/dashboard/connector");
+            break;
+          case "Telecaller":
+            router.push("/dashboard/telecaller");
+            break;
+          case "Field Staff":
+            router.push("/dashboard/field-staff");
+            break;
+          default:
+            router.push("/dashboard/connector");
+            break;
+        }
+      }
+    } catch (error) {
+      console.error("Unexpected error:", error);
+      alert("Something went wrong");
+    } finally {
+      setIsLoading(false); 
     }
   }
+}
+  
 
   useEffect(() => {
     console.log(username, password);
