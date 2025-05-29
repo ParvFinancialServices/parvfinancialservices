@@ -153,7 +153,6 @@ function getApp() {
     }
   } else {
     // Initialising the firebase app using serviceAccountCredentials
-    console.log("prod initialization");
     try {
       const serviceAccountCredentials = JSON.parse(process.env.KEY);
       admin.initializeApp({
@@ -177,10 +176,6 @@ export async function login(username, password) {
   let query = db.collection("creds").where("username", "==", username);
   let snapshot = await query.get();
 
-  console.log(snapshot);
-  if (snapshot.size == 0) {
-    return { error: "Username or password is incorrect" };
-  }
   snapshot.forEach((doc) => {
     doc = doc.data();
     profile.username = get(doc, "username");
@@ -644,7 +639,7 @@ export async function setLoanData(token, data, type) {
   let snapshot = await db.collection("personal_loans").get();
   let length = snapshot.size + 1;
   let loanData = getLoanType(type, length);
-  // data.status = "VERIFICATION";
+  data.status = "VERIFICATION";
 
   await db.collection(loanData.key).doc(loanData.value).set(data);
 
@@ -738,7 +733,7 @@ export async function updateAccount(token, data, username) {
   }
 }
 
-export async function addAssignmentToTC(token, url) {}
+export async function addAssignmentToTC(token, url) { }
 
 export async function getLoanByID(token, type, id) {
   let decodedToken = await checkAuthentication(token);
@@ -912,14 +907,45 @@ export async function submitTelecallerSummary(token, formData) {
   const db = admin.firestore();
 
   try {
-    const docRef = await db.collection("telecaller_summaries").add({
+    const docRef = await db.collection('telecaller_summaries').add({
       ...formData,
       createdAt: admin.firestore.FieldValue.serverTimestamp(),
     });
 
     return { success: true, id: docRef.id };
   } catch (error) {
-    console.error("Error submitting telecaller summary:", error);
+    console.error('Error submitting telecaller summary:', error);
+    return { success: false, error: error.message };
+  }
+}
+
+export async function fetchTelleCallerDailyReport(token,selectedDate=null) {
+  await checkAuthentication(token);
+
+  const db = admin.firestore();
+
+  const date = selectedDate ? new Date(selectedDate) : new Date();
+
+  const startOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0, 0, 0);
+  const endOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59);
+  try {
+    const querySnapshot = await db
+      .collection('telecaller_summaries')
+      .where('createdAt', '>=', admin.firestore.Timestamp.fromDate(startOfDay))
+      .where('createdAt', '<=', admin.firestore.Timestamp.fromDate(endOfDay))
+      .orderBy('createdAt', 'desc')
+      .get();
+
+      console.log("Abhishgek jaisiwh",querySnapshot);
+      
+    const reports = [];
+    querySnapshot.forEach((doc) => {
+      reports.push({ id: doc.id, ...doc.data() });
+    });
+
+    return { success: true, reports };
+  } catch (error) {
+    console.error('Error fetching telecaller reports:', error);
     return { success: false, error: error.message };
   }
 }

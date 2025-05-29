@@ -7,6 +7,7 @@ import WhyChooseUs from "@/comp/About/WhyChooseUs";
 import CallToAction from "@/comp/About/CallToAction";
 import TestimonialSection from "@/comp/Home/TestimonialSection";
 import React from "react";
+import VisionMission from '@/comp/About/mission/main';
 
 function About() {
     return (
@@ -32,9 +33,10 @@ function About() {
                         img={"/About/about_header.png"}
                     />
                     <AboutSection />
+                    <VisionMission/>
                     <WhyChooseUs />
                     <CallToAction />
-                    <TestimonialSection />
+                    {/* <TestimonialSection /> */}
                 </main>
                 <Footer />
             </div>

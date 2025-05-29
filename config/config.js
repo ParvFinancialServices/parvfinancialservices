@@ -1,0 +1,27 @@
+const banks = [
+    { id: 1, label: "Aryavart Bank" },
+    { id: 2, label: "Axis Bank" },
+    { id: 3, label: "Bandhan Bank" },
+    { id: 4, label: "Bank of Baroda" },
+    { id: 5, label: "Bank of India" },
+    { id: 6, label: "Bank of Maharashtra" },
+    { id: 7, label: "Baroda UP Bank" },
+    { id: 8, label: "Canara Bank" },
+    { id: 9, label: "Central Bank of India" },
+    { id: 10, label: "Dakshin Bihar Gramin Bank" },
+    { id: 11, label: "HDFC Bank" },
+    { id: 12, label: "ICICI Bank" },
+    { id: 13, label: "IDBI Bank" },
+    { id: 14, label: "Indian Bank" },
+    { id: 15, label: "Indian Overseas Bank" },
+    { id: 16, label: "Jharkhand Rajya Gramin Bank" },
+    { id: 17, label: "Kotak Mahindra Bank" },
+    { id: 18, label: "Prathama UP Gramin Bank" },
+    { id: 19, label: "Punjab & Sind Bank" },
+    { id: 20, label: "Punjab National Bank" },
+    { id: 21, label: "State Bank of India" },
+    { id: 22, label: "UCO Bank" },
+    { id: 23, label: "Union Bank of India" },
+    { id: 24, label: "Uttar Bihar Gramin Bank" }
+  ];
+  

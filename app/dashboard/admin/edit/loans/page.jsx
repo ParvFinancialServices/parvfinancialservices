@@ -63,7 +63,7 @@ export default function Page() {
         delete res.data.type;
         delete res.data.connectorID;
         console.log(res);
-
+        setLoanData(res.data);
         res = populateSchemaFromFlatData(PersonalLoan, res.data.formData);
         console.log(res);
         setLoanData(res);

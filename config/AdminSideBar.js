@@ -1,5 +1,6 @@
 "use client";
 
+import { BookUser } from "lucide-react";
 import {
   ClipboardType,
   FileUser,
@@ -83,7 +84,7 @@ export const AdminSidebar = {
     {
       title: "Actions",
       url: "#",
-      icon: Users2Icon,
+      icon: BookUser,
       items: [
         {
           title: "Account Creation",
@@ -96,6 +97,14 @@ export const AdminSidebar = {
       url: "#",
       icon: Users2Icon,
       items: [
+        {
+          title: "Field staff Report",
+          url: "/dashboard/admin/reports/field-staff",
+        },
+        {
+          title: "Tellecaller Reports",
+          url: "/dashboard/admin/reports/telecaller",
+        },
         {
           title: "Loans Report",
           url: "/dashboard/admin/view/loans",

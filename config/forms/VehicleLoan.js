@@ -31,185 +31,7 @@ export const VehicleLoan = {
             },
         ],
     },
-    personal_details: {
-        title: "Personal Details",
-        sections: [
-            // {
-            //     title: "Referer",
-            //     fields: [
-            //         {
-            //             name: "name_of_referer",
-            //             label: "Name of referer",
-            //             type: "String",
-            //         },
-            //         {
-            //             name: "purpose_of_loan",
-            //             label: "Purpose of Loan",
-            //             type: "Option",
-            //             options: [
-            //                 { id: "1", label: "To start a new business" },
-            //                 { id: "2", label: "For the growth of existing business" },
-            //             ]
-            //         },
-            //         {
-            //             name: "loan_amount",
-            //             label: "Loan Amount",
-            //             type: "String",
-            //         },
-            //     ]
-            // },
-            {
-                title: "Prerequisits",
-                fields: [
-                  {
-                    name: "loan_amount",
-                    label: "Loan Amount",
-                    type: "String",
-                    value: ""
-                  },
-                  {
-                    name: "id_of_connector",
-                    label: "ID of Connector",
-                    type: "String",
-                    disabled: true,
-                    value: ""
-                  },
-                  {
-                    name: "name_of_connector",
-                    label: "Name of Connector",
-                    type: "String",
-                    disabled: true,
-                    value: ""
-                  },
-                ],
-              },
-            {
-                title: "Personal Information",
-                fields: [
-                    {
-                        name: "Name",
-                        label: "Name",
-                        type: "String",
-                    },
-                    {
-                        label: "fathers_name",
-                        label: "Father's Name",
-                        type: "String",
-                    },
-                    {
-                        name: "mothers_name",
-                        label: "Mother's Name",
-                        type: "String",
-                    },
-                    {
-                        name: "phone_no",
-                        label: "Phone Number",
-                        type: "String",
-                    },
-                    {
-                        name: "alt_phone_no",
-                        label: "Alternate Phone Number",
-                        type: "String",
-                    },
-                    {
-                        name: "email",
-                        label: "Email",
-                        type: "String",
-                    },
-                    {
-                        name: "pan",
-                        label: "PAN Number",
-                        type: "String",
-                    },
-                    {
-                        name: "dob",
-                        label: "Date of Birth",
-                        type: "Date",
-                    }
-                ]
-            },
-            {
-                title: "Present Address",
-                fields: [
-                    {
-                        name: "building_name",
-                        label: "Building/House Name",
-                        type: "String"
-                    },
-                    {
-                        name: "street_name",
-                        label: "Street/Road Name",
-                        type: "String"
-                    },
-                    {
-                        name: "landmark",
-                        label: "Landmark",
-                        type: "String"
-                    },
-                    {
-                        name: "city",
-                        label: "City",
-                        type: "String"
-                    },
-                    {
-                        name: "district",
-                        label: "District",
-                        type: "String"
-                    },
-                    {
-                        name: "state",
-                        label: "State",
-                        type: "String"
-                    },
-                    {
-                        name: "pincode",
-                        label: "Pincode",
-                        type: "String"
-                    },
-                ]
-            },
-            {
-                title: "Permanent Address",
-                fields: [
-                    {
-                        name: "building_name",
-                        label: "Building/House Name",
-                        type: "String"
-                    },
-                    {
-                        name: "street_name",
-                        label: "Street/Road Name",
-                        type: "String"
-                    },
-                    {
-                        name: "landmark",
-                        label: "Landmark",
-                        type: "String"
-                    },
-                    {
-                        name: "city",
-                        label: "City",
-                        type: "String"
-                    },
-                    {
-                        name: "district",
-                        label: "District",
-                        type: "String"
-                    },
-                    {
-                        name: "state",
-                        label: "State",
-                        type: "String"
-                    },
-                    {
-                        name: "pincode",
-                        label: "Pincode",
-                        type: "String"
-                    },
-                ]
-            }
-        ]
-    },
+
     vehicleDetails: {
         title: "Vehicle Details",
         sections: [
@@ -273,7 +95,450 @@ export const VehicleLoan = {
                         options: [
                             { id: "1", label: "Job" },
                             { id: "2", label: "Business" },
-                            { id: "3", label: "Othres" },
+                            { id: "3", label: "Others" },
+                        ]
+                    },
+                ]
+            },
+
+
+        ]
+    },
+    personal_details: {
+        title: "Personal Details",
+        sections: [
+            // {
+            //     title: "Referer",
+            //     fields: [
+            //         {
+            //             name: "name_of_referer",
+            //             label: "Name of referer",
+            //             type: "String",
+            //         },
+            //         {
+            //             name: "purpose_of_loan",
+            //             label: "Purpose of Loan",
+            //             type: "Option",
+            //             options: [
+            //                 { id: "1", label: "To start a new business" },
+            //                 { id: "2", label: "For the growth of existing business" },
+            //             ]
+            //         },
+            //         {
+            //             name: "loan_amount",
+            //             label: "Loan Amount",
+            //             type: "String",
+            //         },
+            //     ]
+            // },
+            {
+                title: "Prerequisits",
+                fields: [
+                  {
+                    name: "loan_amount",
+                    label: "Loan Amount",
+                    type: "String",
+                    value: ""
+                  },
+                  {
+                    name: "id_of_connector",
+                    label: "ID of Connector",
+                    type: "String",
+                    disabled: true,
+                    value: ""
+                  },
+                  {
+                    name: "name_of_connector",
+                    label: "Name of Connector",
+                    type: "String",
+                    disabled: true,
+                    value: ""
+                  },
+                ],
+              },
+            // {
+            //     title: "Personal Information",
+            //     fields: [
+            //         {
+            //             name: "Name",
+            //             label: "Name",
+            //             type: "String",
+            //         },
+            //         {
+            //             label: "fathers_name",
+            //             label: "Father's Name",
+            //             type: "String",
+            //         },
+            //         {
+            //             name: "mothers_name",
+            //             label: "Mother's Name",
+            //             type: "String",
+            //         },
+            //         {
+            //             name: "phone_no",
+            //             label: "Phone Number",
+            //             type: "String",
+            //         },
+            //         {
+            //             name: "alt_phone_no",
+            //             label: "Alternate Phone Number",
+            //             type: "String",
+            //         },
+            //         {
+            //             name: "email",
+            //             label: "Email",
+            //             type: "String",
+            //         },
+            //         {
+            //             name: "pan",
+            //             label: "PAN Number",
+            //             type: "String",
+            //         },
+            //         {
+            //             name: "dob",
+            //             label: "Date of Birth",
+            //             type: "Date",
+            //         }
+            //     ]
+            // },
+            // {
+            //     title: "Present Address",
+            //     fields: [
+            //         {
+            //             name: "building_name",
+            //             label: "Building/House Name",
+            //             type: "String"
+            //         },
+            //         {
+            //             name: "street_name",
+            //             label: "Street/Road Name",
+            //             type: "String"
+            //         },
+            //         {
+            //             name: "landmark",
+            //             label: "Landmark",
+            //             type: "String"
+            //         },
+            //         {
+            //             name: "city",
+            //             label: "City",
+            //             type: "String"
+            //         },
+            //         {
+            //             name: "district",
+            //             label: "District",
+            //             type: "String"
+            //         },
+            //         {
+            //             name: "state",
+            //             label: "State",
+            //             type: "String"
+            //         },
+            //         {
+            //             name: "pincode",
+            //             label: "Pincode",
+            //             type: "String"
+            //         },
+            //     ]
+            // },
+            // {
+            //     title: "Permanent Address",
+            //     fields: [
+            //         {
+            //             name: "building_name",
+            //             label: "Building/House Name",
+            //             type: "String"
+            //         },
+            //         {
+            //             name: "street_name",
+            //             label: "Street/Road Name",
+            //             type: "String"
+            //         },
+            //         {
+            //             name: "landmark",
+            //             label: "Landmark",
+            //             type: "String"
+            //         },
+            //         {
+            //             name: "city",
+            //             label: "City",
+            //             type: "String"
+            //         },
+            //         {
+            //             name: "district",
+            //             label: "District",
+            //             type: "String"
+            //         },
+            //         {
+            //             name: "state",
+            //             label: "State",
+            //             type: "String"
+            //         },
+            //         {
+            //             name: "pincode",
+            //             label: "Pincode",
+            //             type: "String"
+            //         },
+            //     ]
+            // }
+            {
+                title: "Personal Information",
+                fields: [
+                  {
+                    name: "Name",
+                    label: "Name",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "fathers_name",
+                    label: "Father's Name",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "mothers_name",
+                    label: "Mother's Name",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "phone_no",
+                    label: "Phone Number",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "alt_phone_no",
+                    label: "Alternate Phone Number",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "pan",
+                    label: "PAN Number",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "dob",
+                    label: "Date of Birth",
+                    type: "Date",
+                    value: "",
+                    onChange: (e) => {
+                      let age =
+                        new Date().getFullYear() -
+                        new Date(e.nativeEvent.srcElement.value).getFullYear();
+                      if (age < 21) {
+                        toast("Applicant's age must be more than 21 years");
+                        return false;
+                      }
+                      return true;
+                    },
+                  },
+                  {
+                    name: "marital_status",
+                    label: "Marital Status",
+                    type: "Binary",
+                    options: ["Married", "Unmarried"],
+                    value: "Unmarried",
+                    fields: [
+                      {
+                        name: "spouse_name",
+                        label: "Enter your spouse name",
+                        type: "String",
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                title: "Permanent Address (Permanent address should be addressed as mentioned on your aadhar card)",
+                fields: [
+                  {
+                    name: "permanent_building_name",
+                    label: "Building/House Name",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "permanent_street_name",
+                    label: "Street/Road Name",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "permanent_landmark",
+                    label: "Landmark",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "permanent_city",
+                    label: "City",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "permanent_district",
+                    label: "District",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "permanent_state",
+                    label: "State",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "permanent_pincode",
+                    label: "Pincode",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "same_as_permanent_address",
+                    label: "Same as Permanent Address",
+                    type: "Check",
+                    value: false,
+                    onChange: (isChecked, state) => {
+                      state.personal_details.sections[2].fields[7].value = isChecked;
+                      if (isChecked) {
+                        state.personal_details.sections[3].fields.forEach(
+                          (_, index) => {
+                            state.personal_details.sections[3].fields[index].value =
+                              state.personal_details.sections[2].fields[index].value;
+                          }
+                        );
+                      } else {
+                        state.personal_details.sections[3].fields.forEach(
+                          (_, index) => {
+                            state.personal_details.sections[3].fields[index].value = "";
+                          }
+                        );
+                      }
+                      return { ...state };
+                    },
+                  },
+                ],
+              },
+              {
+                title: "Present Address (Fill the address where you are staying currently)",
+                fields: [
+                  {
+                    name: "present_building_name",
+                    label: "Building/House Name",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "present_street_name",
+                    label: "Street/Road Name",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "present_landmark",
+                    label: "Landmark",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "present_city",
+                    label: "City",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "present_district",
+                    label: "District",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "present_state",
+                    label: "State",
+                    type: "String",
+                    value: "",
+                  },
+                  {
+                    name: "present_pincode",
+                    label: "Pincode",
+                    type: "String",
+                    value: "",
+                  },
+                ],
+              },
+        ]
+    },
+    vehicleDetails: {
+        title: "Vehicle Details",
+        sections: [
+            {
+                title: "Vehicle Details",
+                fields: [
+                    {
+                        name: "which_vehicle",
+                        label: "Select vehicle loan type?",
+                        type: "Option",
+                        options: [
+                            { id: "two_wheeler_loan", label: "Two wheeler loan" },
+                            { id: "new_car_loan", label: "New car loan" },
+                            { id: "light_commercial_vehicle_loan", label: "Light commercial vehicle loan" },
+                            { id: "heavy_commercial_vehicle_loan", label: "Heavy commercial vehicle loan" },
+                            { id: "tractor_loan", label: "Tractor Loan" },
+                            { id: "old_vehicle_purchase", label: "Old vehicle purchase" },
+                            { id: "vehicle_refinance", label: "Vehicle Refinance" },
+                        ]
+                    },
+                    {
+                        name: "when_purchase",
+                        label: "When you have to purchase vehicle?",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "within 7 days" },
+                            { id: "2", label: "10-15 days" },
+                            { id: "3", label: "15-30 days" },
+                            { id: "4", label: "30-90 days" },
+                            { id: "5", label: "later" },
+                        ]
+                    },
+                    {
+                        name: "estimated_cost",
+                        label: "What is estimated cost of vehicle?",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "5-10 lakhs" },
+                            { id: "2", label: "10-15 lakhs" },
+                            { id: "3", label: "15-20 lakhs" },
+                            { id: "4", label: "20-30 lakhs" },
+                            { id: "5", label: "30-50 lakhs" },
+                            { id: "6", label: "more than 50 lakhs" },
+                        ]
+                    },
+                    {
+                        name: "loan_you_need",
+                        label: "How much loan you need?",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "3-5 lakhs" },
+                            { id: "2", label: "5-10 lakhs" },
+                            { id: "3", label: "10-12 lakhs" },
+                            { id: "4", label: "12-20 lakhs" },
+                            { id: "5", label: "20-30 lakhs" },
+                            { id: "6", label: "30-50 lakhs" },
+                            { id: "7", label: "more than 50 lakhs" },
+                        ]
+                    },
+                    {
+                        name: "profession",
+                        label: "Select Profession type ",
+                        type: "Option",
+                        options: [
+                            { id: "1", label: "Job" },
+                            { id: "2", label: "Business" },
+                            { id: "3", label: "Others" },
                         ]
                     },
                 ]
@@ -469,6 +734,59 @@ export const VehicleLoan = {
                         name: "remaining_amount",
                         label: "Remaining amount",
                         type: "String",
+                    },
+                ]
+            },
+            {
+                title: "Property Information",
+                fields: [
+                    {
+                        name: "have_property_for_mortage",
+                        label: "Do you have any property which you can give for moratge?",
+                        type: "Binary",
+                        fields: [
+                            {
+                                name: "property_location",
+                                label: "Your property is located in :-",
+                                type: "Option",
+                                options: [
+                                    { id: "1", label: "Gram panchayat" },
+                                    { id: "2", label: "Nagar panchayat" },
+                                    { id: "3", label: "Nagar Parishad" },
+                                    { id: "4", label: "Nagar Nigam" },
+                                ]
+                            },
+                            {
+                                name: "who_own_property",
+                                label: "Who is the owner of property?",
+                                type: "Option",
+                                options: [
+                                    { id: "1", label: "Myself" },
+                                    { id: "2", label: "Father" },
+                                    { id: "3", label: "Mother" },
+                                    { id: "4", label: "Spouse" },
+                                    { id: "5", label: "Grand father" },
+                                    { id: "6", label: "Grand mother" },
+                                    { id: "7", label: "Other" },
+                                ]
+                            },
+                        ]
+                    },
+                    {
+                        name: "have_17_kahta_agri_land",
+                        label: "Do you have 17 khata agriculture land?",
+                        type: "Binary",
+                    },
+                    {
+                        name: "needs_of_documents",
+                        label: "We need the following documents of property, select which are available?",
+                        type: "Option",//multi select
+                        options: [
+                            { id: "1", label: "Khatiyan (In case of inherited property)" },
+                            { id: "2", label: "Sale deed (If you have purchase property)" },
+                            { id: "3", label: "LPC certificate" },
+                            { id: "4", label: "Current rashid of property" },
+                        ]
                     },
                 ]
             },
